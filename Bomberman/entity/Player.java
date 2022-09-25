@@ -30,7 +30,7 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try {
-            BufferedImage tmp = ImageIO.read(getClass().getResourceAsStream("/res/player/player.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
             // up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png"));
             // up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_2.png"));
             // down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_down_1.png"));
@@ -39,14 +39,14 @@ public class Player extends Entity {
             // left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_left_2.png"));
             // right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png"));
             // right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png"));
-            down1 = tmp.getSubimage(0, 0, 32, 32);
-            down2 = tmp.getSubimage(32, 0, 32, 32);
-            left1 = tmp.getSubimage(64, 0, 32, 32);
-            left2 = tmp.getSubimage(32 * 3, 0, 32, 32);
-            right1 = tmp.getSubimage(32 * 4, 0, 32, 32);
-            right2 = tmp.getSubimage(32 * 5, 0, 32, 32);
-            up1 = tmp.getSubimage(32 * 6, 0, 32, 32);
-            up2 = tmp.getSubimage(32 * 7, 0, 32, 32);
+            // down1 = tmp.getSubimage(0, 0, 32, 32);
+            // down2 = tmp.getSubimage(32, 0, 32, 32);
+            // left1 = tmp.getSubimage(64, 0, 32, 32);
+            // left2 = tmp.getSubimage(32 * 3, 0, 32, 32);
+            // right1 = tmp.getSubimage(32 * 4, 0, 32, 32);
+            // right2 = tmp.getSubimage(32 * 5, 0, 32, 32);
+            // up1 = tmp.getSubimage(32 * 6, 0, 32, 32);
+            // up2 = tmp.getSubimage(32 * 7, 0, 32, 32);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,6 +57,10 @@ public class Player extends Entity {
         y = 100;
         speed = 4;
         direction = "down";
+        tick = 0;
+        maxFrame = 4;
+        begin = 0;
+        interval = 10;
     }
 
     public void update() {
@@ -78,19 +82,19 @@ public class Player extends Entity {
                 direction = "right";
                 x += speed;
             }
-
+            
+            // animating
             begin++;
             if (begin > interval) {
-                frame++;
-                if (frame > maxFrame) {
-                    frame = 1;
+                tick++;
+                if (tick >= maxFrame) {
+                    tick = 0;
                 }
                 begin = 0;
             }
         } else {
-            if (direction == "left" || direction == "right") {
-                frame = 2;
-            }
+            // if the player is standing still, change the frame so that it doesn't look weird
+            tick = 0;
         }
     }
 
@@ -98,39 +102,43 @@ public class Player extends Entity {
 //        g2.setColor(Color.white);
 //        
 //        g2.fillRect(x, y, 100, 100);
-        BufferedImage image = null;
+        BufferedImage frame = null;
 
         switch (direction) {
             case "up":
-                if (frame == 1) {
-                    image = up1;
-                } else {
-                    image = up2;
-                }
+                // if (tick == 1) {
+                //     image = up1;
+                // } else {
+                //     image = up2;
+                // }
+                frame = image.getSubimage(16, 16 * tick, 16, 16);
                 break;
             case "down":
-                if (frame == 1) {
-                    image = down1;
-                } else {
-                    image = down2;
-                }
+                // if (tick == 1) {
+                //     image = down1;
+                // } else {
+                //     image = down2;
+                // }
+                frame = image.getSubimage(0, 16 * tick, 16, 16);
                 break;
             case "left":
-                if (frame == 1) {
-                    image = left1;
-                } else {
-                    image = left2;
-                }
+                // if (tick == 1) {
+                //     image = left1;
+                // } else {
+                //     image = left2;
+                // }
+                frame = image.getSubimage(32, 16 * tick, 16, 16);
                 break;
             case "right":
-                if (frame == 1) {
-                    image = right1;
-                } else {
-                    image = right2;
-                }
+                // if (tick == 1) {
+                //     image = right1;
+                // } else {
+                //     image = right2;
+                // }
+                frame = image.getSubimage(48, 16 * tick, 16, 16);
                 break;
         }
 
-        g2.drawImage(image, x, y, 120, 120, null);
+        g2.drawImage(frame, x, y, 120, 120, null);
     }
 }

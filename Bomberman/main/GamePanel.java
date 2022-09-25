@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int WINDOW_WIDTH = 1280;
     final int WINDOW_HEIGHT = 720;
     
+    // time and fps handling stuffs
     private long thisTime, lastTime;
     private final int FPS = 60;
     private final float drawInterval = 1000 / FPS;

@@ -18,13 +18,13 @@ public class TileManager {
         this.gp = gp;
         tiles = new Tile[3];
         mapTileNum = new int [gp.maxCols][gp.maxRows];
-        loadMap();
+        loadMap("/res/map/map1.txt");
         getTileImage();
     }
     
-    public void loadMap() {
+    public void loadMap(String filePath) {
         try {
-            InputStream in = getClass().getResourceAsStream("/res/map/map1.txt");
+            InputStream in = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             
             int col = 0;
@@ -33,7 +33,7 @@ public class TileManager {
             while (col < gp.maxCols && row < gp.maxRows) {
                 String line = br.readLine();
                 
-                String numbers[] = line.split("");
+                String numbers[] = line.split(" ");
                 
                 while (col < gp.maxCols) {
                     int num = Integer.parseInt(numbers[col]);
@@ -56,6 +56,9 @@ public class TileManager {
 
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/brick.png"));
+            
+            tiles[2] = new Tile();
+            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
             
         } catch (IOException e) {
             e.printStackTrace();

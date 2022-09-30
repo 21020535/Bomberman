@@ -97,6 +97,7 @@ public class Player extends Entity {
                     case "right":
                         x += speed;
                         break;
+
                 }
             }
             // animating

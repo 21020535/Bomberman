@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -17,4 +18,32 @@ public class Entity {
     public BufferedImage image;
     public String direction;
     int tick, maxFrame, begin, interval;
+    public Rectangle solidArea;
+    public boolean collide = false;
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
+    
 }

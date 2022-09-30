@@ -4,13 +4,13 @@
  */
 package entity;
 
-import main.GamePanel;
-import main.KeyHandler;
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import main.GamePanel;
+import main.KeyHandler;
 
 /**
  *
@@ -25,6 +25,7 @@ public class Player extends Entity {
         this.gp = gp;
         this.input = input;
         setDefaultValues();
+        solidArea = new Rectangle(2, 2, gp.TILESIZE - 4, gp.TILESIZE - 4);
         getPlayerImage();
     }
 
@@ -53,8 +54,8 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        x = 500;
+        y = 500;
         speed = 4;
         direction = "down";
         tick = 0;
@@ -68,21 +69,36 @@ public class Player extends Entity {
                 || input.left == true || input.right == true) {
             if (input.up == true) {
                 direction = "up";
-                y -= speed;
             }
             if (input.down == true) {
                 direction = "down";
-                y += speed;
             }
             if (input.left == true) {
                 direction = "left";
-                x -= speed;
             }
             if (input.right == true) {
                 direction = "right";
-                x += speed;
             }
             
+            collide = false;
+            gp.cChecker.checkTile(this);
+            
+            if (collide == false) {
+                switch (direction) {
+                    case "up":
+                        y -= speed;
+                        break;
+                    case "down":
+                        y += speed;
+                        break;
+                    case "left":
+                        x -= speed;
+                        break;
+                    case "right":
+                        x += speed;
+                        break;
+                }
+            }
             // animating
             begin++;
             if (begin > interval) {

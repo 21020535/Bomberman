@@ -6,8 +6,6 @@ package main;
 
 
 import entity.Player;
-import tile.TileManager;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import tile.TileManager;
 
 /**
  *
@@ -41,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this, input);
     TileManager tileManager = new TileManager(this);
     BufferedImage bg;
+    public CollisionChecker cChecker = new CollisionChecker(this);
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));

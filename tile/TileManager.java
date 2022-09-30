@@ -1,18 +1,17 @@
 package tile;
 
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import javax.imageio.ImageIO;
 import main.GamePanel;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tiles;
-    int mapTileNum[][];
+    public Tile[] tiles;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -53,12 +52,15 @@ public class TileManager {
         try {
             tiles[0] = new Tile();
             tiles[0].image = null;
+            tiles[0].collision = false;
 
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/brick.png"));
+            tiles[1].collision = true;
             
             tiles[2] = new Tile();
             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
+            tiles[2].collision = true;
             
         } catch (IOException e) {
             e.printStackTrace();

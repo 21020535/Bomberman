@@ -14,6 +14,7 @@ public class Bomb extends Entity {
     long put, clock;
     boolean exploded = false;
     GamePanel gp;
+    boolean desRight = false, desLeft = false, desUp = false, desDown = false;
 
     public Bomb(int x, int y, int length, GamePanel gp) {
         this.length = length;
@@ -55,5 +56,4 @@ public class Bomb extends Entity {
         frame = image.getSubimage(16 * tick, 0, 16, 16);
         g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
     }
-
 }

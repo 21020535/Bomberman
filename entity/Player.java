@@ -35,22 +35,6 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
-            // up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_1.png"));
-            // up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_up_2.png"));
-            // down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_down_1.png"));
-            // down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_down_2.png"));
-            // left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_left_1.png"));
-            // left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_left_2.png"));
-            // right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_1.png"));
-            // right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_right_2.png"));
-            // down1 = tmp.getSubimage(0, 0, 32, 32);
-            // down2 = tmp.getSubimage(32, 0, 32, 32);
-            // left1 = tmp.getSubimage(64, 0, 32, 32);
-            // left2 = tmp.getSubimage(32 * 3, 0, 32, 32);
-            // right1 = tmp.getSubimage(32 * 4, 0, 32, 32);
-            // right2 = tmp.getSubimage(32 * 5, 0, 32, 32);
-            // up1 = tmp.getSubimage(32 * 6, 0, 32, 32);
-            // up2 = tmp.getSubimage(32 * 7, 0, 32, 32);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,7 +49,7 @@ public class Player extends Entity {
         maxFrame = 4;
         begin = 0;
         interval = 7;
-        bombLength = 1;
+        bombLength = 2;
         maxBomb = 1;
     }
 
@@ -92,20 +76,23 @@ public class Player extends Entity {
             collide = false;
             gp.cChecker.checkTile(this);
             
-            if (collide == false) {
-                switch (direction) {
-                    case "up":
-                        y -= speed;
-                        break;
-                    case "down":
-                        y += speed;
-                        break;
-                    case "left":
-                        x -= speed;
-                        break;
-                    case "right":
-                        x += speed;
-                        break;
+            if (input.up == true || input.down == true
+                    || input.left == true || input.right == true) {
+                if (collide == false) {
+                    switch (direction) {
+                        case "up":
+                            y -= speed;
+                            break;
+                        case "down":
+                            y += speed;
+                            break;
+                        case "left":
+                            x -= speed;
+                            break;
+                        case "right":
+                            x += speed;
+                            break;
+                    }
                 }
             }
             // animating
@@ -125,11 +112,55 @@ public class Player extends Entity {
             bombs.get(i).update();
             if (bombs.get(i).exploded == true) {
                 for (int j = 1; j <= bombLength; j++) {
-                    if (gp.tileManager.mapTileNum[(bombs.get(i).x + 24 - j * gp.TILESIZE)
-                            / gp.TILESIZE][(bombs.get(i).y + 24 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
-                                gp.tileManager.mapTileNum[(bombs.get(i).x + 24 - j * gp.TILESIZE)
-                                        / gp.TILESIZE][(bombs.get(i).y + 24 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                    if (bombs.get(i).desLeft == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
+                            bombs.get(i).desLeft = true;
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desLeft = true;
+                        }
                     }
+                    if (bombs.get(i).desRight == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
+                            bombs.get(i).desRight = true;
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desRight = true;
+                        }
+                    }
+                    if (bombs.get(i).desUp == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                            bombs.get(i).desUp = true;
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desUp = true;
+                        }
+                    }
+                    if (bombs.get(i).desDown == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                            bombs.get(i).desDown = true;
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desDown = true;
+                        }
+                    }
+
                 }
                 bombs.remove(i);
                 i--;

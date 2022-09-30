@@ -57,10 +57,12 @@ public class TileManager {
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/brick.png"));
             tiles[1].collision = true;
+            tiles[1].breakable = true;
             
             tiles[2] = new Tile();
             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
             tiles[2].collision = true;
+            tiles[2].breakable = false;
             
         } catch (IOException e) {
             e.printStackTrace();

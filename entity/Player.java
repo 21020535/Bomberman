@@ -5,9 +5,11 @@
 package entity;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
@@ -20,12 +22,13 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler input;
+    List<Bomb> bombs = new ArrayList<>();
+    int bombLength, maxBomb;
 
     public Player(GamePanel gp, KeyHandler input) {
         this.gp = gp;
         this.input = input;
         setDefaultValues();
-        solidArea = new Rectangle(2, 2, gp.TILESIZE - 4, gp.TILESIZE - 4);
         getPlayerImage();
     }
 
@@ -54,19 +57,21 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        x = 500;
-        y = 500;
-        speed = 4;
+        x = 48;
+        y = 48;
+        speed = 3;
         direction = "down";
         tick = 0;
         maxFrame = 4;
         begin = 0;
         interval = 7;
+        bombLength = 1;
+        maxBomb = 1;
     }
 
     public void update() {
         if (input.up == true || input.down == true
-                || input.left == true || input.right == true) {
+                || input.left == true || input.right == true || input.bomb == true) {
             if (input.up == true) {
                 direction = "up";
             }
@@ -78,6 +83,10 @@ public class Player extends Entity {
             }
             if (input.right == true) {
                 direction = "right";
+            }
+            if (input.bomb == true) {
+                if (bombs.size() < maxBomb)
+                    bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE, bombLength, gp));
             }
             
             collide = false;
@@ -97,7 +106,6 @@ public class Player extends Entity {
                     case "right":
                         x += speed;
                         break;
-
                 }
             }
             // animating
@@ -112,6 +120,20 @@ public class Player extends Entity {
         } else {
             // if the player is standing still, change the frame so that it doesn't look weird
             tick = 0;
+        }
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).update();
+            if (bombs.get(i).exploded == true) {
+                for (int j = 1; j <= bombLength; j++) {
+                    if (gp.tileManager.mapTileNum[(bombs.get(i).x + 24 - j * gp.TILESIZE)
+                            / gp.TILESIZE][(bombs.get(i).y + 24 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                                gp.tileManager.mapTileNum[(bombs.get(i).x + 24 - j * gp.TILESIZE)
+                                        / gp.TILESIZE][(bombs.get(i).y + 24 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                    }
+                }
+                bombs.remove(i);
+                i--;
+            }
         }
     }
 
@@ -155,7 +177,9 @@ public class Player extends Entity {
                 frame = image.getSubimage(48, 16 * tick, 16, 16);
                 break;
         }
-
-        g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).draw(g2);
+        }
+        g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }
 }

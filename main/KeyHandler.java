@@ -12,48 +12,52 @@ import java.awt.event.KeyListener;
  * @author Lenovo
  */
 public class KeyHandler implements KeyListener{
-    public boolean up, down, left, right;
+    public boolean up, down, left, right, bomb;
     
     @Override
     public void keyTyped(KeyEvent e) {
         
     }
-    
-    // khi ấn 
+
     @Override
     public void keyPressed(KeyEvent e) {
-        int code = e.getKeyCode();
+        int event = e.getKeyCode();
         
-        if (code == KeyEvent.VK_W) {
+        if (event == KeyEvent.VK_W) {
             up = true;
         }
-        if (code == KeyEvent.VK_A) {
+        if (event == KeyEvent.VK_A) {
             left = true;
         }
-        if (code == KeyEvent.VK_S) {
+        if (event == KeyEvent.VK_S) {
             down = true;
         }
-        if (code == KeyEvent.VK_D) {
+        if (event == KeyEvent.VK_D) {
             right = true;
+        }
+        if (event == KeyEvent.VK_J) {
+            bomb = true;
         }
     }
 
-    // khi thả
     @Override
     public void keyReleased(KeyEvent e) {
-        int code = e.getKeyCode();
+        int event = e.getKeyCode();
         
-        if (code == KeyEvent.VK_W) {
+        if (event == KeyEvent.VK_W) {
             up = false;
         }
-        if (code == KeyEvent.VK_A) {
+        if (event == KeyEvent.VK_A) {
             left = false;
         }
-        if (code == KeyEvent.VK_S) {
+        if (event == KeyEvent.VK_S) {
             down = false;
         }
-        if (code == KeyEvent.VK_D) {
+        if (event == KeyEvent.VK_D) {
             right = false;
+        }
+        if (event == KeyEvent.VK_J) {
+            bomb = false;
         }
     }
     

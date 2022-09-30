@@ -18,10 +18,10 @@ public class CollisionChecker {
     }
 
     public void checkTile(Entity entity) {
-        int leftmost = entity.getX() + entity.solidArea.x;
-        int rightmost = entity.getX() + entity.solidArea.x + entity.solidArea.width;
-        int top = entity.getY() + entity.solidArea.y;
-        int bottom = entity.getY() + entity.solidArea.y + entity.solidArea.height;
+        int leftmost = entity.getX() + 4;
+        int rightmost = entity.getX() + gp.TILESIZE - 4;
+        int top = entity.getY() + 4;
+        int bottom = entity.getY() + gp.TILESIZE - 4;
 
         int leftCol = leftmost / gp.TILESIZE;
         int rightCol = rightmost / gp.TILESIZE;

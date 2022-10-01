@@ -11,14 +11,16 @@ import java.awt.event.KeyListener;
  *
  * @author Lenovo
  */
+// hàm để nhận đầu vào là 1 sụ kiện chuột
 public class KeyHandler implements KeyListener{
     public boolean up, down, left, right, bomb;
-    
+
+    // type là event
     @Override
     public void keyTyped(KeyEvent e) {
         
     }
-
+     // khi ấn
     @Override
     public void keyPressed(KeyEvent e) {
         int event = e.getKeyCode();
@@ -40,6 +42,7 @@ public class KeyHandler implements KeyListener{
         }
     }
 
+    // khi thả
     @Override
     public void keyReleased(KeyEvent e) {
         int event = e.getKeyCode();
@@ -58,6 +61,7 @@ public class KeyHandler implements KeyListener{
         }
         if (event == KeyEvent.VK_J) {
             bomb = false;
+
         }
     }
     

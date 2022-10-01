@@ -22,13 +22,14 @@ import tile.TileManager;
  */
 public class GamePanel extends JPanel implements Runnable{
     // screen settings
+    // cài đặt màn hình
     final int WINDOW_WIDTH = 1200;
     final int WINDOW_HEIGHT = 720;
+
+    public final int TILESIZE = 48; // size của 1 ô
     
-    public final int TILESIZE = 48;
-    
-    public int maxCols = 25;
-    public int maxRows = 15;
+    public int maxCols = 25; // map gồm 25 cột
+    public int maxRows = 15; // 15 dòng
     
     // time and fps handling stuffs
     private long thisTime, lastTime;
@@ -41,14 +42,13 @@ public class GamePanel extends JPanel implements Runnable{
     public TileManager tileManager = new TileManager(this);
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
-    
+
+    // in ra bg
     public GamePanel() {
         this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
-        this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(input);
         this.setFocusable(true);
-        this.setBackground(Color.white);
         try {
             bg = ImageIO.read(getClass().getResourceAsStream("/res/bg.png"));
         } catch (IOException e) {
@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    // luồng bắt đầu game
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -68,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
         
         while (gameThread != null) {
             thisTime = System.currentTimeMillis();
-            
+            // xử lý fps
             delta += (thisTime - lastTime) / drawInterval;
             
             lastTime = thisTime;
@@ -80,11 +81,13 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
-    
+
+    // update nhân vật di chuyển va chạm thả bom
     public void update() {
         player.update();
     }
-    
+
+    // vẽ bg
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bg, 0, 0, null);

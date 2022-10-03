@@ -57,7 +57,7 @@ public class Player extends Entity {
         begin = 0;
         interval = 7;
         bombLength = 1;
-        maxBomb = 3;
+        maxBomb = 2;
     }
 
     public void update() {
@@ -133,78 +133,103 @@ public class Player extends Entity {
             // nếu nổ
             if (bombs.get(i).exploded == true) {
                 for (int j = 1; j <= bombLength; j++) {
-                    // defleft = false
                     flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp));
-
                     if (bombs.get(i).desLeft == false) {
                         // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
                         // xóa item hủy diệt được
                         // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desLeft = true;
-                        }
-                        if (bombs.get(i).desLeft == false) {
-                            sides.add(
-                                    new FlameSides(bombs.get(i).x - j * gp.TILESIZE, bombs.get(i).y, gp, "horizontal"));
-                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
-                        }
+                        // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
                                     / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
                             bombs.get(i).desLeft = true;
                         }
-                        // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
-                    }
-                    if (bombs.get(i).desRight == false) {
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desRight = true;
+                            bombs.get(i).desLeft = true;
                         }
-                        if (bombs.get(i).desRight == false) {
-                            sides.add(
-                                    new FlameSides(bombs.get(i).x + j * gp.TILESIZE, bombs.get(i).y, gp, "horizontal"));
+                        if (bombs.get(i).desLeft == false) {
+                            if (j < bombLength) {
+                                sides.add(
+                                        new FlameSides(bombs.get(i).x - j * gp.TILESIZE, bombs.get(i).y, gp,
+                                                "horizontal"));
+                            } else {
+                                sides.add(
+                                        new FlameSides(bombs.get(i).x - j * gp.TILESIZE, bombs.get(i).y, gp,
+                                                "horizontal_left"));
+                            }
                             flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
                         }
+
+                    }
+                    if (bombs.get(i).desRight == false) {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
                                     / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
                             bombs.get(i).desRight = true;
                         }
-                    }
-                    if (bombs.get(i).desUp == false) {
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desUp = true;
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desRight = true;
                         }
-                        if (bombs.get(i).desUp == false) {
-                            sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y - j * gp.TILESIZE, gp, "vertical"));
+                        if (bombs.get(i).desRight == false) {
+                            if (j < bombLength) {
+                                sides.add(
+                                        new FlameSides(bombs.get(i).x + j * gp.TILESIZE, bombs.get(i).y, gp,
+                                                "horizontal"));
+                            } else {
+                                sides.add(
+                                        new FlameSides(bombs.get(i).x + j * gp.TILESIZE, bombs.get(i).y, gp,
+                                                "horizontal_right"));
+                            }
                             flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
                         }
+                    }
+                    if (bombs.get(i).desUp == false) {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
                                     / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
                             bombs.get(i).desUp = true;
                         }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desUp = true;
+                        }
+                        if (bombs.get(i).desUp == false) {
+                            if (j < bombLength) {
+                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y - j * gp.TILESIZE, gp,
+                                        "vertical"));
+                            } else {
+                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y - j * gp.TILESIZE, gp,
+                                        "vertical_up"));
+                            }
+                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
+                        }
                     }
 
                     if (bombs.get(i).desDown == false) {
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desDown = true;
-                        }
-                        if (bombs.get(i).desDown == false) {
-                            sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y + j * gp.TILESIZE, gp, "vertical"));
-                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
-                        }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
                                     / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = 0;
                             bombs.get(i).desDown = true;
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desDown = true;
+                        }
+                        if (bombs.get(i).desDown == false) {
+                            if (j < bombLength) {
+                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y + j * gp.TILESIZE, gp,
+                                        "vertical"));
+                            } else {
+                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y + j * gp.TILESIZE, gp,
+                                        "vertical_down"));
+                            }
+                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
                         }
                     }
                 }
@@ -213,11 +238,9 @@ public class Player extends Entity {
                 i--;
             }
         }
-        for (int i = 0; i < sides.size(); i++) {
-            sides.get(i).update();
-        }
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
+            System.out.println(flames.get(i).getTotalSides());
             if (flames.get(i).finish == true) {
                 for (int j = 0; j < flames.get(i).getTotalSides(); j++) {
                     sides.remove(0);
@@ -225,6 +248,9 @@ public class Player extends Entity {
                 flames.remove(i);
                 i--;
             }
+        }
+        for (int i = 0; i < sides.size(); i++) {
+            sides.get(i).update();
         }
     }
 
@@ -251,14 +277,14 @@ public class Player extends Entity {
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).draw(g2);
         }
-
+        
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).draw(g2);
         }
-
         for (int i = 0; i < sides.size(); i++) {
             sides.get(i).draw(g2);
         }
+
 
         // vẽ nhân vật
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);

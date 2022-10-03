@@ -27,11 +27,11 @@ public class Flame extends Entity {
         this.y = y;
         this.gp = gp;
         tick = 0;
-        maxFrame = 3;
+        maxFrame = 4;
         begin = 0;
-        interval = 8;
+        interval = 6;
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/bomb_center.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/fire.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

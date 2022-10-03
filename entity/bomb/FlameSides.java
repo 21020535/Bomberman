@@ -11,7 +11,15 @@ import main.GamePanel;
 
 public class FlameSides extends Entity {
     GamePanel gp;
-    String axis;
+    private String axis;
+
+    public String getAxis() {
+        return axis;
+    }
+
+    public void setAxis(String axis) {
+        this.axis = axis;
+    }
 
     public FlameSides(int x, int y, GamePanel gp, String axis) {
         this.x = x;
@@ -19,30 +27,46 @@ public class FlameSides extends Entity {
         this.gp = gp;
         this.axis = axis;
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/" + axis + ".png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/fire.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         tick = 0;
-        maxFrame = 3;
+        maxFrame = 4;
         begin = 0;
-        interval = 8;
+        interval = 6;
     }
 
     public void update() {
         begin++;
         if (begin > interval) {
             tick++;
-            if (tick >= maxFrame) {
-                tick = 0;
-            }
             begin = 0;
         }
     }
 
     public void draw(Graphics2D g2) {
         BufferedImage frame = null;
-        frame = image.getSubimage(16 * tick, 0, 16, 16);
+        switch (axis) {
+            case "horizontal_left":
+                frame = image.getSubimage(16 * tick, 64, 16, 16); 
+                break;
+            case "horizontal_right":
+                frame = image.getSubimage(16 * tick, 48, 16, 16); 
+                break;
+            case "horizontal":
+                frame = image.getSubimage(16 * tick, 80, 16, 16);
+                break;
+            case "vertical":
+                frame = image.getSubimage(16 * tick, 96, 16, 16);
+                break;
+            case "vertical_up":
+                frame = image.getSubimage(16 * tick, 16, 16, 16);
+                break;
+            case "vertical_down":
+                frame = image.getSubimage(16 * tick, 32, 16, 16);
+                break;
+        }
         g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
     }
 

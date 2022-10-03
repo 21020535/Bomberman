@@ -78,6 +78,8 @@ public class CollisionChecker {
                     entity.collide = true;
                 }
                 break;
+            default:
+                break;
         }
 
     }

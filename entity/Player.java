@@ -77,7 +77,6 @@ public class Player extends Entity {
             if (input.bomb == true) {
                 if (bombs.size() < maxBomb) {
                     bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE, bombLength, gp));
-                    fires.add(new Fire((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE, gp));
                 }
             }
             // va chạm ban đầu = false
@@ -122,7 +121,6 @@ public class Player extends Entity {
         }
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
-            fires.get(i).update();
             // nếu nổ
             if (bombs.get(i).exploded == true) {
                     for (int j = 1; j <= bombLength; j++) {
@@ -195,11 +193,20 @@ public class Player extends Entity {
                         }
                     }
                 // sau khi dùng bomb thì vứt ra khỏi list
+                // sau khi dùng bomb add fire vào
+                fires.add(new Fire(bombs.get(i).x, bombs.get(i).y, gp));
                 bombs.remove(i);
-                fires.remove(i);
                 i--;
             }
             }
+        // update fire sau khi fire dùng xong bỏ ra khỏi list
+        for (int i = 0; i < fires.size(); i++) {
+            fires.get(i).update();
+            if (fires.get(i).finish) {
+                fires.remove(i);
+                i--;
+            }
+        }
     }
 
 

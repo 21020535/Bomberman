@@ -7,12 +7,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import main.GamePanel;
 public class Fire extends Entity {
-    long timeToExplode = 2000;
-    long put, clock;
-    boolean exploded = false;
+
     GamePanel gp;
+    public boolean finish = false;
     public Fire(int x,int y, GamePanel gp) {
         this.x = x;
         this.y = y;
@@ -21,9 +19,8 @@ public class Fire extends Entity {
         maxFrame = 3;
         begin = 0;
         interval = 8;
-        put = System.currentTimeMillis();
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/bomb_eplo.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/flame_center.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,18 +28,15 @@ public class Fire extends Entity {
 
     public void update() {
         // chay animation
-        clock = System.currentTimeMillis() ;
-        if (clock - put < timeToExplode) {
-            begin++;
-            if (begin > interval) {
-                tick++;
-                if (tick >= maxFrame) {
-                    tick = 0;
-                }
-                begin = 0;
+        // if là thời gian chạy giữa các frame
+        begin++;
+        if (begin > interval) {
+            tick++;
+            if (tick >= maxFrame) {
+                // chạy xong 1 lần thì fire sẽ finish và bị bỏ ra khỏi list
+                finish = true;
             }
-        } else {
-            exploded = true;
+            begin = 0;
         }
     }
 

@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Enemy extends Entity {
     GamePanel gp;
@@ -64,14 +66,19 @@ public class Enemy extends Entity {
                     break;
             }
         } else {
+            Random a = new Random();
             if (direction.equals("left")) {
-                direction = "down";
+                String [] direstions = {"down","right","up"};
+                direction = direstions[a.nextInt(3)];
             } else if (direction.equals("down")){
-                direction = "right";
+                String [] direstions = {"left","right","up"};
+                direction = direstions[a.nextInt(3)];
             } else if (direction.equals("right")) {
-                direction = "up";
-            } else {
-                direction = "left";
+                String [] direstions = {"down","left","up"};
+                direction = direstions[a.nextInt(3)];
+            } else if (direction.equals("up")) {
+                String [] direstions = {"down","right","left"};
+                direction = direstions[a.nextInt(3)];
             }
         }
     }

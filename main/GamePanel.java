@@ -5,16 +5,17 @@
 package main;
 
 
-import entity.Enemy;
-import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import entity.Player;
 import tile.TileManager;
 
 /**
@@ -40,7 +41,6 @@ public class GamePanel extends JPanel implements Runnable{
     public KeyHandler input = new KeyHandler();
     public Thread gameThread;
     public Player player = new Player(this, input);
-    public Enemy enemy = new Enemy(this);
     public TileManager tileManager = new TileManager(this);
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -86,9 +86,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // update nhân vật di chuyển va chạm thả bom
     public void update() {
-        enemy.update();
         player.update();
-
     }
 
     // vẽ bg
@@ -101,10 +99,9 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setColor(Color.WHITE);
         
         tileManager.draw(g2);
-
-        enemy.draw(g2);
+        
         player.draw(g2);
-
+        
         g2.dispose();
     }
 }

@@ -19,10 +19,10 @@ public class CollisionChecker {
 
     public void checkTile(Entity entity) {
         // bên trái nhất của entity là vị trí entity + 4
-        int leftmost = entity.getX() + 4;
+        int leftmost = entity.getX() + 8;
         // bên phải nhất của entity là + size 1 ô - 4
-        int rightmost = entity.getX() + gp.TILESIZE - 4;
-        int top = entity.getY() + 4;
+        int rightmost = entity.getX() + gp.TILESIZE - 8;
+        int top = entity.getY() + 8;
         int bottom = entity.getY() + gp.TILESIZE - 4;
 
         // xác định vị trí bên trái nhất ở cột nào
@@ -77,8 +77,6 @@ public class CollisionChecker {
                         || gp.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;
                 }
-                break;
-            default:
                 break;
         }
 

@@ -12,12 +12,15 @@ import java.awt.image.BufferedImage;
  * @author Lenovo
  */
 public class Entity {
-    int x, y;
+    protected int x, y;
     int speed;
     // public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2,
     public BufferedImage image;
     public String direction;
-    int tick, maxFrame, begin, interval;
+    protected int tick;
+    protected int maxFrame;
+    protected int begin;
+    protected int interval;
     public Rectangle solidArea;
     public boolean collide = false;
 

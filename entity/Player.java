@@ -12,6 +12,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import entity.bomb.Bomb;
+import entity.bomb.Flame;
+import entity.bomb.FlameSides;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -23,8 +26,10 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler input;
     List<Bomb> bombs = new ArrayList<>();
-    List<Fire> fires = new ArrayList<>();
+    List<Flame> flames = new ArrayList<>();
+    List<FlameSides> sides = new ArrayList<>();
     int bombLength, maxBomb;
+
     public Player(GamePanel gp, KeyHandler input) {
         this.gp = gp;
         this.input = input;
@@ -51,8 +56,8 @@ public class Player extends Entity {
         maxFrame = 4;
         begin = 0;
         interval = 7;
-        bombLength = 2;
-        maxBomb = 1;
+        bombLength = 1;
+        maxBomb = 3;
     }
 
     public void update() {
@@ -72,11 +77,14 @@ public class Player extends Entity {
             if (input.right == true) {
                 direction = "right";
             }
-            // nếu input là bomb thì set xem độ dài mảng bomb có hơn độ dài số lượng bomb max không nếu không add
+            // nếu input là bomb thì set xem độ dài mảng bomb có hơn độ dài số lượng bomb
+            // max không nếu không add
             // thêm 1 quả bomb vào list bomb
             if (input.bomb == true) {
                 if (bombs.size() < maxBomb) {
-                    bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE, bombLength, gp));
+                    bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE,
+                            bombLength, gp));
+                    input.bomb = false;
                 }
             }
             // va chạm ban đầu = false
@@ -116,99 +124,109 @@ public class Player extends Entity {
             }
         } else {
             // nếu nhân vật dừng lại cho frame về 0
-            // if the player is standing still, change the frame so that it doesn't look weird
+            // if the player is standing still, change the frame so that it doesn't look
+            // weird
             tick = 0;
         }
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
             // nếu nổ
             if (bombs.get(i).exploded == true) {
-                    for (int j = 1; j <= bombLength; j++) {
-                        // defleft = false
+                for (int j = 1; j <= bombLength; j++) {
+                    // defleft = false
+                    flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp));
+
+                    if (bombs.get(i).desLeft == false) {
+                        // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
+                        // xóa item hủy diệt được
+                        // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desLeft = true;
+                        }
                         if (bombs.get(i).desLeft == false) {
-                            // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
-                            // xóa item hủy diệt được
-                            // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x + 12 - j * gp.TILESIZE) / gp.TILESIZE]
-                                    [(bombs.get(i).y) / gp.TILESIZE] == 1) {
-                                gp.tileManager.mapTileNum
-                                        [(bombs.get(i).x + 12 - j * gp.TILESIZE) / gp.TILESIZE]
-                                        [(bombs.get(i).y) / gp.TILESIZE] = 0;
-                                bombs.get(i).desLeft = true;
-                            }
-                            // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x + 12 - j * gp.TILESIZE) / gp.TILESIZE]
-                                    [(bombs.get(i).y) / gp.TILESIZE] == 2) {
-                                bombs.get(i).desLeft = true;
-                            }
+                            sides.add(
+                                    new FlameSides(bombs.get(i).x - j * gp.TILESIZE, bombs.get(i).y, gp, "horizontal"));
+                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
+                            bombs.get(i).desLeft = true;
+                        }
+                        // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
+                    }
+                    if (bombs.get(i).desRight == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desRight = true;
                         }
                         if (bombs.get(i).desRight == false) {
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x + 12 + j * gp.TILESIZE) / gp.TILESIZE]
-                                    [(bombs.get(i).y) / gp.TILESIZE] == 1) {
-                                gp.tileManager.mapTileNum
-                                        [(bombs.get(i).x + 12 + j * gp.TILESIZE) / gp.TILESIZE]
-                                        [(bombs.get(i).y) / gp.TILESIZE] = 0;
-                                bombs.get(i).desRight = true;
-                            }
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x + 12 + j * gp.TILESIZE) / gp.TILESIZE]
-                                    [(bombs.get(i).y) / gp.TILESIZE] == 2) {
-                                bombs.get(i).desRight = true;
-                            }
+                            sides.add(
+                                    new FlameSides(bombs.get(i).x + j * gp.TILESIZE, bombs.get(i).y, gp, "horizontal"));
+                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
                         }
-                        if (bombs.get(i).desUp == false) {
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x) / gp.TILESIZE]
-                                    [(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
-                                gp.tileManager.mapTileNum
-                                        [(bombs.get(i).x) / gp.TILESIZE]
-                                        [(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
-                                bombs.get(i).desUp = true;
-                            }
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x) / gp.TILESIZE]
-                                    [(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
-                                bombs.get(i).desUp = true;
-                            }
-                        }
-
-                        if (bombs.get(i).desDown == false) {
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x) / gp.TILESIZE]
-                                    [(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
-                                gp.tileManager.mapTileNum
-                                        [(bombs.get(i).x) / gp.TILESIZE]
-                                        [(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = 0;
-                                bombs.get(i).desDown = true;
-                            }
-
-                            if (gp.tileManager.mapTileNum
-                                    [(bombs.get(i).x) / gp.TILESIZE]
-                                    [(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
-                                bombs.get(i).desDown = true;
-                            }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
+                            bombs.get(i).desRight = true;
                         }
                     }
+                    if (bombs.get(i).desUp == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desUp = true;
+                        }
+                        if (bombs.get(i).desUp == false) {
+                            sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y - j * gp.TILESIZE, gp, "vertical"));
+                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                            bombs.get(i).desUp = true;
+                        }
+                    }
+
+                    if (bombs.get(i).desDown == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desDown = true;
+                        }
+                        if (bombs.get(i).desDown == false) {
+                            sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y + j * gp.TILESIZE, gp, "vertical"));
+                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
+                        }
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                            gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                            bombs.get(i).desDown = true;
+                        }
+                    }
+                }
                 // sau khi dùng bomb thì vứt ra khỏi list
-                // sau khi dùng bomb add fire vào
-                fires.add(new Fire(bombs.get(i).x, bombs.get(i).y, gp));
                 bombs.remove(i);
                 i--;
             }
-            }
-        // update fire sau khi fire dùng xong bỏ ra khỏi list
-        for (int i = 0; i < fires.size(); i++) {
-            fires.get(i).update();
-            if (fires.get(i).finish) {
-                fires.remove(i);
+        }
+        for (int i = 0; i < sides.size(); i++) {
+            sides.get(i).update();
+        }
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).update();
+            if (flames.get(i).finish == true) {
+                for (int j = 0; j < flames.get(i).getTotalSides(); j++) {
+                    sides.remove(0);
+                }
+                flames.remove(i);
                 i--;
             }
         }
     }
-
 
     public void draw(Graphics2D g2) {
         BufferedImage frame = null;
@@ -228,13 +246,18 @@ public class Player extends Entity {
                 frame = image.getSubimage(48, 16 * tick, 16, 16);
                 break;
         }
-        for (int i = 0; i < fires.size(); i++) {
-              fires.get(i).draw(g2);
-        }
+
         // vẽ bomb
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).draw(g2);
+        }
 
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).draw(g2);
+        }
+
+        for (int i = 0; i < sides.size(); i++) {
+            sides.get(i).draw(g2);
         }
 
         // vẽ nhân vật

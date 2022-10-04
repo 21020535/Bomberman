@@ -15,8 +15,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import entity.Enemy;
 import entity.Player;
+import entity.enemy.Enemy;
 import tile.TileManager;
 
 /**

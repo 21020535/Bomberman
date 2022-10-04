@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
  */
 public class Entity {
     protected int x, y;
-    int speed;
+    protected int speed;
     // public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2,
     public BufferedImage image;
     public String direction;

@@ -334,7 +334,6 @@ public class Player extends Entity {
             sides.get(i).draw(g2);
         }
 
-
         // vẽ nhân vật
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }

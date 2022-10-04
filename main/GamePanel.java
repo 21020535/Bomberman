@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import entity.Enemy;
 import entity.Player;
 import tile.TileManager;
 
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
     public KeyHandler input = new KeyHandler();
     public Thread gameThread;
     public Player player = new Player(this, input);
+    public Enemy enemy = new Enemy(this);
     public TileManager tileManager = new TileManager(this);
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -87,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable{
     // update nhân vật di chuyển va chạm thả bom
     public void update() {
         player.update();
+        enemy.update();
     }
 
     // vẽ bg
@@ -101,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable{
         tileManager.draw(g2);
         
         player.draw(g2);
+        enemy.draw(g2);
         
         g2.dispose();
     }

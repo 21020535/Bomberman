@@ -19,11 +19,11 @@ public class CollisionChecker {
 
     public void checkTile(Entity entity) {
         // bên trái nhất của entity là vị trí entity + 4
-        int leftmost = entity.getX() + 8;
+        int leftmost = entity.getX() + 1;
         // bên phải nhất của entity là + size 1 ô - 4
-        int rightmost = entity.getX() + gp.TILESIZE - 8;
-        int top = entity.getY() + 8;
-        int bottom = entity.getY() + gp.TILESIZE - 4;
+        int rightmost = entity.getX() + gp.TILESIZE - 1;
+        int top = entity.getY() + 1;
+        int bottom = entity.getY() + gp.TILESIZE - 1;
 
         // xác định vị trí bên trái nhất ở cột nào
         int leftCol = leftmost / gp.TILESIZE;

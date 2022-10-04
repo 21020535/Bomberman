@@ -29,6 +29,7 @@ public class Player extends Entity {
     List<Flame> flames = new ArrayList<>();
     List<FlameSides> sides = new ArrayList<>();
     int bombLength, maxBomb;
+    private int movementBuffer = 0;
 
     public Player(GamePanel gp, KeyHandler input) {
         this.gp = gp;
@@ -66,16 +67,44 @@ public class Player extends Entity {
                 || input.left == true || input.right == true || input.bomb == true) {
             // nếu input = up thì trạng thái hoạt động là up
             if (input.up == true) {
-                direction = "up";
+                if (movementBuffer == 0) {
+                    movementBuffer += gp.TILESIZE;
+                    direction = "up";
+                } else if (direction.equals("down")) {
+                    movementBuffer = gp.TILESIZE - movementBuffer;
+                    direction = "up";
+                }
+                // direction = "up";
             }
             if (input.down == true) {
-                direction = "down";
+                if (movementBuffer == 0) {
+                    movementBuffer += gp.TILESIZE;
+                    direction = "down";
+                } else if (direction.equals("up")) {
+                    movementBuffer = gp.TILESIZE - movementBuffer;
+                    direction = "down";
+                }
+                // direction = "down";
             }
             if (input.left == true) {
-                direction = "left";
+                if (movementBuffer == 0) {
+                    movementBuffer += gp.TILESIZE;
+                    direction = "left";
+                } else if (direction.equals("right")) {
+                    movementBuffer = gp.TILESIZE - movementBuffer;
+                    direction = "left";
+                }
+                // direction = "left";
             }
             if (input.right == true) {
-                direction = "right";
+                if (movementBuffer == 0) {
+                    movementBuffer += gp.TILESIZE;
+                    direction = "right";
+                } else if (direction.equals("left")) {
+                    movementBuffer = gp.TILESIZE - movementBuffer;
+                    direction = "right";
+                }
+                // direction = "right";
             }
             // nếu input là bomb thì set xem độ dài mảng bomb có hơn độ dài số lượng bomb
             // max không nếu không add
@@ -92,41 +121,62 @@ public class Player extends Entity {
             // check va chạm vs bản đồ
             gp.cChecker.checkTile(this);
 
-            if (input.up == true || input.down == true
-                    || input.left == true || input.right == true) {
-                if (collide == false) {
-                    switch (direction) {
-                        case "up":
-                            y -= speed;
-                            break;
-                        case "down":
-                            y += speed;
-                            break;
-                        case "left":
-                            x -= speed;
-                            break;
-                        case "right":
-                            x += speed;
-                            break;
-                    }
-                }
-            }
+            // if (input.up == true || input.down == true
+            //         || input.left == true || input.right == true) {
+            //     if (collide == false && movementBuffer > 0) {
+            //         switch (direction) {
+            //             case "up":
+            //                 y -= Math.min(speed, movementBuffer);
+            //                 break;
+            //             case "down":
+            //                 y += Math.min(speed, movementBuffer);
+            //                 break;
+            //             case "left":
+            //                 x -= Math.min(speed, movementBuffer);
+            //                 break;
+            //             case "right":
+            //                 x += Math.min(speed, movementBuffer);
+            //                 break;
+            //         }
+            //     }
+            // }
             // animating
-            begin++;
-            // begin > interval khoảng tg load mỗi frame
-            if (begin > interval) {
-                tick++;
-                // nếu frame > frame max cho về ban đầu
-                if (tick >= maxFrame) {
-                    tick = 0;
+        }
+        if (collide == false) {
+            if (movementBuffer > 0) {
+                switch (direction) {
+                    case "up":
+                        y -= Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                    case "down":
+                        y += Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                    case "left":
+                        x -= Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                    case "right":
+                        x += Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
                 }
-                begin = 0;
+                begin++;
+                // begin > interval khoảng tg load mỗi frame
+                if (begin > interval) {
+                    tick++;
+                    // nếu frame > frame max cho về ban đầu
+                    if (tick >= maxFrame) {
+                        tick = 0;
+                    }
+                    begin = 0;
+                }
+            } else {
+                tick = 0;
             }
         } else {
-            // nếu nhân vật dừng lại cho frame về 0
-            // if the player is standing still, change the frame so that it doesn't look
-            // weird
-            tick = 0;
+            movementBuffer = 0;
         }
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
@@ -240,7 +290,6 @@ public class Player extends Entity {
         }
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
-            System.out.println(flames.get(i).getTotalSides());
             if (flames.get(i).finish == true) {
                 for (int j = 0; j < flames.get(i).getTotalSides(); j++) {
                     sides.remove(0);

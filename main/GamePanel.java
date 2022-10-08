@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
-    Sound sound = new Sound();
+//    Sound sound = new Sound();
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
@@ -70,8 +70,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void setupGame() {
-        playMusic(3);
+//        playMusic(3);
         //gameState = titleState;
+        gameState = playState;
     }
 
     // luồng bắt đầu game
@@ -102,8 +103,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     // update nhân vật di chuyển va chạm thả bom
     public void update() {
-        player.update();
-        enemy.update();
+        if (gameState == playState) {
+            player.update();
+            enemy.update();
+        }
+        if (gameState == pauseState) {
+            // nothing
+        }
     }
 
     // vẽ bg
@@ -129,18 +135,18 @@ public class GamePanel extends JPanel implements Runnable{
         // tile
 
     }
-    public void playMusic(int num) {
-        sound.setFile(num);
-        sound.play();
-        sound.loop();
-    }
-
-    public void stopMusic() {
-        sound.stop();
-    }
-
-    public void playSE(int num) {
-        sound.setFile(num);
-        sound.play();
-    }
+//    public void playMusic(int num) {
+//        sound.setFile(num);
+//        sound.play();
+//        sound.loop();
+//    }
+//
+//    public void stopMusic() {
+//        sound.stop();
+//    }
+//
+//    public void playSE(int num) {
+//        sound.setFile(num);
+//        sound.play();
+//    }
 }

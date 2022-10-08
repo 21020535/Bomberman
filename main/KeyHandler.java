@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
  * @author Lenovo
  */
 // hàm để nhận đầu vào là 1 sụ kiện chuột
-public class KeyHandler implements KeyListener{
+public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean up, down, left, right, bomb;
@@ -49,8 +49,8 @@ public class KeyHandler implements KeyListener{
             if (event == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNumber == 0) {
                     gp.gameState = gp.playState;
-                    gp.stopMusic();
-                    gp.playMusic(0);
+//                    gp.stopMusic();
+//                    gp.playMusic(0);
                 }
 
                 if (gp.ui.commandNumber == 1) {
@@ -59,6 +59,13 @@ public class KeyHandler implements KeyListener{
                 if (gp.ui.commandNumber == 2) {
                     System.exit(0);
                 }
+            }
+        }
+        if (event == KeyEvent.VK_P) {
+            if (gp.gameState == gp.playState) {
+                gp.gameState = gp.pauseState;
+            } else if (gp.gameState == gp.pauseState) {
+                gp.gameState = gp.playState;
             }
         }
 

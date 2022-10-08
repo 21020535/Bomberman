@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 
 import entity.bomb.Bomb;
 import entity.bomb.Flame;
-import entity.bomb.FlameSides;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -23,12 +22,11 @@ import main.KeyHandler;
  */
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler input;
+    private GamePanel gp;
+    public KeyHandler input;
     List<Bomb> bombs = new ArrayList<>();
     List<Flame> flames = new ArrayList<>();
-    List<FlameSides> sides = new ArrayList<>();
-    int bombLength, maxBomb;
+    public int bombLength, maxBomb;
     private int movementBuffer = 0;
 
     public Player(GamePanel gp, KeyHandler input) {
@@ -121,23 +119,18 @@ public class Player extends Entity {
             // check va chạm vs bản đồ
             gp.cChecker.checkTile(this);
 
-            // if (input.up == true || input.down == true
-            //         || input.left == true || input.right == true) {
-            //     if (collide == false && movementBuffer > 0) {
-            //         switch (direction) {
-            //             case "up":
-            //                 y -= Math.min(speed, movementBuffer);
-            //                 break;
-            //             case "down":
-            //                 y += Math.min(speed, movementBuffer);
-            //                 break;
-            //             case "left":
-            //                 x -= Math.min(speed, movementBuffer);
-            //                 break;
-            //             case "right":
-            //                 x += Math.min(speed, movementBuffer);
-            //                 break;
-            //         }
+            // if (collide == false) {
+            //     if (input.up) {
+            //         y -= speed;
+            //     }
+            //     if (input.down) {
+            //         y += speed;
+            //     }
+            //     if (input.left) {
+            //         x -= speed;
+            //     }
+            //     if (input.right) {
+            //         x += speed;
             //     }
             // }
             // animating
@@ -183,103 +176,59 @@ public class Player extends Entity {
             // nếu nổ
             if (bombs.get(i).exploded == true) {
                 for (int j = 1; j <= bombLength; j++) {
-                    flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp));
+                    flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), bombLength));
                     if (bombs.get(i).desLeft == false) {
                         // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
                         // xóa item hủy diệt được
                         // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
                         // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
+
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desLeft = true;
+                        }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
                                     / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
                             bombs.get(i).desLeft = true;
                         }
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desLeft = true;
-                        }
-                        if (bombs.get(i).desLeft == false) {
-                            if (j < bombLength) {
-                                sides.add(
-                                        new FlameSides(bombs.get(i).x - j * gp.TILESIZE, bombs.get(i).y, gp,
-                                                "horizontal"));
-                            } else {
-                                sides.add(
-                                        new FlameSides(bombs.get(i).x - j * gp.TILESIZE, bombs.get(i).y, gp,
-                                                "horizontal_left"));
-                            }
-                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
-                        }
-
                     }
                     if (bombs.get(i).desRight == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desRight = true;
+                        }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
                                     / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
                             bombs.get(i).desRight = true;
                         }
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desRight = true;
-                        }
-                        if (bombs.get(i).desRight == false) {
-                            if (j < bombLength) {
-                                sides.add(
-                                        new FlameSides(bombs.get(i).x + j * gp.TILESIZE, bombs.get(i).y, gp,
-                                                "horizontal"));
-                            } else {
-                                sides.add(
-                                        new FlameSides(bombs.get(i).x + j * gp.TILESIZE, bombs.get(i).y, gp,
-                                                "horizontal_right"));
-                            }
-                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
-                        }
                     }
                     if (bombs.get(i).desUp == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desUp = true;
+                        }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
                                     / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
                             bombs.get(i).desUp = true;
                         }
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desUp = true;
-                        }
-                        if (bombs.get(i).desUp == false) {
-                            if (j < bombLength) {
-                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y - j * gp.TILESIZE, gp,
-                                        "vertical"));
-                            } else {
-                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y - j * gp.TILESIZE, gp,
-                                        "vertical_up"));
-                            }
-                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
-                        }
                     }
 
                     if (bombs.get(i).desDown == false) {
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                            bombs.get(i).desDown = true;
+                        }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
                                     / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = 0;
                             bombs.get(i).desDown = true;
-                        }
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
-                            bombs.get(i).desDown = true;
-                        }
-                        if (bombs.get(i).desDown == false) {
-                            if (j < bombLength) {
-                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y + j * gp.TILESIZE, gp,
-                                        "vertical"));
-                            } else {
-                                sides.add(new FlameSides(bombs.get(i).x, bombs.get(i).y + j * gp.TILESIZE, gp,
-                                        "vertical_down"));
-                            }
-                            flames.get(i).setTotalSides(flames.get(i).getTotalSides() + 1);
                         }
                     }
                 }
@@ -290,16 +239,10 @@ public class Player extends Entity {
         }
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
-            if (flames.get(i).finish == true) {
-                for (int j = 0; j < flames.get(i).getTotalSides(); j++) {
-                    sides.remove(0);
-                }
+            if (flames.get(i).finish) {
                 flames.remove(i);
                 i--;
             }
-        }
-        for (int i = 0; i < sides.size(); i++) {
-            sides.get(i).update();
         }
     }
 
@@ -329,9 +272,6 @@ public class Player extends Entity {
         
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).draw(g2);
-        }
-        for (int i = 0; i < sides.size(); i++) {
-            sides.get(i).draw(g2);
         }
 
         // vẽ nhân vật

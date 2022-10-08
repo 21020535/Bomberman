@@ -38,14 +38,23 @@ public class GamePanel extends JPanel implements Runnable{
     private long thisTime, lastTime;
     private final int FPS = 60;
     private final float drawInterval = 1000 / FPS;
-    
-    public KeyHandler input = new KeyHandler();
+    public KeyHandler input = new KeyHandler(this);
+
+    public UI ui = new UI(this);
     public Thread gameThread;
     public Player player = new Player(this, input);
     public Enemy enemy = new Enemy(this);
     public TileManager tileManager = new TileManager(this);
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
+
+    Sound sound = new Sound();
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public final int dialogueState = 3;
+    public final int optionState = 4;
 
     // in ra bg
     public GamePanel() {
@@ -58,6 +67,11 @@ public class GamePanel extends JPanel implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setupGame() {
+        playMusic(3);
+        //gameState = titleState;
     }
 
     // luồng bắt đầu game
@@ -100,12 +114,33 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setColor(Color.WHITE);
-        
-        tileManager.draw(g2);
-        
-        player.draw(g2);
-        enemy.draw(g2);
-        
-        g2.dispose();
+
+        // tile screen
+        if (gameState == titleState) {
+            ui.draw(g2);
+        }
+        else {
+            tileManager.draw(g2);
+            player.draw(g2);
+            enemy.draw(g2);
+            //ui.drawItem(g2);
+            g2.dispose();
+        }
+        // tile
+
+    }
+    public void playMusic(int num) {
+        sound.setFile(num);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    public void playSE(int num) {
+        sound.setFile(num);
+        sound.play();
     }
 }

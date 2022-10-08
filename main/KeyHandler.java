@@ -13,7 +13,13 @@ import java.awt.event.KeyListener;
  */
 // hàm để nhận đầu vào là 1 sụ kiện chuột
 public class KeyHandler implements KeyListener{
+
+    GamePanel gp;
     public boolean up, down, left, right, bomb;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     // type là event
     @Override
@@ -24,7 +30,39 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int event = e.getKeyCode();
-        
+        // Menu
+        if (gp.gameState == gp.titleState) {
+            if (event == KeyEvent.VK_W) {
+                gp.ui.commandNumber--;
+                if (gp.ui.commandNumber < 0) {
+                    gp.ui.commandNumber = 2;
+                }
+            }
+
+            if (event == KeyEvent.VK_S) {
+                gp.ui.commandNumber++;
+                if (gp.ui.commandNumber > 2) {
+                    gp.ui.commandNumber = 0;
+                }
+            }
+
+            if (event == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNumber == 0) {
+                    gp.gameState = gp.playState;
+                    gp.stopMusic();
+                    gp.playMusic(0);
+                }
+
+                if (gp.ui.commandNumber == 1) {
+                }
+
+                if (gp.ui.commandNumber == 2) {
+                    System.exit(0);
+                }
+            }
+        }
+
+        // di chuyen
         if (event == KeyEvent.VK_W) {
             up = true;
         }
@@ -61,7 +99,6 @@ public class KeyHandler implements KeyListener{
         }
         if (event == KeyEvent.VK_J) {
             bomb = false;
-
         }
     }
     

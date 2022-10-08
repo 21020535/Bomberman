@@ -1,9 +1,12 @@
 package main;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 // xu ly tat ca giao dien ng dung
 // menu,in chu,pause,option...
@@ -39,12 +42,10 @@ public class UI {
         if (gp.gameState == gp.playState) {
             // do
         }
-        if (gp.gameState == gp.pauseState) {
-            drawPauseScreen();
-        }
     }
 
-    public void drawPauseScreen() {
+    public void drawPauseScreen(Graphics2D g2) {
+        this.g2 = g2;
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
         String text = "PAUSED";
         int x = getForCenteredtext(text);
@@ -94,7 +95,7 @@ public class UI {
 
         text = "QUIT";
         x = getForCenteredtext(text);
-        y += gp.TILESIZE ;
+        y += gp.TILESIZE;
         g2.drawString(text,x,y);
         if (commandNumber == 2) {
             g2.drawString(">",x - gp.TILESIZE, y);

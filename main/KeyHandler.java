@@ -15,7 +15,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean up, down, left, right, bomb;
+    public boolean up, down, left, right, bomb, pause = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -24,9 +24,10 @@ public class KeyHandler implements KeyListener {
     // type là event
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
-     // khi ấn
+
+    // khi ấn
     @Override
     public void keyPressed(KeyEvent e) {
         int event = e.getKeyCode();
@@ -49,8 +50,8 @@ public class KeyHandler implements KeyListener {
             if (event == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNumber == 0) {
                     gp.gameState = gp.playState;
-//                    gp.stopMusic();
-//                    gp.playMusic(0);
+                    gp.stopMusic();
+                    gp.playMusic(0);
                 }
 
                 if (gp.ui.commandNumber == 1) {
@@ -62,11 +63,7 @@ public class KeyHandler implements KeyListener {
             }
         }
         if (event == KeyEvent.VK_P) {
-            if (gp.gameState == gp.playState) {
-                gp.gameState = gp.pauseState;
-            } else if (gp.gameState == gp.pauseState) {
-                gp.gameState = gp.playState;
-            }
+            pause = !pause;
         }
 
         // di chuyen
@@ -91,7 +88,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int event = e.getKeyCode();
-        
+
         if (event == KeyEvent.VK_W) {
             up = false;
         }
@@ -108,5 +105,5 @@ public class KeyHandler implements KeyListener {
             bomb = false;
         }
     }
-    
+
 }

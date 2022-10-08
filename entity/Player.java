@@ -29,10 +29,7 @@ public class Player extends Entity {
     public int bombLength, maxBomb;
     private int movementBuffer = 0;
 
-    // GameState
-    public int gameState;
-    public final int playState = 1;
-    public final int pauseState = 2;
+    public boolean dead = false;
 
     public Player(GamePanel gp, KeyHandler input) {
         this.gp = gp;
@@ -65,6 +62,46 @@ public class Player extends Entity {
     }
 
     public void update() {
+        handleMovementsAndInputs();
+
+        handleBombs();
+        
+        dead = deadYet();
+    }
+
+    public void draw(Graphics2D g2) {
+        BufferedImage frame = null;
+
+        switch (direction) {
+            case "up":
+                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
+                frame = image.getSubimage(16, 16 * tick, 16, 16);
+                break;
+            case "down":
+                frame = image.getSubimage(0, 16 * tick, 16, 16);
+                break;
+            case "left":
+                frame = image.getSubimage(32, 16 * tick, 16, 16);
+                break;
+            case "right":
+                frame = image.getSubimage(48, 16 * tick, 16, 16);
+                break;
+        }
+
+        // vẽ bomb
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).draw(g2);
+        }
+
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).draw(g2);
+        }
+
+        // vẽ nhân vật
+        g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
+    }
+
+    public void handleMovementsAndInputs() {
         // kiểm tra xem có ấn 1 trong 4 không
         if (input.up == true || input.down == true
                 || input.left == true || input.right == true || input.bomb == true) {
@@ -117,7 +154,7 @@ public class Player extends Entity {
                     bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE,
                             bombLength, gp));
                     input.bomb = false;
-//                    gp.playSE(1);
+                    // gp.playSE(1);
                 }
             }
             // va chạm ban đầu = false
@@ -126,18 +163,18 @@ public class Player extends Entity {
             gp.cChecker.checkTile(this);
 
             // if (collide == false) {
-            //     if (input.up) {
-            //         y -= speed;
-            //     }
-            //     if (input.down) {
-            //         y += speed;
-            //     }
-            //     if (input.left) {
-            //         x -= speed;
-            //     }
-            //     if (input.right) {
-            //         x += speed;
-            //     }
+            // if (input.up) {
+            // y -= speed;
+            // }
+            // if (input.down) {
+            // y += speed;
+            // }
+            // if (input.left) {
+            // x -= speed;
+            // }
+            // if (input.right) {
+            // x += speed;
+            // }
             // }
             // animating
         }
@@ -177,11 +214,14 @@ public class Player extends Entity {
         } else {
             movementBuffer = 0;
         }
+    }
+
+    public void handleBombs() {
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
             // nếu nổ
             if (bombs.get(i).exploded == true) {
-//                gp.playSE(2);
+                // gp.playSE(2);
                 for (int j = 1; j <= bombLength; j++) {
                     flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), bombLength));
                     if (bombs.get(i).desLeft == false) {
@@ -253,35 +293,14 @@ public class Player extends Entity {
         }
     }
 
-    public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
-
-        switch (direction) {
-            case "up":
-                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                frame = image.getSubimage(16, 16 * tick, 16, 16);
-                break;
-            case "down":
-                frame = image.getSubimage(0, 16 * tick, 16, 16);
-                break;
-            case "left":
-                frame = image.getSubimage(32, 16 * tick, 16, 16);
-                break;
-            case "right":
-                frame = image.getSubimage(48, 16 * tick, 16, 16);
-                break;
+    public boolean deadYet() {
+        for (int i = 0; i < gp.enemies.size(); i++) {
+            if (x <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x
+                    && y <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y) {
+                return true;
+            }
         }
-
-        // vẽ bomb
-        for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).draw(g2);
-        }
-        
-        for (int i = 0; i < flames.size(); i++) {
-            flames.get(i).draw(g2);
-        }
-
-        // vẽ nhân vật
-        g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
+        return false;
     }
+
 }

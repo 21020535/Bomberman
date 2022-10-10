@@ -154,7 +154,7 @@ public class Player extends Entity {
                     bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE,
                             bombLength, gp));
                     input.bomb = false;
-                    // gp.playSE(1);
+                    gp.playSE(1);
                 }
             }
             // va chạm ban đầu = false
@@ -221,7 +221,7 @@ public class Player extends Entity {
             bombs.get(i).update();
             // nếu nổ
             if (bombs.get(i).exploded == true) {
-                // gp.playSE(2);
+                gp.playSE(2);
                 for (int j = 1; j <= bombLength; j++) {
                     flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), bombLength));
                     if (bombs.get(i).desLeft == false) {

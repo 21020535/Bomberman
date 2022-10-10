@@ -47,18 +47,19 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, input);
     // public Enemy enemy = new Enemy(this);
     public List<Enemy> enemies = new ArrayList<>();
-   
+
     public TileManager tileManager = new TileManager(this);
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
-    Sound sound = new Sound();
+    Sound sound;
+
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
     public final int optionState = 2;
 
-    public boolean paused = false;
+    public boolean paused, playing;
 
     // in ra bg
     public GamePanel() {
@@ -74,9 +75,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        playMusic(3);
         gameState = titleState;
-        // gameState = playState;
+        ui = new UI(this);
+        player = new Player(this, input);
+        sound = new Sound();
+        enemies.clear();
+        enemies.add(new Enemy(this));
+        paused = false;
+        playing = true;
     }
 
     // luồng bắt đầu game
@@ -87,28 +93,29 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        lastTime = System.currentTimeMillis();
-        double delta = 0;
-        enemies.add(new Enemy(this));
-
         while (gameThread != null) {
-            thisTime = System.currentTimeMillis();
-            // xử lý fps
-            delta += (thisTime - lastTime) / drawInterval;
+            setupGame();
+            lastTime = System.currentTimeMillis();
+            double delta = 0;
+            while (playing) {
+                thisTime = System.currentTimeMillis();
+                // xử lý fps
+                delta += (thisTime - lastTime) / drawInterval;
 
-            lastTime = thisTime;
+                lastTime = thisTime;
 
-            if (delta >= 1) {
-                if (!paused) {
-                    update();
-                    repaint();
+                if (delta >= 1) {
+                    if (!paused) {
+                        update();
+                        repaint();
+                    }
+                    if (input.pause == true) {
+                        paused = true;
+                    } else {
+                        paused = false;
+                    }
+                    delta--;
                 }
-                if (input.pause == true) {
-                    paused = true;
-                } else {
-                    paused = false;
-                }
-                delta--;
             }
         }
     }
@@ -122,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.get(i).update();
             }
             if (player.dead) {
-                gameState = titleState;
+                playing = false;
             }
         }
     }

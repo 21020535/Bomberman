@@ -95,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         while (gameThread != null) {
             setupGame();
+            playMusic(3);
             lastTime = System.currentTimeMillis();
             double delta = 0;
             while (playing) {

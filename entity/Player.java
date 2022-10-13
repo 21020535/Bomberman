@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,7 @@ public class Player extends Entity {
     public KeyHandler input;
     List<Bomb> bombs = new ArrayList<>();
     List<Flame> flames = new ArrayList<>();
+    private List<Integer> mapItem = new ArrayList<>();
     public int bombLength, maxBomb;
     private int movementBuffer = 0;
 
@@ -51,21 +53,39 @@ public class Player extends Entity {
     public void setDefaultValues() {
         x = 48;
         y = 48;
-        speed = 3;
+        speed = 2;
         direction = "down";
         tick = 0;
         maxFrame = 4;
         begin = 0;
-        interval = 7;
-        bombLength = 1;
+        interval = 10;
+        bombLength = 2;
         maxBomb = 2;
+        this.mapItem.add(7);
+
+        for (int i = 0; i < 4; i++) {
+            this.mapItem.add(3);
+        }
+        for (int i = 0; i < 2; i++) {
+            this.mapItem.add(4);
+        }
+        for (int i = 0; i < 4; i++) {
+            this.mapItem.add(5);
+        }
+        for (int i = 0; i < 1; i++) {
+            this.mapItem.add(6);
+        }
+        int n = mapItem.size();
+        for (int i = 0; i < 79 - n; i++) {
+            mapItem.add(0);
+        }
+        Collections.shuffle(mapItem);
     }
 
     public void update() {
         handleMovementsAndInputs();
-
         handleBombs();
-        
+        powerUps();
         dead = deadYet();
     }
 
@@ -222,8 +242,9 @@ public class Player extends Entity {
             // nếu nổ
             if (bombs.get(i).exploded == true) {
                 gp.playSE(2);
+                flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), bombLength));
+
                 for (int j = 1; j <= bombLength; j++) {
-                    flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), bombLength));
                     if (bombs.get(i).desLeft == false) {
                         // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
                         // xóa item hủy diệt được
@@ -237,8 +258,15 @@ public class Player extends Entity {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
-                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
+                            mapItem.remove(0);
                             bombs.get(i).desLeft = true;
+                        }
+                        int dx = bombs.get(i).x - j * gp.TILESIZE;
+                        int dy = bombs.get(i).y;
+                        if (x + 12 <= dx + gp.TILESIZE && x + gp.TILESIZE >= dx + 12
+                                && y + 12 <= dy + gp.TILESIZE && y + gp.TILESIZE >= dy + 12) {
+                            dead = true;
                         }
                     }
                     if (bombs.get(i).desRight == false) {
@@ -249,8 +277,15 @@ public class Player extends Entity {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
-                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = 0;
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
+                            mapItem.remove(0);
                             bombs.get(i).desRight = true;
+                        }
+                        int dx = bombs.get(i).x + j * gp.TILESIZE;
+                        int dy = bombs.get(i).y;
+                        if (x + 12 <= dx + gp.TILESIZE && x + gp.TILESIZE >= dx + 12
+                                && y + 12 <= dy + gp.TILESIZE && y + gp.TILESIZE >= dy + 12) {
+                            dead = true;
                         }
                     }
                     if (bombs.get(i).desUp == false) {
@@ -261,8 +296,15 @@ public class Player extends Entity {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = mapItem.get(0);
+                            mapItem.remove(0);
                             bombs.get(i).desUp = true;
+                        }
+                        int dx = bombs.get(i).x;
+                        int dy = bombs.get(i).y - j * gp.TILESIZE;
+                        if (x + 12 <= dx + gp.TILESIZE && x + gp.TILESIZE >= dx + 12
+                                && y + 12 <= dy + gp.TILESIZE && y + gp.TILESIZE >= dy + 12) {
+                            dead = true;
                         }
                     }
 
@@ -274,9 +316,11 @@ public class Player extends Entity {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = 0;
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = mapItem.get(0);
+                            mapItem.remove(0);
                             bombs.get(i).desDown = true;
                         }
+
                     }
                 }
                 // sau khi dùng bomb thì vứt ra khỏi list
@@ -293,10 +337,41 @@ public class Player extends Entity {
         }
     }
 
+    public void powerUps() {
+        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 3) {
+            gp.playSE(4);
+            maxBomb ++;
+            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+        }
+        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 4) {
+            gp.playSE(4);
+            this.speed++;
+            this.interval--;
+            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+        }
+        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 5) {
+            gp.playSE(4);
+            bombLength++;
+            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+        }
+        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 6) {
+            // flamepass
+            gp.playSE(4);
+            //maxBomb += 1;
+            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+        }
+
+        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 7) {
+            // portal
+            gp.playSE(4);
+            //maxBomb += 1;
+        }
+    }
+
     public boolean deadYet() {
         for (int i = 0; i < gp.enemies.size(); i++) {
-            if (x <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x
-                    && y <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y) {
+            if (x + 12 <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x + 12
+                    && y + 12 <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y + 12) {
                 return true;
             }
         }

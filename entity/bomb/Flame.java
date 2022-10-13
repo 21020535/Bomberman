@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -43,14 +44,22 @@ public class Flame extends Entity {
             e.printStackTrace();
         }
         boolean desUp = false, desDown = false, desLeft = false, desRight = false;
+
         for (int i = 1; i <= bombLength; i++) {
             if (desLeft == false) {
                 if (gp.tileManager.mapTileNum[(bomb.getX() + 12 - i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
                         / gp.TILESIZE] != 2) {
                     if (i < bombLength) {
-                        sides.add(
-                                new FlameSides(bomb.getX() - i * gp.TILESIZE, bomb.getY(), gp,
-                                        "horizontal"));
+                        if (gp.tileManager.mapTileNum[(bomb.getX() - i * gp.TILESIZE) / gp.TILESIZE][(bomb.getY())
+                                / gp.TILESIZE] == 1) {
+                            sides.add(
+                                    new FlameSides(bomb.getX() - i * gp.TILESIZE, bomb.getY(), gp,
+                                            "horizontal_left"));
+                        } else {
+                            sides.add(
+                                    new FlameSides(bomb.getX() - i * gp.TILESIZE, bomb.getY(), gp,
+                                            "horizontal"));
+                        }
                     } else {
                         sides.add(
                                 new FlameSides(bomb.getX() - i * gp.TILESIZE, bomb.getY(), gp,
@@ -68,9 +77,16 @@ public class Flame extends Entity {
                 if (gp.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
                         / gp.TILESIZE] != 2) {
                     if (i < bombLength) {
-                        sides.add(
-                                new FlameSides(bomb.getX() + i * gp.TILESIZE, bomb.getY(), gp,
-                                        "horizontal"));
+                        if (gp.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE) / gp.TILESIZE][(bomb.getY())
+                                / gp.TILESIZE] == 1) {
+                            sides.add(
+                                    new FlameSides(bomb.getX() + i * gp.TILESIZE, bomb.getY(), gp,
+                                            "horizontal_right"));
+                        } else {
+                            sides.add(
+                                    new FlameSides(bomb.getX() + i * gp.TILESIZE, bomb.getY(), gp,
+                                            "horizontal"));
+                        }
                     } else {
                         sides.add(
                                 new FlameSides(bomb.getX() + i * gp.TILESIZE, bomb.getY(), gp,
@@ -79,18 +95,27 @@ public class Flame extends Entity {
                     if (gp.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
                             / gp.TILESIZE] == 1) {
                         desRight = true;
-                    } else {
-                        desRight = true;
                     }
+                }
+                else {
+                    desRight = true;
                 }
             }
             if (desDown == false) {
                 if (gp.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
                         / gp.TILESIZE] != 2) {
                     if (i < bombLength) {
-                        sides.add(
-                                new FlameSides(bomb.getX(), bomb.getY() + i * gp.TILESIZE, gp,
-                                        "vertical"));
+                        if (gp.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
+                                / gp.TILESIZE] == 1) {
+                            sides.add(
+                                    new FlameSides(bomb.getX(), bomb.getY() + i * gp.TILESIZE, gp,
+                                            "vertical_down"));
+                        } else {
+                            sides.add(
+                                    new FlameSides(bomb.getX(), bomb.getY() + i * gp.TILESIZE, gp,
+                                            "vertical"));
+                        }
+
                     } else {
                         sides.add(
                                 new FlameSides(bomb.getX(), bomb.getY() + i * gp.TILESIZE, gp,
@@ -107,9 +132,16 @@ public class Flame extends Entity {
                 if (gp.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
                         / gp.TILESIZE] != 2) {
                     if (i < bombLength) {
-                        sides.add(
-                                new FlameSides(bomb.getX(), bomb.getY() - i * gp.TILESIZE, gp,
-                                        "vertical"));
+                        if (gp.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
+                                / gp.TILESIZE] == 1) {
+                            sides.add(
+                                    new FlameSides(bomb.getX(), bomb.getY() - i * gp.TILESIZE, gp,
+                                            "vertical_up"));
+                        } else {
+                            sides.add(
+                                    new FlameSides(bomb.getX(), bomb.getY() - i * gp.TILESIZE, gp,
+                                            "vertical"));
+                        }
                     } else {
                         sides.add(
                                 new FlameSides(bomb.getX(), bomb.getY() - i * gp.TILESIZE, gp,

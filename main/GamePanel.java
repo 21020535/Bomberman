@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     // public Enemy enemy = new Enemy(this);
     public List<Enemy> enemies = new ArrayList<>();
 
-    public TileManager tileManager = new TileManager(this);
+    public TileManager tileManager;
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -80,6 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         gameState = titleState;
         ui = new UI(this);
+        tileManager = new TileManager(this);
         player = new Player(this, input);
         sound = new Sound();
         se = new Sound();

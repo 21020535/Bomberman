@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -96,8 +95,7 @@ public class Flame extends Entity {
                             / gp.TILESIZE] == 1) {
                         desRight = true;
                     }
-                }
-                else {
+                } else {
                     desRight = true;
                 }
             }
@@ -122,7 +120,7 @@ public class Flame extends Entity {
                                         "vertical_down"));
                     }
                     if (gp.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
-                        / gp.TILESIZE] == 1)
+                            / gp.TILESIZE] == 1)
                         desDown = true;
                 } else {
                     desDown = true;
@@ -148,7 +146,7 @@ public class Flame extends Entity {
                                         "vertical_up"));
                     }
                     if (gp.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
-                        / gp.TILESIZE] == 1)
+                            / gp.TILESIZE] == 1)
                         desUp = true;
                 } else {
                     desUp = true;

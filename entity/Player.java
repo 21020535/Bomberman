@@ -296,7 +296,8 @@ public class Player extends Entity {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = mapItem.get(0);
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                                            .get(0);
                             mapItem.remove(0);
                             bombs.get(i).desUp = true;
                         }
@@ -316,7 +317,8 @@ public class Player extends Entity {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = mapItem.get(0);
+                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                                            .get(0);
                             mapItem.remove(0);
                             bombs.get(i).desDown = true;
                         }
@@ -340,7 +342,7 @@ public class Player extends Entity {
     public void powerUps() {
         if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 3) {
             gp.playSE(4);
-            maxBomb ++;
+            maxBomb++;
             gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
         }
         if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 4) {
@@ -357,14 +359,14 @@ public class Player extends Entity {
         if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 6) {
             // flamepass
             gp.playSE(4);
-            //maxBomb += 1;
+            // maxBomb += 1;
             gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
         }
 
         if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 7) {
             // portal
             gp.playSE(4);
-            //maxBomb += 1;
+            // maxBomb += 1;
         }
     }
 

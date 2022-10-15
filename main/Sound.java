@@ -11,11 +11,11 @@ public class Sound {
     URL soundURL[] = new URL[30]; // soundURL luu tru duong dan tep
 
     public Sound() {
-        soundURL[0] = getClass().getResource("/res/sound/Hitman.wav");
-        soundURL[1] = getClass().getResource("/res/sound/BOM_SET.wav");
-        soundURL[2] = getClass().getResource("/res/sound/BOM_11_M.wav");
-        soundURL[3] = getClass().getResource("/res/sound/menu.wav");
-        // soundURL[4] = getClass().getResource("/res/Sound/soundtrack.wav");
+        soundURL[0] = getClass().getResource("/res/Sound/Hitman.wav");
+        soundURL[1] = getClass().getResource("/res/Sound/BOM_SET.wav");
+        soundURL[2] = getClass().getResource("/res/Sound/BOM_11_M.wav");
+        soundURL[3] = getClass().getResource("/res/Sound/menu.wav");
+        soundURL[4] = getClass().getResource("/res/Sound/CRYST_UP.wav");
         // soundURL[5] = getClass().getResource("/res/Sound/soundtrack.wav");
         // soundURL[6] = getClass().getResource("/res/Sound/soundtrack.wav");
         // soundURL[7] = getClass().getResource("/res/Sound/soundtrack.wav");

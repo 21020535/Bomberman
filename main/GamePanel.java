@@ -6,7 +6,6 @@ package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -54,15 +53,15 @@ public class GamePanel extends JPanel implements Runnable {
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
-    Sound sound;
-    Sound se;
+    Sound sound = new Sound();
+    Sound se = new Sound();
 
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
     public final int optionsState = 2;
 
-    public boolean paused, playing;
+    public boolean playing;
 
     // in ra bg
     public GamePanel() {
@@ -82,11 +81,10 @@ public class GamePanel extends JPanel implements Runnable {
         ui = new UI(this);
         tileManager = new TileManager(this);
         player = new Player(this, input);
-        sound = new Sound();
-        se = new Sound();
+        // sound = new Sound();
+        // se = new Sound();
         enemies.clear();
         enemies.add(new Enemy(this));
-        paused = false;
         playing = true;
     }
 
@@ -111,15 +109,15 @@ public class GamePanel extends JPanel implements Runnable {
                 lastTime = thisTime;
 
                 if (delta >= 1) {
-                    if (!paused) {
-                        update();
-                        repaint();
-                    }
-                    if (input.pause == true) {
-                        paused = true;
-                    } else {
-                        paused = false;
-                    }
+                    // if (!paused) {
+                    update();
+                    repaint();
+                    // }
+                    // if (input.pause == true) {
+                    //     paused = true;
+                    // } else {
+                    //     paused = false;
+                    // }
                     delta--;
                 }
             }
@@ -162,15 +160,6 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }
-            // ui.drawItem(g2);
-            if (paused) {
-                g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
-                String text = "PAUSED";
-                int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-                int x = WINDOW_WIDTH / 2 - length / 2;
-                int y = WINDOW_HEIGHT / 2;
-                g2.drawString(text, x, y);
-            }
         }
         g2.dispose();
         // tile
@@ -185,6 +174,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void stopMusic() {
         sound.stop();
+        System.out.println("music was stopped");
     }
 
     public void playSE(int num) {

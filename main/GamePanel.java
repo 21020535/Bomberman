@@ -38,11 +38,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     // time and fps handling stuffs
     private long thisTime, lastTime;
+    public boolean fullScreenOn = false;
     private final int FPS = 60;
     private final float drawInterval = 1000 / FPS;
-    public KeyHandler input = new KeyHandler(this);
+    public KeyHandler input = new KeyHandler(this); // keyH
 
     public UI ui = new UI(this);
+
     public Thread gameThread;
     public Player player = new Player(this, input);
     // public Enemy enemy = new Enemy(this);
@@ -53,11 +55,12 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
 
     Sound sound;
+    Sound se;
 
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
-    public final int optionState = 2;
+    public final int optionsState = 2;
 
     public boolean paused, playing;
 
@@ -79,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
         ui = new UI(this);
         player = new Player(this, input);
         sound = new Sound();
+        se = new Sound();
         enemies.clear();
         enemies.add(new Enemy(this));
         paused = false;
@@ -124,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // update nhân vật di chuyển va chạm thả bom
     public void update() {
-        if (playState == gameState) {
+        if (gameState == playState) {
             player.update();
             // enemy.update();
             for (int i = 0; i < enemies.size(); i++) {
@@ -133,6 +137,9 @@ public class GamePanel extends JPanel implements Runnable {
             if (player.dead) {
                 playing = false;
             }
+        }
+        if (gameState == optionsState) {
+            //
         }
     }
 
@@ -180,7 +187,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void playSE(int num) {
-        sound.setFile(num);
-        sound.play();
+        se.setFile(num);
+        se.play();
     }
 }

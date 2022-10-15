@@ -9,12 +9,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import entity.Entity;
-import entity.Player;
 import main.GamePanel;
 
 public class Flame extends Entity {
     GamePanel gp;
-    Player player;
 
     Bomb bomb;
     public boolean finish = false;
@@ -30,12 +28,11 @@ public class Flame extends Entity {
         this.totalSides = totalSides;
     }
 
-    public Flame(int x, int y, GamePanel gp, Bomb bomb, Player player, int bombLength) {
+    public Flame(int x, int y, GamePanel gp, Bomb bomb, int bombLength) {
         this.x = x;
         this.y = y;
         this.gp = gp;
         this.bomb = bomb;
-        this.player = player;
         tick = 0;
         maxFrame = 4;
         begin = 0;
@@ -170,11 +167,6 @@ public class Flame extends Entity {
         }
         for (int i = 0; i < sides.size(); i++) {
             sides.get(i).update();
-            if (player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE && player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
-                    && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
-                    && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
-                player.dead = true;
-            }
         }
     }
 

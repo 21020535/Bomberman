@@ -45,6 +45,40 @@ public class Flame extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        generateFlameSides(gp, bomb, bombLength);
+    }
+
+    public void update() {
+        // chay animation
+        begin++;
+        if (begin > interval) {
+            tick++;
+            if (tick >= maxFrame) {
+                finish = true;
+            }
+            begin = 0;
+        }
+        for (int i = 0; i < sides.size(); i++) {
+            sides.get(i).update();
+            if (player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
+                    && player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
+                    && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
+                    && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
+                player.dead = true;
+            }
+        }
+    }
+
+    public void draw(Graphics2D g2) {
+        BufferedImage frame = null;
+        frame = image.getSubimage(16 * tick, 0, 16, 16);
+        g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
+        for (int i = 0; i < sides.size(); i++) {
+            sides.get(i).draw(g2);
+        }
+    }
+
+    private void generateFlameSides(GamePanel gp, Bomb bomb, int bombLength) {
         boolean desUp = false, desDown = false, desLeft = false, desRight = false;
 
         for (int i = 1; i <= bombLength; i++) {
@@ -155,35 +189,6 @@ public class Flame extends Entity {
                     desUp = true;
                 }
             }
-        }
-    }
-
-    public void update() {
-        // chay animation
-        begin++;
-        if (begin > interval) {
-            tick++;
-            if (tick >= maxFrame) {
-                finish = true;
-            }
-            begin = 0;
-        }
-        for (int i = 0; i < sides.size(); i++) {
-            sides.get(i).update();
-            if (player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE && player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
-                    && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
-                    && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
-                player.dead = true;
-            }
-        }
-    }
-
-    public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
-        frame = image.getSubimage(16 * tick, 0, 16, 16);
-        g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
-        for (int i = 0; i < sides.size(); i++) {
-            sides.get(i).draw(g2);
         }
     }
 }

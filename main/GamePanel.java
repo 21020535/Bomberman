@@ -34,10 +34,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int maxCols = 25; // map gồm 25 cột
     public int maxRows = 15; // 15 dòng
+    public final int maxMap = 3;
+    public int curMap = 0;
 
     // time and fps handling stuffs
     private long thisTime, lastTime;
-    public boolean fullScreenOn = false;
+//    public boolean fullScreenOn = false;
     private final int FPS = 60;
     private final float drawInterval = 1000 / FPS;
     public KeyHandler input = new KeyHandler(this); // keyH
@@ -60,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int titleState = 0;
     public final int playState = 1;
     public final int optionsState = 2;
+    public final int gameOverState = 3;
 
     public boolean playing;
 
@@ -174,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void stopMusic() {
         sound.stop();
-        System.out.println("music was stopped");
+//        System.out.println("music was stopped");
     }
 
     public void playSE(int num) {

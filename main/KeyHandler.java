@@ -36,7 +36,10 @@ public class KeyHandler implements KeyListener {
             titleState(event);
         } else if (gp.gameState == gp.optionsState) {
             optionsState(event);
+        } else if (gp.gameState == gp.gameOverState) {
+            gameOverState(event);
         }
+
 
         if (event == KeyEvent.VK_P) {
             // pause = !pause;
@@ -62,6 +65,13 @@ public class KeyHandler implements KeyListener {
         }
         if (event == KeyEvent.VK_J) {
             bomb = true;
+        }
+        if (event == KeyEvent.VK_R) {
+            switch (gp.curMap) {
+                case 0:
+                    gp.tileManager.loadMap("/res/map/map2.txt", 0);
+                    break;
+            }
         }
 
         if (event == KeyEvent.VK_ENTER) {
@@ -109,9 +119,9 @@ public class KeyHandler implements KeyListener {
         int maxCommandNum = 0;
         switch (gp.ui.subState) {
             case 0:
-                maxCommandNum = 5;
+                maxCommandNum = 4;
                 break;
-            case 3:
+            case 2: // why?
                 maxCommandNum = 1;
                 break;
         }
@@ -133,12 +143,12 @@ public class KeyHandler implements KeyListener {
 
         if (event == KeyEvent.VK_A) {
             if (gp.ui.subState == 0) {
-                if (gp.ui.commandNumber == 1 && gp.sound.volumeScale > 0) {
+                if (gp.ui.commandNumber == 0 && gp.sound.volumeScale > 0) {
                     gp.sound.volumeScale--;
                     gp.sound.checkVolume();
                     gp.playSE(5);
                 }
-                if (gp.ui.commandNumber == 2 && gp.se.volumeScale > 0) {
+                if (gp.ui.commandNumber == 1 && gp.se.volumeScale > 0) {
                     gp.se.volumeScale--;
                     gp.playSE(5);
                 }
@@ -146,15 +156,39 @@ public class KeyHandler implements KeyListener {
         }
         if (event == KeyEvent.VK_D) {
             if (gp.ui.subState == 0) {
-                if (gp.ui.commandNumber == 1 && gp.sound.volumeScale < 5) {
+                if (gp.ui.commandNumber == 0 && gp.sound.volumeScale < 5) {
                     gp.sound.volumeScale++;
                     gp.sound.checkVolume();
                     gp.playSE(5);
                 }
-                if (gp.ui.commandNumber == 2 && gp.se.volumeScale < 5) {
+                if (gp.ui.commandNumber == 1 && gp.se.volumeScale < 5) {
                     gp.se.volumeScale++;
                     gp.playSE(5);
                 }
+            }
+        }
+    }
+
+    private void gameOverState(int event) {
+        if (event == KeyEvent.VK_W) {
+            gp.ui.commandNumber--;
+            if (gp.ui.commandNumber < 0) {
+                gp.ui.commandNumber = 1;
+            }
+            gp.playSE(5);
+        }
+        if (event == KeyEvent.VK_S) {
+            gp.ui.commandNumber++;
+            if (gp.ui.commandNumber > 1) {
+                gp.ui.commandNumber = 0;
+            }
+            gp.playSE(5);
+        }
+        if (event == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNumber == 0) {
+                gp.gameState = gp.playState;
+            } else if (gp.ui.commandNumber == 1) {
+                gp.gameState = gp.titleState;
             }
         }
     }

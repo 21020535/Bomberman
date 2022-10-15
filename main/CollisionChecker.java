@@ -40,8 +40,8 @@ public class CollisionChecker {
         if (player.input.up) {
             topRow = (top - player.getSpeed()) / gp.TILESIZE;
             // lấy giá trị của mapTile tại tọa độ [leftCol][topRow]
-            tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-            tileNum2 = gp.tileManager.mapTileNum[rightCol][topRow];
+            tileNum1 = gp.tileManager.mapTileNum[gp.curMap][leftCol][topRow];
+            tileNum2 = gp.tileManager.mapTileNum[gp.curMap][rightCol][topRow];
             // nếu item này có xảy ra va chạm k đc đi tiếp
             if (gp.tileManager.tiles[tileNum1].collision == true
                     || gp.tileManager.tiles[tileNum2].collision == true) {
@@ -51,8 +51,8 @@ public class CollisionChecker {
         }
         if (player.input.down) {
             botRow = (bottom + player.getSpeed()) / gp.TILESIZE;
-            tileNum1 = gp.tileManager.mapTileNum[leftCol][botRow];
-            tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
+            tileNum1 = gp.tileManager.mapTileNum[gp.curMap][leftCol][botRow];
+            tileNum2 = gp.tileManager.mapTileNum[gp.curMap][rightCol][botRow];
             if (gp.tileManager.tiles[tileNum1].collision == true
                     || gp.tileManager.tiles[tileNum2].collision == true) {
                 player.collide = true;
@@ -60,8 +60,8 @@ public class CollisionChecker {
         }
         if (player.input.left) {
             leftCol = (leftmost - player.getSpeed()) / gp.TILESIZE;
-            tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-            tileNum2 = gp.tileManager.mapTileNum[leftCol][botRow];
+            tileNum1 = gp.tileManager.mapTileNum[gp.curMap][leftCol][topRow];
+            tileNum2 = gp.tileManager.mapTileNum[gp.curMap][leftCol][botRow];
             if (gp.tileManager.tiles[tileNum1].collision == true
                     || gp.tileManager.tiles[tileNum2].collision == true) {
                 player.collide = true;
@@ -69,8 +69,8 @@ public class CollisionChecker {
         }
         if (player.input.right) {
             rightCol = (rightmost + player.getSpeed()) / gp.TILESIZE;
-            tileNum1 = gp.tileManager.mapTileNum[rightCol][topRow];
-            tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
+            tileNum1 = gp.tileManager.mapTileNum[gp.curMap][rightCol][topRow];
+            tileNum2 = gp.tileManager.mapTileNum[gp.curMap][rightCol][botRow];
             if (gp.tileManager.tiles[tileNum1].collision == true
                     || gp.tileManager.tiles[tileNum2].collision == true) {
                 player.collide = true;
@@ -104,8 +104,8 @@ public class CollisionChecker {
                 // xác định topRow đang ở dòng nào
                 topRow = (top - entity.getSpeed()) / gp.TILESIZE;
                 // lấy giá trị của mapTile tại tọa độ [leftCol][topRow]
-                tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-                tileNum2 = gp.tileManager.mapTileNum[rightCol][topRow];
+                tileNum1 = gp.tileManager.mapTileNum[gp.curMap][leftCol][topRow];
+                tileNum2 = gp.tileManager.mapTileNum[gp.curMap][rightCol][topRow];
                 // nếu item này có xảy ra va chạm k đc đi tiếp
                 if (gp.tileManager.tiles[tileNum1].collision == true
                         || gp.tileManager.tiles[tileNum2].collision == true) {
@@ -115,8 +115,8 @@ public class CollisionChecker {
                 break;
             case "down":
                 botRow = (bottom + entity.getSpeed()) / gp.TILESIZE;
-                tileNum1 = gp.tileManager.mapTileNum[leftCol][botRow];
-                tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
+                tileNum1 = gp.tileManager.mapTileNum[gp.curMap][leftCol][botRow];
+                tileNum2 = gp.tileManager.mapTileNum[gp.curMap][rightCol][botRow];
                 if (gp.tileManager.tiles[tileNum1].collision == true
                         || gp.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;
@@ -124,8 +124,8 @@ public class CollisionChecker {
                 break;
             case "left":
                 leftCol = (leftmost - entity.getSpeed()) / gp.TILESIZE;
-                tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-                tileNum2 = gp.tileManager.mapTileNum[leftCol][botRow];
+                tileNum1 = gp.tileManager.mapTileNum[gp.curMap][leftCol][topRow];
+                tileNum2 = gp.tileManager.mapTileNum[gp.curMap][leftCol][botRow];
                 if (gp.tileManager.tiles[tileNum1].collision == true
                         || gp.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;
@@ -133,8 +133,8 @@ public class CollisionChecker {
                 break;
             case "right":
                 rightCol = (rightmost + entity.getSpeed()) / gp.TILESIZE;
-                tileNum1 = gp.tileManager.mapTileNum[rightCol][topRow];
-                tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
+                tileNum1 = gp.tileManager.mapTileNum[gp.curMap][rightCol][topRow];
+                tileNum2 = gp.tileManager.mapTileNum[gp.curMap][rightCol][botRow];
                 if (gp.tileManager.tiles[tileNum1].collision == true
                         || gp.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;

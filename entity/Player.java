@@ -61,6 +61,10 @@ public class Player extends Entity {
         interval = 10;
         bombLength = 2;
         maxBomb = 2;
+        powerupsSetup();
+    }
+
+    private void powerupsSetup() {
         this.mapItem.add(7);
 
         for (int i = 0; i < 4; i++) {
@@ -134,7 +138,6 @@ public class Player extends Entity {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "up";
                 }
-                // direction = "up";
             }
             if (input.down == true) {
                 if (movementBuffer == 0) {
@@ -144,7 +147,6 @@ public class Player extends Entity {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "down";
                 }
-                // direction = "down";
             }
             if (input.left == true) {
                 if (movementBuffer == 0) {
@@ -154,7 +156,6 @@ public class Player extends Entity {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "left";
                 }
-                // direction = "left";
             }
             if (input.right == true) {
                 if (movementBuffer == 0) {
@@ -164,7 +165,6 @@ public class Player extends Entity {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "right";
                 }
-                // direction = "right";
             }
             // nếu input là bomb thì set xem độ dài mảng bomb có hơn độ dài số lượng bomb
             // max không nếu không add
@@ -181,22 +181,6 @@ public class Player extends Entity {
             collide = false;
             // check va chạm vs bản đồ
             gp.cChecker.checkTile(this);
-
-            // if (collide == false) {
-            // if (input.up) {
-            // y -= speed;
-            // }
-            // if (input.down) {
-            // y += speed;
-            // }
-            // if (input.left) {
-            // x -= speed;
-            // }
-            // if (input.right) {
-            // x += speed;
-            // }
-            // }
-            // animating
         }
         if (collide == false) {
             if (movementBuffer > 0) {

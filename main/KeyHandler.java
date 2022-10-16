@@ -186,7 +186,9 @@ public class KeyHandler implements KeyListener {
         }
         if (event == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNumber == 0) {
+                gp.setupGame();
                 gp.gameState = gp.playState;
+                gp.playMusic(0);
             } else if (gp.ui.commandNumber == 1) {
                 gp.gameState = gp.titleState;
             }

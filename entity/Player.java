@@ -226,7 +226,7 @@ public class Player extends Entity {
             // nếu nổ
             if (bombs.get(i).exploded == true) {
                 gp.playSE(2);
-                flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), this, bombLength));
+                flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), this, gp.enemies, bombLength));
 
                 for (int j = 1; j <= bombLength; j++) {
                     if (bombs.get(i).desLeft == false) {

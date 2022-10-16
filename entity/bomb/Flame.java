@@ -10,11 +10,15 @@ import javax.imageio.ImageIO;
 
 import entity.Entity;
 import entity.Player;
+import entity.enemy.Enemy;
 import main.GamePanel;
+import sun.security.x509.GeneralName;
 
 public class Flame extends Entity {
     GamePanel gp;
     Player player;
+
+    List<Enemy> enemies;
 
     Bomb bomb;
     public boolean finish = false;
@@ -30,12 +34,13 @@ public class Flame extends Entity {
         this.totalSides = totalSides;
     }
 
-    public Flame(int x, int y, GamePanel gp, Bomb bomb, Player player, int bombLength) {
+    public Flame(int x, int y, GamePanel gp, Bomb bomb, Player player, List<Enemy> enemies, int bombLength) {
         this.x = x;
         this.y = y;
         this.gp = gp;
         this.bomb = bomb;
         this.player = player;
+        this.enemies = enemies;
         tick = 0;
         maxFrame = 4;
         begin = 0;
@@ -65,6 +70,15 @@ public class Flame extends Entity {
                     && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
                     && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
                 player.dead = true;
+            }
+            for (int j = 0; j < enemies.size(); j++) {
+                if (enemies.get(j).getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
+                        && enemies.get(j).getX() + gp.TILESIZE >= sides.get(i).getX() + 20
+                        && enemies.get(j).getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
+                        && enemies.get(j).getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
+                    enemies.remove(j);
+                    j--;
+                }
             }
         }
     }

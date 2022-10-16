@@ -124,7 +124,6 @@ public class GamePanel extends JPanel implements Runnable {
                     delta--;
                 }
             }
-            stopMusic();
         }
     }
 
@@ -137,7 +136,8 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.get(i).update();
             }
             if (player.dead) {
-                playing = false;
+                gameState = gameOverState;
+                stopMusic();
             }
         }
         if (gameState == optionsState) {

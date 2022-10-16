@@ -315,6 +315,8 @@ public class UI {
             if (gp.input.enterPressed == true) {
                 subState = 0;
                 gp.gameState = gp.titleState;
+                gp.stopMusic();
+                gp.playMusic(3);
             }
         }
 

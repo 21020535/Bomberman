@@ -317,6 +317,7 @@ public class UI {
                 gp.gameState = gp.titleState;
                 gp.stopMusic();
                 gp.playMusic(3);
+                gp.setupGame();
             }
         }
 

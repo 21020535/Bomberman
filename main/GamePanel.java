@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import entity.Player;
+import entity.enemy.Dumb;
 import entity.enemy.Enemy;
 import tile.TileManager;
 
@@ -87,7 +88,8 @@ public class GamePanel extends JPanel implements Runnable {
         // sound = new Sound();
         // se = new Sound();
         enemies.clear();
-        enemies.add(new Enemy(this));
+        enemies.add(new Dumb(1104, 48, this));
+        enemies.add(new Dumb(1104, 624, this));
         playing = true;
     }
 

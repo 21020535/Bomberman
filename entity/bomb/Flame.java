@@ -12,7 +12,6 @@ import entity.Entity;
 import entity.Player;
 import entity.enemy.Enemy;
 import main.GamePanel;
-import sun.security.x509.GeneralName;
 
 public class Flame extends Entity {
     GamePanel gp;

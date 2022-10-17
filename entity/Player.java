@@ -62,7 +62,7 @@ public class Player extends Entity {
         begin = 0;
         interval = 10;
         bombLength = 1;
-        maxBomb = 1;
+        maxBomb = 2;
         powerupsSetup();
     }
 
@@ -72,7 +72,7 @@ public class Player extends Entity {
         for (int i = 0; i < 4; i++) {
             this.mapItem.add(3);
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             this.mapItem.add(4);
         }
         for (int i = 0; i < 4; i++) {
@@ -146,7 +146,8 @@ public class Player extends Entity {
                 if (movementBuffer == 0) {
                     movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     direction = "down";
-                } else if (direction.equals("up") && gp.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1) / gp.TILESIZE] != 8) {
+                } else if (direction.equals("up")
+                        && gp.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1) / gp.TILESIZE] != 8) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "down";
                 }
@@ -176,13 +177,16 @@ public class Player extends Entity {
             // thêm 1 quả bomb vào list bomb
             if (input.bomb == true) {
                 if (bombs.size() < maxBomb) {
-                    bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
-                            (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
-                            bombLength, gp));
-                    gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                            / gp.TILESIZE] = 8;
-                    input.bomb = false;
-                    gp.playSE(1);
+                    if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                            / gp.TILESIZE] != 8) {
+                        bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
+                                (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
+                                bombLength, gp));
+                        gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                                / gp.TILESIZE] = 8;
+                        input.bomb = false;
+                        gp.playSE(1);
+                    }
                 }
             }
             // va chạm ban đầu = false

@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import entity.Player;
 import entity.enemy.Dumb;
 import entity.enemy.Enemy;
+import environment.EnvironmentManager;
 import tile.TileManager;
 
 /**
@@ -28,8 +29,8 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable {
     // screen settings
     // cài đặt màn hình
-    final int WINDOW_WIDTH = 1200;
-    final int WINDOW_HEIGHT = 720;
+    public final int WINDOW_WIDTH = 1200;
+    public final int WINDOW_HEIGHT = 720;
 
     public final int TILESIZE = 48; // size của 1 ô
 
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public List<Enemy> enemies = new ArrayList<>();
 
     public TileManager tileManager;
+    EnvironmentManager eManager = new EnvironmentManager(this);
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -87,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         state = titleState;
         ui = new UI(this);
         tileManager = new TileManager(this, level);
+        eManager.setup();
         player = new Player(this, input);
         enemies.clear();
         enemies.add(new Dumb(1104, 48, this));
@@ -166,6 +169,7 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }
+            eManager.draw(g2);
         }
         g2.dispose();
         // tile

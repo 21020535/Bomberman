@@ -136,7 +136,8 @@ public class Player extends Entity {
                 if (movementBuffer == 0) {
                     movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     direction = "up";
-                } else if (direction.equals("down")) {
+                } else if (direction.equals("down")
+                        && gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 8) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "up";
                 }
@@ -145,7 +146,7 @@ public class Player extends Entity {
                 if (movementBuffer == 0) {
                     movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     direction = "down";
-                } else if (direction.equals("up")) {
+                } else if (direction.equals("up") && gp.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1) / gp.TILESIZE] != 8) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "down";
                 }
@@ -154,7 +155,8 @@ public class Player extends Entity {
                 if (movementBuffer == 0) {
                     movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
                     direction = "left";
-                } else if (direction.equals("right")) {
+                } else if (direction.equals("right")
+                        && gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 8) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "left";
                 }
@@ -163,7 +165,8 @@ public class Player extends Entity {
                 if (movementBuffer == 0) {
                     movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
                     direction = "right";
-                } else if (direction.equals("left")) {
+                } else if (direction.equals("left")
+                        && gp.tileManager.mapTileNum[(x + gp.TILESIZE - 1) / gp.TILESIZE][y / gp.TILESIZE] != 8) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "right";
                 }
@@ -173,9 +176,11 @@ public class Player extends Entity {
             // thêm 1 quả bomb vào list bomb
             if (input.bomb == true) {
                 if (bombs.size() < maxBomb) {
-                    bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE, (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
+                    bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
+                            (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                             bombLength, gp));
-                    gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 8;
+                    gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                            / gp.TILESIZE] = 8;
                     input.bomb = false;
                     gp.playSE(1);
                 }
@@ -272,7 +277,7 @@ public class Player extends Entity {
                             bombs.get(i).desUp = true;
                         }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 1) {    
+                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
                                     / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
                                             .get(0);

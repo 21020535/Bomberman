@@ -31,6 +31,8 @@ public class Player extends Entity {
     public int bombLength, maxBomb;
     private int movementBuffer = 0;
 
+    public boolean flameResist = true;
+
     public boolean dead = false;
 
     public Player(GamePanel gp, KeyHandler input) {
@@ -132,7 +134,7 @@ public class Player extends Entity {
             // nếu input = up thì trạng thái hoạt động là up
             if (input.up == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE;
+                    movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     direction = "up";
                 } else if (direction.equals("down")) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
@@ -141,7 +143,7 @@ public class Player extends Entity {
             }
             if (input.down == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE;
+                    movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     direction = "down";
                 } else if (direction.equals("up")) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
@@ -150,7 +152,7 @@ public class Player extends Entity {
             }
             if (input.left == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE;
+                    movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
                     direction = "left";
                 } else if (direction.equals("right")) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
@@ -159,7 +161,7 @@ public class Player extends Entity {
             }
             if (input.right == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE;
+                    movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
                     direction = "right";
                 } else if (direction.equals("left")) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
@@ -179,10 +181,10 @@ public class Player extends Entity {
                 }
             }
             // va chạm ban đầu = false
-            collide = false;
             // check va chạm vs bản đồ
-            gp.cChecker.checkTile(this);
         }
+        collide = false;
+        gp.cChecker.checkTile(this);
         if (collide == false) {
             if (movementBuffer > 0) {
                 switch (direction) {
@@ -330,6 +332,7 @@ public class Player extends Entity {
         }
         if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 6) {
             // flamepass
+            flameResist = true;
             gp.playSE(4);
             // maxBomb += 1;
             gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;

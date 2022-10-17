@@ -64,11 +64,13 @@ public class Flame extends Entity {
         }
         for (int i = 0; i < sides.size(); i++) {
             sides.get(i).update();
-            if (player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
-                    && player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
-                    && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
-                    && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
-                player.dead = true;
+            if (!player.flameResist) {
+                if (player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
+                        && player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
+                        && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
+                        && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
+                    player.dead = true;
+                }
             }
             for (int j = 0; j < enemies.size(); j++) {
                 if (enemies.get(j).getX() + 20 <= sides.get(i).getX() + gp.TILESIZE

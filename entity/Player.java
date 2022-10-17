@@ -134,7 +134,11 @@ public class Player extends Entity {
             // nếu input = up thì trạng thái hoạt động là up
             if (input.up == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
+                    if (y % gp.TILESIZE == 0) {
+                        movementBuffer += gp.TILESIZE;
+                    } else {
+                        movementBuffer += y % gp.TILESIZE;
+                    }
                     direction = "up";
                 } else if (direction.equals("down")
                         && gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 8) {
@@ -144,7 +148,11 @@ public class Player extends Entity {
             }
             if (input.down == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
+                    if (y % gp.TILESIZE == 0) {
+                        movementBuffer += gp.TILESIZE;
+                    } else {
+                        movementBuffer += y % gp.TILESIZE;
+                    }
                     direction = "down";
                 } else if (direction.equals("up")
                         && gp.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1) / gp.TILESIZE] != 8) {
@@ -154,7 +162,11 @@ public class Player extends Entity {
             }
             if (input.left == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
+                    if (y % gp.TILESIZE == 0) {
+                        movementBuffer += gp.TILESIZE;
+                    } else {
+                        movementBuffer += x % gp.TILESIZE;
+                    }
                     direction = "left";
                 } else if (direction.equals("right")
                         && gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 8) {
@@ -164,7 +176,11 @@ public class Player extends Entity {
             }
             if (input.right == true) {
                 if (movementBuffer == 0) {
-                    movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
+                    if (y % gp.TILESIZE == 0) {
+                        movementBuffer += gp.TILESIZE;
+                    } else {
+                        movementBuffer += x % gp.TILESIZE;
+                    }
                     direction = "right";
                 } else if (direction.equals("left")
                         && gp.tileManager.mapTileNum[(x + gp.TILESIZE - 1) / gp.TILESIZE][y / gp.TILESIZE] != 8) {

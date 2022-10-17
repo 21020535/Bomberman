@@ -10,7 +10,6 @@ import main.GamePanel;
 
 public abstract class Enemy extends Entity {
     GamePanel gp;
-    String name;
     String[] leftR = {"down", "right", "up"};
     String[] downR = {"left", "right", "up"};
     String[] rightR = {"down", "left", "up"};
@@ -33,24 +32,5 @@ public abstract class Enemy extends Entity {
 
     public abstract void update();
 
-    public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
-        // vẽ nhân vật
-        switch (direction) {
-            case "up":
-                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                frame = image.getSubimage(16, 16 * tick, 16, 16);
-                break;
-            case "down":
-                frame = image.getSubimage(0, 16 * tick, 16, 16);
-                break;
-            case "left":
-                frame = image.getSubimage(32, 16 * tick, 16, 16);
-                break;
-            case "right":
-                frame = image.getSubimage(48, 16 * tick, 16, 16);
-                break;
-        }
-        g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
-    }
+    public abstract void draw(Graphics2D g2);
 }

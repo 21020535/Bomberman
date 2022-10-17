@@ -1,17 +1,15 @@
 package entity.enemy;
 
+import main.GamePanel;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-
-import main.GamePanel;
-
-public class Dumb extends Enemy {
-
-    public Dumb(int x, int y, GamePanel gp) {
+public class Zombie extends Enemy{
+    public Zombie(int x, int y, GamePanel gp) {
         super(x, y, gp);
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +24,6 @@ public class Dumb extends Enemy {
         begin = 0;
         interval = 7;
         direction = "left";
-        num = 48;
     }
 
     @Override
@@ -44,7 +41,7 @@ public class Dumb extends Enemy {
         collide = false;
         Random a = new Random();
         gp.cChecker.checkTile(this);
-        if (!collide && num > 0) {
+        if (!collide) {
             switch (direction) {
                 case "left":
                     x -= speed;
@@ -63,8 +60,7 @@ public class Dumb extends Enemy {
                     num--;
                     break;
             }
-        }
-        if (collide) {
+        } else {
 
             if (direction.equals("left")) {
                 direction = leftR[a.nextInt(3)];
@@ -75,17 +71,13 @@ public class Dumb extends Enemy {
             } else if (direction.equals("up")) {
                 direction = upR[a.nextInt(3)];
             }
-        } else if (num == 0) {
-            direction = all[a.nextInt(4)];
-            num = 48;
         }
     }
 
     @Override
     public void getImage() {
-        // TODO Auto-generated method stub
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/enemy2.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/enemy3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,16 +90,16 @@ public class Dumb extends Enemy {
         switch (direction) {
             case "up":
                 // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                frame = image.getSubimage(16 * tick, 48, 16, 16);
+                frame = image.getSubimage(16 * tick + 2, 48, 16, 16);
                 break;
             case "down":
-                frame = image.getSubimage(16 * tick, 0, 16, 16);
+                frame = image.getSubimage(16 * tick + 2, 0, 16, 16);
                 break;
             case "left":
-                frame = image.getSubimage(16 * tick, 16, 16, 16);
+                frame = image.getSubimage(16 * tick + 2, 16, 16, 16);
                 break;
             case "right":
-                frame = image.getSubimage(16 * tick, 32, 16, 16);
+                frame = image.getSubimage(16 * tick + 2, 32, 16, 16);
                 break;
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);

@@ -41,7 +41,7 @@ public class CollisionChecker {
                 // vì trục tọa độ hướng xuống nên muốn đi lên thì trên đầu (đầu - speed) sau đó
                 // / size ô
                 // xác định topRow đang ở dòng nào
-                topRow = (top - entity.getSpeed()) / gp.TILESIZE;
+                topRow = (top - 2) / gp.TILESIZE;
                 // lấy giá trị của mapTile tại tọa độ [leftCol][topRow]
                 tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
                 tileNum2 = gp.tileManager.mapTileNum[rightCol][topRow];
@@ -53,7 +53,7 @@ public class CollisionChecker {
                 }
                 break;
             case "down":
-                botRow = (bottom + entity.getSpeed()) / gp.TILESIZE;
+                botRow = (bottom + 2) / gp.TILESIZE;
                 tileNum1 = gp.tileManager.mapTileNum[leftCol][botRow];
                 tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
                 if (gp.tileManager.tiles[tileNum1].collision == true
@@ -62,7 +62,7 @@ public class CollisionChecker {
                 }
                 break;
             case "left":
-                leftCol = (leftmost - entity.getSpeed()) / gp.TILESIZE;
+                leftCol = (leftmost - 2) / gp.TILESIZE;
                 tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
                 tileNum2 = gp.tileManager.mapTileNum[leftCol][botRow];
                 if (gp.tileManager.tiles[tileNum1].collision == true
@@ -71,7 +71,7 @@ public class CollisionChecker {
                 }
                 break;
             case "right":
-                rightCol = (rightmost + entity.getSpeed()) / gp.TILESIZE;
+                rightCol = (rightmost + 2) / gp.TILESIZE;
                 tileNum1 = gp.tileManager.mapTileNum[rightCol][topRow];
                 tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
                 if (gp.tileManager.tiles[tileNum1].collision == true

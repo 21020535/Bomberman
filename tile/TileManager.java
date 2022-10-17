@@ -17,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp, int level) {
         this.gp = gp;
-        tiles = new Tile[8];
+        tiles = new Tile[9];
         mapTileNum = new int[gp.maxCols][gp.maxRows];
 
         getTileImage();
@@ -66,6 +66,9 @@ public class TileManager {
             tiles[7].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/portal.png"));
             // tiles[7].collision = true;
             // tiles[7].breakable = false;
+            tiles[8] = new Tile();
+            tiles[8].image = null;
+            tiles[8].collision = true;
         } catch (IOException e) {
             e.printStackTrace();
         }

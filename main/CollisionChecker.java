@@ -5,7 +5,6 @@
 package main;
 
 import entity.Entity;
-import entity.Player;
 
 /**
  *
@@ -18,70 +17,10 @@ public class CollisionChecker {
         this.gp = gp;
     }
 
-    public void checkTilePlayer(Player player) {
-        // bên trái nhất của entity là vị trí entity + 4
-        int leftmost = player.getX() + 1;
-        // bên phải nhất của player là + size 1 ô - 4
-        int rightmost = player.getX() + gp.TILESIZE - 1;
-        int top = player.getY() + 1;
-        int bottom = player.getY() + gp.TILESIZE - 1;
-
-        // xác định vị trí bên trái nhất ở cột nào
-        int leftCol = leftmost / gp.TILESIZE;
-        // xác định vị trí bên phải nhất ở cột nà0
-        int rightCol = rightmost / gp.TILESIZE;
-        // xác định trên đầu thuộc dòng nào
-        int topRow = top / gp.TILESIZE;
-        // xác định dưới thân thuộc dòng nào
-        int botRow = bottom / gp.TILESIZE;
-
-        int tileNum1, tileNum2;
-
-        if (player.input.up) {
-            topRow = (top - player.getSpeed()) / gp.TILESIZE;
-            // lấy giá trị của mapTile tại tọa độ [leftCol][topRow]
-            tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-            tileNum2 = gp.tileManager.mapTileNum[rightCol][topRow];
-            // nếu item này có xảy ra va chạm k đc đi tiếp
-            if (gp.tileManager.tiles[tileNum1].collision == true
-                    || gp.tileManager.tiles[tileNum2].collision == true) {
-                // va chạm nhân vật = true
-                player.collide = true;
-            }
-        }
-        if (player.input.down) {
-            botRow = (bottom + player.getSpeed()) / gp.TILESIZE;
-            tileNum1 = gp.tileManager.mapTileNum[leftCol][botRow];
-            tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
-            if (gp.tileManager.tiles[tileNum1].collision == true
-                    || gp.tileManager.tiles[tileNum2].collision == true) {
-                player.collide = true;
-            }
-        }
-        if (player.input.left) {
-            leftCol = (leftmost - player.getSpeed()) / gp.TILESIZE;
-            tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-            tileNum2 = gp.tileManager.mapTileNum[leftCol][botRow];
-            if (gp.tileManager.tiles[tileNum1].collision == true
-                    || gp.tileManager.tiles[tileNum2].collision == true) {
-                player.collide = true;
-            }
-        }
-        if (player.input.right) {
-            rightCol = (rightmost + player.getSpeed()) / gp.TILESIZE;
-            tileNum1 = gp.tileManager.mapTileNum[rightCol][topRow];
-            tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
-            if (gp.tileManager.tiles[tileNum1].collision == true
-                    || gp.tileManager.tiles[tileNum2].collision == true) {
-                player.collide = true;
-            }
-        }
-    }
-
     public void checkTile(Entity entity) {
-        // bên trái nhất của entity là vị trí entity + 4
+        // bên trái nhất của entity 
         int leftmost = entity.getX() + 1;
-        // bên phải nhất của entity là + size 1 ô - 4
+        // bên phải nhất của entity 
         int rightmost = entity.getX() + gp.TILESIZE - 1;
         int top = entity.getY() + 1;
         int bottom = entity.getY() + gp.TILESIZE - 1;

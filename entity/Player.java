@@ -25,7 +25,7 @@ public class Player extends Entity {
 
     private GamePanel gp;
     public KeyHandler input;
-    List<Bomb> bombs = new ArrayList<>();
+    public List<Bomb> bombs = new ArrayList<>();
     List<Flame> flames = new ArrayList<>();
     private List<Integer> mapItem = new ArrayList<>();
     public int bombLength, maxBomb;
@@ -171,8 +171,9 @@ public class Player extends Entity {
             // thêm 1 quả bomb vào list bomb
             if (input.bomb == true) {
                 if (bombs.size() < maxBomb) {
-                    bombs.add(new Bomb((x + 12) / gp.TILESIZE * gp.TILESIZE, (y + 12) / gp.TILESIZE * gp.TILESIZE,
+                    bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE, (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                             bombLength, gp));
+                    gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 8;
                     input.bomb = false;
                     gp.playSE(1);
                 }
@@ -217,6 +218,7 @@ public class Player extends Entity {
             }
         } else {
             movementBuffer = 0;
+            tick = 0;
         }
     }
 
@@ -235,13 +237,13 @@ public class Player extends Entity {
                         // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
                         // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
 
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
                             bombs.get(i).desLeft = true;
                         }
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
-                            gp.tileManager.mapTileNum[(bombs.get(i).x + 12 - j * gp.TILESIZE)
+                            gp.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
                                     / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
                             mapItem.remove(0);
                             bombs.get(i).desLeft = true;
@@ -249,13 +251,13 @@ public class Player extends Entity {
 
                     }
                     if (bombs.get(i).desRight == false) {
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
                             bombs.get(i).desRight = true;
                         }
-                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                        if (gp.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
-                            gp.tileManager.mapTileNum[(bombs.get(i).x + 12 + j * gp.TILESIZE)
+                            gp.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
                                     / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
                             mapItem.remove(0);
                             bombs.get(i).desRight = true;
@@ -264,13 +266,13 @@ public class Player extends Entity {
                     }
                     if (bombs.get(i).desUp == false) {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
                             bombs.get(i).desUp = true;
                         }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 1) {    
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + 12 - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                                    / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
                                             .get(0);
                             mapItem.remove(0);
                             bombs.get(i).desUp = true;
@@ -280,13 +282,13 @@ public class Player extends Entity {
 
                     if (bombs.get(i).desDown == false) {
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
                             bombs.get(i).desDown = true;
                         }
                         if (gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
                             gp.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + 12 + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                                    / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
                                             .get(0);
                             mapItem.remove(0);
                             bombs.get(i).desDown = true;
@@ -295,6 +297,7 @@ public class Player extends Entity {
                     }
                 }
                 // sau khi dùng bomb thì vứt ra khỏi list
+                gp.tileManager.mapTileNum[bombs.get(i).x / gp.TILESIZE][bombs.get(i).y / gp.TILESIZE] = 0;
                 bombs.remove(i);
                 i--;
             }

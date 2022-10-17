@@ -66,13 +66,13 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_J) {
             bomb = true;
         }
-        if (event == KeyEvent.VK_R) {
-            switch (gp.curMap) {
-                case 0:
-                    gp.tileManager.loadMap("/res/map/map2.txt", 0);
-                    break;
-            }
-        }
+        // if (event == KeyEvent.VK_R) {
+        //     switch (gp.curMap) {
+        //         case 0:
+        //             gp.tileManager.loadMap("/res/map/map2.txt", 0);
+        //             break;
+        //     }
+        // }
 
         if (event == KeyEvent.VK_ENTER) {
             enterPressed = true;

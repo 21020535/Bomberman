@@ -35,8 +35,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int maxCols = 25; // map gồm 25 cột
     public int maxRows = 15; // 15 dòng
-    public final int maxMap = 3;
-    public int curMap = 0;
+    // public final int maxMap = 3;
+    // public int curMap = 0;
 
     // time and fps handling stuffs
     private long thisTime, lastTime;

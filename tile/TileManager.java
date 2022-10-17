@@ -13,16 +13,16 @@ import main.GamePanel;
 public class TileManager {
     GamePanel gp;
     public Tile[] tiles; // mảng chứa các thông số txt tương ứng của các item
-    public int mapTileNum[][][]; // mảng 2 chiều để chứa vị trí và giá trị thông số txt tương ứng của các item
+    public int mapTileNum[][]; // mảng 2 chiều để chứa vị trí và giá trị thông số txt tương ứng của các item
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tiles = new Tile[8];
-        mapTileNum = new int[gp.maxMap][gp.maxCols][gp.maxRows];
+        mapTileNum = new int[gp.maxCols][gp.maxRows];
 
         getTileImage();
-        loadMap("/res/map/map1.txt", 0);
-        loadMap("/res/map/map2.txt", 1);
+        loadMap("/res/map/map1.txt");
+        // loadMap("/res/map/map2.txt", 1);
     }
 
     public void getTileImage() {
@@ -72,7 +72,7 @@ public class TileManager {
     }
 
     // đọc map
-    public void loadMap(String filePath, int map) {
+    public void loadMap(String filePath) {
         try {
             // đọc file txt
             InputStream in = getClass().getResourceAsStream(filePath);
@@ -90,7 +90,7 @@ public class TileManager {
                     // ép kiểu các phần tử của numbers thành int
                     int num = Integer.parseInt(numbers[col]);
                     // đọc thông số vào mảng 2 chiều
-                    mapTileNum[map][col][row] = num;
+                    mapTileNum[col][row] = num;
                     col++;
                 }
                 col = 0;
@@ -109,7 +109,7 @@ public class TileManager {
         int y = 0;
         // vẽ map bằng bảng txt\
         while (col < gp.maxCols && row < gp.maxRows) {
-            int tileNum = mapTileNum[gp.curMap][col][row];
+            int tileNum = mapTileNum[col][row];
             g2.drawImage(tiles[tileNum].image, x, y, gp.TILESIZE, gp.TILESIZE, null);
             col++;
             x += gp.TILESIZE;

@@ -34,17 +34,17 @@ public class UI {
         g2.setFont(arial_40);
         g2.setColor(Color.white);
         // menu
-        if (gp.gameState == gp.titleState) {
+        if (gp.state == gp.titleState) {
             drawTitleScreen(g2);
         }
         // pause
-        if (gp.gameState == gp.playState) {
+        if (gp.state == gp.playState) {
             // do
         }
-        if (gp.gameState == gp.optionsState) {
+        if (gp.state == gp.optionsState) {
             drawOptionsScreen();
         }
-        if (gp.gameState == gp.gameOverState) {
+        if (gp.state == gp.gameOverState) {
             drawGameOverScreen();
         }
     }
@@ -204,7 +204,7 @@ public class UI {
         if (commandNumber == 4) {
             g2.drawString(">", textX - 25, textY);
             if (gp.input.enterPressed == true) {
-                gp.gameState = gp.playState;
+                gp.state = gp.playState;
                 commandNumber = 0;
             }
         }
@@ -314,7 +314,7 @@ public class UI {
             g2.drawString(">", textX - 25, textY);
             if (gp.input.enterPressed == true) {
                 subState = 0;
-                gp.gameState = gp.titleState;
+                gp.state = gp.titleState;
                 gp.stopMusic();
                 gp.playMusic(3);
                 gp.setupGame();

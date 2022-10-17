@@ -32,21 +32,21 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int event = e.getKeyCode();
         // Menu
-        if (gp.gameState == gp.titleState) {
+        if (gp.state == gp.titleState) {
             titleState(event);
-        } else if (gp.gameState == gp.optionsState) {
+        } else if (gp.state == gp.optionsState) {
             optionsState(event);
-        } else if (gp.gameState == gp.gameOverState) {
+        } else if (gp.state == gp.gameOverState) {
             gameOverState(event);
         }
 
 
         if (event == KeyEvent.VK_P) {
             // pause = !pause;
-            if (gp.gameState == gp.playState) {
-                gp.gameState = gp.optionsState;
+            if (gp.state == gp.playState) {
+                gp.state = gp.optionsState;
             } else {
-                gp.gameState = gp.playState;
+                gp.state = gp.playState;
             }
         }
 
@@ -97,7 +97,7 @@ public class KeyHandler implements KeyListener {
 
         if (event == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNumber == 0) {
-                gp.gameState = gp.playState;
+                gp.state = gp.playState;
                 gp.stopMusic();
                 gp.playMusic(0);
             }
@@ -108,6 +108,7 @@ public class KeyHandler implements KeyListener {
             if (gp.ui.commandNumber == 2) {
                 System.exit(0);
             }
+            gp.ui.commandNumber = 0;
         }
     }
 
@@ -186,12 +187,14 @@ public class KeyHandler implements KeyListener {
         }
         if (event == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNumber == 0) {
+                gp.level = 1;
                 gp.setupGame();
-                gp.gameState = gp.playState;
+                gp.state = gp.playState;
                 gp.playMusic(0);
             } else if (gp.ui.commandNumber == 1) {
-                gp.gameState = gp.titleState;
+                gp.state = gp.titleState;
             }
+            gp.ui.commandNumber = 0;
         }
     }
 

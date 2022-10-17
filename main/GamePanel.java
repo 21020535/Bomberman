@@ -59,7 +59,10 @@ public class GamePanel extends JPanel implements Runnable {
     Sound sound = new Sound();
     Sound se = new Sound();
 
-    public int gameState;
+    public int level = 1;
+    public int maxLevel = 2;
+
+    public int state;
     public final int titleState = 0;
     public final int playState = 1;
     public final int optionsState = 2;
@@ -81,12 +84,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        gameState = titleState;
+        state = titleState;
         ui = new UI(this);
-        tileManager = new TileManager(this);
+        tileManager = new TileManager(this, level);
         player = new Player(this, input);
-        // sound = new Sound();
-        // se = new Sound();
         enemies.clear();
         enemies.add(new Dumb(1104, 48, this));
         enemies.add(new Dumb(1104, 624, this));
@@ -131,18 +132,18 @@ public class GamePanel extends JPanel implements Runnable {
 
     // update nhân vật di chuyển va chạm thả bom
     public void update() {
-        if (gameState == playState) {
+        if (state == playState) {
             player.update();
             // enemy.update();
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).update();
             }
             if (player.dead) {
-                gameState = gameOverState;
+                state = gameOverState;
                 stopMusic();
             }
         }
-        if (gameState == optionsState) {
+        if (state == optionsState) {
             //
         }
     }
@@ -157,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setColor(Color.WHITE);
 
         // tile screen
-        if (gameState != playState) {
+        if (state != playState) {
             ui.draw(g2);
         } else {
             tileManager.draw(g2);

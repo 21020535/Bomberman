@@ -15,13 +15,13 @@ public class TileManager {
     public Tile[] tiles; // mảng chứa các thông số txt tương ứng của các item
     public int mapTileNum[][]; // mảng 2 chiều để chứa vị trí và giá trị thông số txt tương ứng của các item
 
-    public TileManager(GamePanel gp) {
+    public TileManager(GamePanel gp, int level) {
         this.gp = gp;
         tiles = new Tile[8];
         mapTileNum = new int[gp.maxCols][gp.maxRows];
 
         getTileImage();
-        loadMap("/res/map/map1.txt");
+        loadMap("/res/map/map" + level + ".txt");
         // loadMap("/res/map/map2.txt", 1);
     }
 

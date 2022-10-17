@@ -334,7 +334,16 @@ public class Player extends Entity {
 
         if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 7) {
             // portal
-            gp.playSE(4);
+            if (gp.enemies.isEmpty()) {
+                if (gp.level < gp.maxLevel) {
+                    gp.level++;
+                    gp.setupGame();
+                    gp.state = gp.playState;
+                } else {
+                    gp.state = gp.gameOverState;
+                }
+                gp.playSE(4);
+            }
             // maxBomb += 1;
         }
     }
@@ -343,7 +352,7 @@ public class Player extends Entity {
         for (int i = 0; i < gp.enemies.size(); i++) {
             if (x + 18 <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x + 18
                     && y + 18 <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y + 18) {
-                gp.gameState = gp.gameOverState;
+                gp.state = gp.gameOverState;
                 return true;
             }
         }

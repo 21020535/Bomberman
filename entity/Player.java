@@ -323,31 +323,31 @@ public class Player extends Entity {
     }
 
     public void powerUps() {
-        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 3) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 3) {
             gp.playSE(4);
             maxBomb++;
-            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+            gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
-        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 4) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 4) {
             gp.playSE(4);
             this.speed++;
             this.interval--;
-            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+            gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
-        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 5) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 5) {
             gp.playSE(4);
             bombLength++;
-            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+            gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
-        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 6) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 6) {
             // flamepass
             flameResist = true;
             gp.playSE(4);
             // maxBomb += 1;
-            gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] = 0;
+            gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
 
-        if (gp.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] == 7) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 7) {
             // portal
             if (gp.enemies.isEmpty()) {
                 if (gp.level < gp.maxLevel) {

@@ -48,42 +48,99 @@ public class Kiki extends Enemy {
 
         if (movementBuffer == 0) {
             boolean chose = false;
-            if (blockedL) {
-                if (gp.player.getX() < x) {
-                    movementBuffer += gp.TILESIZE;
+            if (gp.player.getX() < x) {
+                if (blockedL == false) {
                     direction = "left";
+                    movementBuffer += gp.TILESIZE;
                     chose = true;
-                    blockedD = false;
-                    blockedU = false;
                 }
             }
-            if (!chose && !blockedR) {
-                if (gp.player.getX() < x) {
-                    movementBuffer += gp.TILESIZE;
+            if (gp.player.getX() > x) {
+                if (chose == false && blockedR == false) {
                     direction = "right";
+                    movementBuffer += gp.TILESIZE;
                     chose = true;
-                    blockedD = false;
-                    blockedU = false;
                 }
             }
-            if (!chose && !blockedD) {
-                if (gp.player.getY() > y) {
-                    movementBuffer += gp.TILESIZE;
-                    direction = "down";
-                    chose = true;
-                    blockedL = false;
-                    blockedR = false;
-                }
-            }
-            if (!chose && !blockedU) {
-                if (gp.player.getY() < y) {
-                    movementBuffer += gp.TILESIZE;
+            if (gp.player.getY() < y) {
+                if (chose == false && blockedU == false) {
                     direction = "up";
+                    movementBuffer += gp.TILESIZE;
                     chose = true;
-                    blockedL = false;
-                    blockedR = false;
                 }
             }
+            if (gp.player.getY() > y) {
+                if (chose == false && blockedD == false) {
+                    direction = "right";
+                    movementBuffer += gp.TILESIZE;
+                    chose = true;
+                }
+            }
+        }
+        moved = false;
+        collide = false;
+        // Random a = new Random();
+        gp.cChecker.checkTile(this);
+        if (collide == false) {
+            moved = true;
+            if (movementBuffer > 0) {
+                switch (direction) {
+                    case "up":
+                        y -= Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                    case "down":
+                        y += Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                    case "left":
+                        x -= Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                    case "right":
+                        x += Math.min(speed, movementBuffer);
+                        movementBuffer -= Math.min(speed, movementBuffer);
+                        break;
+                }
+            }
+        } else {
+            switch (direction) {
+                case "up":
+                    blockedU = true;
+                    if (moved) {
+                        blockedL = false;
+                        blockedR = false;
+                    }
+                    break;
+                case "down":
+                    blockedD = true;
+                    if (moved) {
+                        blockedL = false;
+                        blockedR = false;
+                    }
+                    break;
+                case "left":
+                    blockedL = true;
+                    if (moved) {
+                        blockedU = false;
+                        blockedD = false;
+                    }
+                    break;
+                case "right":
+                    blockedR = true;
+                    if (moved) {
+                        blockedU = false;
+                        blockedD = false;
+                    }
+                    break;
+            }
+            movementBuffer = 0;
+        }
+        System.out.println(blockedD + " blockedD");
+        System.out.println(blockedR + " blockedR");
+        System.out.println(blockedU + " blockedU");
+        System.out.println(blockedL + " blockedL");
+        System.out.println();
         }
         collide = false;
         gp.cChecker.checkTile(this);

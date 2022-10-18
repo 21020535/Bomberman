@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import entity.Player;
 import entity.enemy.Dumb;
 import entity.enemy.Enemy;
+import entity.enemy.Kiki;
+import entity.enemy.Zombie;
 import tile.TileManager;
 
 /**
@@ -94,7 +96,8 @@ public class GamePanel extends JPanel implements Runnable {
         player = new Player(this, input);
         enemies.clear();
         enemies.add(new Dumb(1104, 48, this));
-        enemies.add(new Dumb(1104, 624, this));
+        enemies.add(new Kiki(1104, 624, this));
+        enemies.add(new Zombie(48, 624, this));
         playing = true;
     }
 

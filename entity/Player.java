@@ -62,11 +62,20 @@ public class Player extends Entity {
         begin = 0;
         interval = 10;
         bombLength = 1;
-        maxBomb = 2;
+        maxBomb = 1;
         powerupsSetup();
     }
 
     private void powerupsSetup() {
+        int brickNumber;
+        switch (gp.level) {
+            case 1:
+                brickNumber = 79;
+                break;
+            default:
+                brickNumber = 0;
+                break;
+        }
         this.mapItem.add(7);
 
         for (int i = 0; i < 4; i++) {
@@ -82,7 +91,7 @@ public class Player extends Entity {
             this.mapItem.add(6);
         }
         int n = mapItem.size();
-        for (int i = 0; i < 79 - n; i++) {
+        for (int i = 0; i < brickNumber - n; i++) {
             mapItem.add(0);
         }
         Collections.shuffle(mapItem);
@@ -93,6 +102,7 @@ public class Player extends Entity {
         handleBombs();
         powerUps();
         dead = dead | deadYet();
+
     }
 
     public void draw(Graphics2D g2) {
@@ -151,7 +161,7 @@ public class Player extends Entity {
                     if (y % gp.TILESIZE == 0) {
                         movementBuffer += gp.TILESIZE;
                     } else {
-                        movementBuffer += y % gp.TILESIZE;
+                        movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     }
                     direction = "down";
                 } else if (direction.equals("up")
@@ -162,7 +172,7 @@ public class Player extends Entity {
             }
             if (input.left == true) {
                 if (movementBuffer == 0) {
-                    if (y % gp.TILESIZE == 0) {
+                    if (x % gp.TILESIZE == 0) {
                         movementBuffer += gp.TILESIZE;
                     } else {
                         movementBuffer += x % gp.TILESIZE;
@@ -176,10 +186,10 @@ public class Player extends Entity {
             }
             if (input.right == true) {
                 if (movementBuffer == 0) {
-                    if (y % gp.TILESIZE == 0) {
+                    if (x % gp.TILESIZE == 0) {
                         movementBuffer += gp.TILESIZE;
                     } else {
-                        movementBuffer += x % gp.TILESIZE;
+                        movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     }
                     direction = "right";
                 } else if (direction.equals("left")

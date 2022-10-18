@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import entity.Player;
 import entity.enemy.Dumb;
 import entity.enemy.Enemy;
-import environment.EnvironmentManager;
 import tile.TileManager;
 
 /**
@@ -54,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
     public List<Enemy> enemies = new ArrayList<>();
 
     public TileManager tileManager;
-    EnvironmentManager eManager = new EnvironmentManager(this);
+    Lighting lighting;
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -62,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound se = new Sound();
 
     public int level = 1;
-    public int maxLevel = 2;
+    public int maxLevel = 3;
 
     public int state;
     public final int titleState = 0;
@@ -89,7 +88,9 @@ public class GamePanel extends JPanel implements Runnable {
         state = titleState;
         ui = new UI(this);
         tileManager = new TileManager(this, level);
-        eManager.setup();
+        if (level >= 3) {
+            lighting = new Lighting(this, 350);
+        }
         player = new Player(this, input);
         enemies.clear();
         enemies.add(new Dumb(1104, 48, this));
@@ -118,15 +119,8 @@ public class GamePanel extends JPanel implements Runnable {
                 lastTime = thisTime;
 
                 if (delta >= 1) {
-                    // if (!paused) {
                     update();
                     repaint();
-                    // }
-                    // if (input.pause == true) {
-                    //     paused = true;
-                    // } else {
-                    //     paused = false;
-                    // }
                     delta--;
                 }
             }
@@ -169,7 +163,9 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }
-            eManager.draw(g2);
+            if (level >= 3) {
+                lighting.draw(g2);
+            }
         }
         g2.dispose();
         // tile

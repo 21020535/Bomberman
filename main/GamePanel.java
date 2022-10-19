@@ -30,13 +30,13 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable {
     // screen settings
     // cài đặt màn hình
-    public final int WINDOW_WIDTH = 1200;
-    public final int WINDOW_HEIGHT = 720;
+   public static final int WINDOW_WIDTH = 1200;
+    public static final int WINDOW_HEIGHT = 720;
 
     public final int TILESIZE = 48; // size của 1 ô
 
-    public int maxCols = 25; // map gồm 25 cột
-    public int maxRows = 15; // 15 dòng
+    public static int maxCols = 25; // map gồm 25 cột
+    public static int maxRows = 15; // 15 dòng
     // public final int maxMap = 3;
     // public int curMap = 0;
 
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     // public Enemy enemy = new Enemy(this);
     public List<Enemy> enemies = new ArrayList<>();
 
-    public TileManager tileManager;
+    public static TileManager tileManager;
     Lighting lighting;
     BufferedImage bg;
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound sound = new Sound();
     Sound se = new Sound();
 
-    public int level = 2;
+    public int level = 1;
     public int maxLevel = 3;
 
     public int state;

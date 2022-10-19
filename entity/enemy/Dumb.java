@@ -1,7 +1,6 @@
 package entity.enemy;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.Random;
 
@@ -93,7 +92,6 @@ public class Dumb extends Enemy {
 
     @Override
     public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
         // vẽ nhân vật
         switch (direction) {
             case "up":

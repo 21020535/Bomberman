@@ -1,12 +1,12 @@
 package entity.enemy;
 
-import main.GamePanel;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
+
+import main.GamePanel;
 
 public class Zombie extends Enemy{
     public Zombie(int x, int y, GamePanel gp) {
@@ -85,7 +85,6 @@ public class Zombie extends Enemy{
 
     @Override
     public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
         // vẽ nhân vật
         switch (direction) {
             case "up":

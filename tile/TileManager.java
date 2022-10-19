@@ -18,7 +18,7 @@ public class TileManager {
     public TileManager(GamePanel gp, int level) {
         this.gp = gp;
         tiles = new Tile[41];
-        mapTileNum = new int[gp.maxCols][gp.maxRows];
+        mapTileNum = new int[GamePanel.maxCols][GamePanel.maxRows];
 
         getTileImage();
         loadMap("/res/map/map" + level + ".txt");
@@ -111,12 +111,12 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < gp.maxCols && row < gp.maxRows) {
+            while (col < GamePanel.maxCols && row < GamePanel.maxRows) {
                 // đọc dòng đầu tiên của txt thành 1 xâu
                 String line = br.readLine();
                 // biến đổi xâu vừa đọc thành các phần tử string của mảng numbers
                 String numbers[] = line.split(" ");
-                while (col < gp.maxCols) {
+                while (col < GamePanel.maxCols) {
                     // ép kiểu các phần tử của numbers thành int
                     int num = Integer.parseInt(numbers[col]);
                     // đọc thông số vào mảng 2 chiều
@@ -138,12 +138,12 @@ public class TileManager {
         int x = 0;
         int y = 0;
         // vẽ map bằng bảng txt\
-        while (col < gp.maxCols && row < gp.maxRows) {
+        while (col < GamePanel.maxCols && row < GamePanel.maxRows) {
             int tileNum = mapTileNum[col][row];
             g2.drawImage(tiles[tileNum].image, x, y, gp.TILESIZE, gp.TILESIZE, null);
             col++;
             x += gp.TILESIZE;
-            if (col == gp.maxCols) {
+            if (col == GamePanel.maxCols) {
                 col = 0;
                 x = 0;
                 row++;

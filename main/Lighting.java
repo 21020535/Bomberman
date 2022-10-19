@@ -27,7 +27,7 @@ public class Lighting {
         this.circleSize = circleSize;
 
         // create a buffered image
-        darknessFilter = new BufferedImage(gp.WINDOW_WIDTH, gp.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        darknessFilter = new BufferedImage(GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
 
 
@@ -65,7 +65,7 @@ public class Lighting {
     public void draw(Graphics2D g2) {
 
         // create a screen-sized rectangle area
-        screenArea = new Area(new Rectangle2D.Double(0, 0, gp.WINDOW_WIDTH, gp.WINDOW_HEIGHT));
+        screenArea = new Area(new Rectangle2D.Double(0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT));
         // get center
         int centerX = gp.player.getX() + (gp.TILESIZE) / 2;
         int centerY = gp.player.getY() + (gp.TILESIZE) / 2;

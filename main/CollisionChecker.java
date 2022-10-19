@@ -43,39 +43,39 @@ public class CollisionChecker {
                 // xác định topRow đang ở dòng nào
                 topRow = (top - 2) / gp.TILESIZE;
                 // lấy giá trị của mapTile tại tọa độ [leftCol][topRow]
-                tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-                tileNum2 = gp.tileManager.mapTileNum[rightCol][topRow];
+                tileNum1 = GamePanel.tileManager.mapTileNum[leftCol][topRow];
+                tileNum2 = GamePanel.tileManager.mapTileNum[rightCol][topRow];
                 // nếu item này có xảy ra va chạm k đc đi tiếp
-                if (gp.tileManager.tiles[tileNum1].collision == true
-                        || gp.tileManager.tiles[tileNum2].collision == true) {
+                if (GamePanel.tileManager.tiles[tileNum1].collision == true
+                        || GamePanel.tileManager.tiles[tileNum2].collision == true) {
                     // va chạm nhân vật = true
                     entity.collide = true;
                 }
                 break;
             case "down":
                 botRow = (bottom + 2) / gp.TILESIZE;
-                tileNum1 = gp.tileManager.mapTileNum[leftCol][botRow];
-                tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
-                if (gp.tileManager.tiles[tileNum1].collision == true
-                        || gp.tileManager.tiles[tileNum2].collision == true) {
+                tileNum1 = GamePanel.tileManager.mapTileNum[leftCol][botRow];
+                tileNum2 = GamePanel.tileManager.mapTileNum[rightCol][botRow];
+                if (GamePanel.tileManager.tiles[tileNum1].collision == true
+                        || GamePanel.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;
                 }
                 break;
             case "left":
                 leftCol = (leftmost - 2) / gp.TILESIZE;
-                tileNum1 = gp.tileManager.mapTileNum[leftCol][topRow];
-                tileNum2 = gp.tileManager.mapTileNum[leftCol][botRow];
-                if (gp.tileManager.tiles[tileNum1].collision == true
-                        || gp.tileManager.tiles[tileNum2].collision == true) {
+                tileNum1 = GamePanel.tileManager.mapTileNum[leftCol][topRow];
+                tileNum2 = GamePanel.tileManager.mapTileNum[leftCol][botRow];
+                if (GamePanel.tileManager.tiles[tileNum1].collision == true
+                        || GamePanel.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;
                 }
                 break;
             case "right":
                 rightCol = (rightmost + 2) / gp.TILESIZE;
-                tileNum1 = gp.tileManager.mapTileNum[rightCol][topRow];
-                tileNum2 = gp.tileManager.mapTileNum[rightCol][botRow];
-                if (gp.tileManager.tiles[tileNum1].collision == true
-                        || gp.tileManager.tiles[tileNum2].collision == true) {
+                tileNum1 = GamePanel.tileManager.mapTileNum[rightCol][topRow];
+                tileNum2 = GamePanel.tileManager.mapTileNum[rightCol][botRow];
+                if (GamePanel.tileManager.tiles[tileNum1].collision == true
+                        || GamePanel.tileManager.tiles[tileNum2].collision == true) {
                     entity.collide = true;
                 }
                 break;

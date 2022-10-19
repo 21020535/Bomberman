@@ -1,13 +1,12 @@
 package entity.enemy;
 
-import main.GamePanel;
+import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+
+import main.GamePanel;
 
 public class Kiki extends Enemy {
-    private boolean blockedL = false, blockedR = false, blockedU = false, blockedD = false;
     private int movementBuffer = 0;
 
     public Kiki(int x, int y, GamePanel gp) {
@@ -31,6 +30,7 @@ public class Kiki extends Enemy {
         begin = 0;
         interval = 10;
         direction = "left";
+        frame = image.getSubimage(48 * tick, 0, 48, 48);
     }
 
     @Override
@@ -45,111 +45,82 @@ public class Kiki extends Enemy {
             }
             begin = 0;
         }
-
         if (movementBuffer == 0) {
-            boolean chose = false;
-            if (blockedL) {
-                if (gp.player.getX() < x) {
-                    movementBuffer += gp.TILESIZE;
-                    direction = "left";
-                    chose = true;
-                    blockedD = false;
-                    blockedU = false;
-                }
+            int upCell = 10000, rightCell = 10000, downCell = 10000, leftCell = 10000;
+            if (x / gp.TILESIZE - 1 >= 0) {
+                leftCell = BFS.find(x / gp.TILESIZE - 1,
+                        y / gp.TILESIZE,
+                        gp.player.getX() / gp.TILESIZE,
+                        gp.player.getY() / gp.TILESIZE);
             }
-            if (!chose && !blockedR) {
-                if (gp.player.getX() < x) {
-                    movementBuffer += gp.TILESIZE;
-                    direction = "right";
-                    chose = true;
-                    blockedD = false;
-                    blockedU = false;
-                }
+            if (x / gp.TILESIZE + 1 < GamePanel.maxCols) {
+                rightCell = BFS.find(x / gp.TILESIZE + 1,
+                        y / gp.TILESIZE,
+                        gp.player.getX() / gp.TILESIZE,
+                        gp.player.getY() / gp.TILESIZE);
             }
-            if (!chose && !blockedD) {
-                if (gp.player.getY() > y) {
-                    movementBuffer += gp.TILESIZE;
-                    direction = "down";
-                    chose = true;
-                    blockedL = false;
-                    blockedR = false;
-                }
+            if (y / gp.TILESIZE - 1 >= 0) {
+                upCell = BFS.find(x / gp.TILESIZE,
+                        y / gp.TILESIZE - 1,
+                        gp.player.getX() / gp.TILESIZE,
+                        gp.player.getY() / gp.TILESIZE);
             }
-            if (!chose && !blockedU) {
-                if (gp.player.getY() < y) {
-                    movementBuffer += gp.TILESIZE;
-                    direction = "up";
-                    chose = true;
-                    blockedL = false;
-                    blockedR = false;
-                }
+            if (y / gp.TILESIZE + 1 < GamePanel.maxRows) {
+                downCell = BFS.find(x / gp.TILESIZE,
+                        y / gp.TILESIZE + 1,
+                        gp.player.getX() / gp.TILESIZE,
+                        gp.player.getY() / gp.TILESIZE);
             }
-        }
-        collide = false;
-        gp.cChecker.checkTile(this);
-        if (collide == false) {
-            if (movementBuffer > 0) {
-                switch (direction) {
-                    case "up":
-                        y -= Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                    case "down":
-                        y += Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                    case "left":
-                        x -= Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                    case "right":
-                        x += Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                }
-                begin++;
-                // begin > interval khoảng tg load mỗi frame
-                if (begin > interval) {
-                    tick++;
-                    // nếu frame > frame max cho về ban đầu
-                    if (tick >= maxFrame) {
-                        tick = 0;
-                    }
-                    begin = 0;
-                }
+            int min = 10001;
+
+            if (leftCell < min) {
+                direction = "left";
+                min = leftCell;
             }
-        } else {
-            switch (direction) {
-                case "left":
-                    blockedL = true;
-                    break;
-                case "right":
-                    blockedR = true;
-                    break;
-                case "up":
-                    blockedU = true;
-                    break;
-                case "down":
-                    blockedD = true;
-                    break;
+            if (rightCell < min) {
+                direction = "right";
+                min = rightCell;
             }
-            movementBuffer = 0;
-            tick = 0;
+            if (upCell < min) {
+                direction = "up";
+                min = upCell;
+            }
+            if (downCell < min) {
+                direction = "down";
+                min = downCell;
+            }
+            movementBuffer += gp.TILESIZE;
+            System.out.println(direction);
         }
 
+        switch (direction) {
+            case "left":
+                x -= Math.min(movementBuffer, speed);
+                movementBuffer -= Math.min(movementBuffer, speed);
+                break;
+            case "right":
+                x += Math.min(movementBuffer, speed);
+                movementBuffer -= Math.min(movementBuffer, speed);
+                break;
+            case "up":
+                y -= Math.min(movementBuffer, speed);
+                movementBuffer -= Math.min(movementBuffer, speed);
+                break;
+            case "down":
+                y += Math.min(movementBuffer, speed);
+                movementBuffer -= Math.min(movementBuffer, speed);
+                break;
+        }
     }
 
     @Override
     public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
         switch (direction) {
             case "left":
                 frame = image.getSubimage(48 * tick, 0, 48, 48);
                 break;
             case "right":
                 frame = image.getSubimage(48 * tick, 48, 48, 48);
-                break;
-            default:
                 break;
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);

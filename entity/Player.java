@@ -189,7 +189,7 @@ public class Player extends Entity {
                     if (x % gp.TILESIZE == 0) {
                         movementBuffer += gp.TILESIZE;
                     } else {
-                        movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
+                        movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
                     }
                     direction = "right";
                 } else if (direction.equals("left")

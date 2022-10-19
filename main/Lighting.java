@@ -1,7 +1,5 @@
 package main;
 
-import main.GamePanel;
-
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
@@ -32,25 +30,7 @@ public class Lighting {
         darknessFilter = new BufferedImage(gp.WINDOW_WIDTH, gp.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
 
-        // create a screen-sized rectangle area
-//        screenArea = new Area(new Rectangle2D.Double(0, 0, gp.WINDOW_WIDTH, gp.WINDOW_HEIGHT));
 
-//        // get center
-//        int centerX = gp.player.getX() + (gp.TILESIZE) / 2;
-//        int centerY = gp.player.getY() + (gp.TILESIZE) / 2;
-//
-//        // topLeft x;y of the light
-//        double x = centerX - (circleSize / 2);
-//        double y = centerY - (circleSize / 2);
-//
-//        // create a circle light
-//        circleShape = new Ellipse2D.Double(x, y, circleSize, circleSize);
-//
-//        // create a light circle area
-//        lightArea = new Area(circleShape);
-//
-//        // substract to get a center hold of the rectangle
-//        screenArea.subtract(lightArea);
 
         // set color
         color[0] = new Color(0, 0, 0, 0.1f);
@@ -80,26 +60,11 @@ public class Lighting {
         fraction[10] = 0.95f;
         fraction[11] = 1f;
 
-//        // create a gradation paint settings for the light circle
-//        gPaint = new RadialGradientPaint(centerX, centerY, (circleSize / 2), fraction, color);
-//
-//        // set the gradient data on g2
-//        g2.setPaint(gPaint);
-//
-//        // draw the light circle
-//        g2.fill(lightArea);
-//
-//
-//        // set a black color to draw rec
-//        g2.setColor(new Color(0, 0, 0, 0.98f));
-//
-//        // draw the screen without the light circle area
-//        g2.fill(screenArea);
-//
-//        g2.dispose();
     }
 
     public void draw(Graphics2D g2) {
+
+        // create a screen-sized rectangle area
         screenArea = new Area(new Rectangle2D.Double(0, 0, gp.WINDOW_WIDTH, gp.WINDOW_HEIGHT));
         // get center
         int centerX = gp.player.getX() + (gp.TILESIZE) / 2;

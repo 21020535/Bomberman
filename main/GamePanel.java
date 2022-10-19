@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound sound = new Sound();
     Sound se = new Sound();
 
-    public int level = 1;
+    public int level = 2;
     public int maxLevel = 3;
 
     public int state;
@@ -80,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(input);
         this.setFocusable(true);
         try {
-            bg = ImageIO.read(getClass().getResourceAsStream("/res/bg.png"));
+            bg = ImageIO.read(getClass().getResourceAsStream("/res/bg2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
         state = titleState;
         ui = new UI(this);
         tileManager = new TileManager(this, level);
-        if (level >= 3) {
+        if (level >= 1) {
             lighting = new Lighting(this, 350);
         }
         player = new Player(this, input);
@@ -166,8 +166,8 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }
-            if (level >= 3) {
-                lighting.draw(g2);
+            if (level >= 1) {
+//                lighting.draw(g2);
             }
         }
         g2.dispose();

@@ -53,8 +53,8 @@ public class Player extends Entity {
 
     // set các thông số mặc định
     public void setDefaultValues() {
-        x = 48;
-        y = 48;
+        x = 96;
+        y = 96;
         speed = 2;
         direction = "down";
         tick = 0;
@@ -76,19 +76,19 @@ public class Player extends Entity {
                 brickNumber = 0;
                 break;
         }
-        this.mapItem.add(7);
+        this.mapItem.add(36);
 
         for (int i = 0; i < 4; i++) {
-            this.mapItem.add(3);
+            this.mapItem.add(32);
         }
         for (int i = 0; i < 3; i++) {
-            this.mapItem.add(4);
+            this.mapItem.add(33);
         }
         for (int i = 0; i < 4; i++) {
-            this.mapItem.add(5);
+            this.mapItem.add(34);
         }
         for (int i = 0; i < 1; i++) {
-            this.mapItem.add(6);
+            this.mapItem.add(35);
         }
         int n = mapItem.size();
         for (int i = 0; i < brickNumber - n; i++) {
@@ -189,7 +189,7 @@ public class Player extends Entity {
                     if (x % gp.TILESIZE == 0) {
                         movementBuffer += gp.TILESIZE;
                     } else {
-                        movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
+                        movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
                     }
                     direction = "right";
                 } else if (direction.equals("left")
@@ -349,23 +349,23 @@ public class Player extends Entity {
     }
 
     public void powerUps() {
-        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 3) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 32) {
             gp.playSE(4);
             maxBomb++;
             gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
-        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 4) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 33) {
             gp.playSE(4);
             this.speed++;
             this.interval--;
             gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
-        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 5) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 34) {
             gp.playSE(4);
             bombLength++;
             gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
-        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 6) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 35) {
             // flamepass
             flameResist = true;
             gp.playSE(4);
@@ -373,7 +373,7 @@ public class Player extends Entity {
             gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
         }
 
-        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 7) {
+        if (gp.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 36) {
             // portal
             if (gp.enemies.isEmpty()) {
                 if (gp.level < gp.maxLevel) {

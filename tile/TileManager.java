@@ -17,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp, int level) {
         this.gp = gp;
-        tiles = new Tile[9];
+        tiles = new Tile[41];
         mapTileNum = new int[gp.maxCols][gp.maxRows];
 
         getTileImage();
@@ -42,34 +42,60 @@ public class TileManager {
             tiles[2].collision = true;
             tiles[2].breakable = false;
 
-            tiles[3] = new Tile();
-            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_bombs.png"));
+            tiles[32] = new Tile();
+            tiles[32].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_bombs.png"));
             // tiles[3].collision = true;
             // tiles[3].breakable = false;
 
-            tiles[4] = new Tile();
-            tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_speed.png"));
+            tiles[33] = new Tile();
+            tiles[33].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_speed.png"));
             // tiles[4].collision = true;
             // tiles[4].breakable = false;
 
-            tiles[5] = new Tile();
-            tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_flames.png"));
+            tiles[34] = new Tile();
+            tiles[34].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_flames.png"));
             // tiles[5].collision = true;
             // tiles[5].breakable = false;
 
-            tiles[6] = new Tile();
-            tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_flamepass.png"));
+            tiles[35] = new Tile();
+            tiles[35].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_flamepass.png"));
             // tiles[6].collision = true;
             // tiles[6].breakable = false;
 
-            tiles[7] = new Tile();
-            tiles[7].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/portal.png"));
+            tiles[36] = new Tile();
+            tiles[36].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/portal.png"));
             // tiles[7].collision = true;
             // tiles[7].breakable = false;
 
-            tiles[8] = new Tile();
-            tiles[8].image = null;
-            tiles[8].collision = true;
+            tiles[37] = new Tile();
+            tiles[37].image = null;
+            tiles[37].collision = true;
+
+            for (int i = 3; i <= 9; i++) {
+                tiles[i] = new Tile();
+                tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/00" + i + ".png"));
+            }
+
+            for (int i = 10; i <= 15; i++) {
+                tiles[i] = new Tile();
+                tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
+            }
+
+            tiles[16] = new Tile();
+            tiles[16].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/016.png"));
+            tiles[16].collision = false;
+
+            for (int i = 17; i <= 32; i++) {
+                tiles[i] = new Tile();
+                tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
+                tiles[i].collision = true;
+            }
+
+            for (int i = 38; i <= 40; i++) {
+                tiles[i] = new Tile();
+                tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
+                tiles[i].collision = true;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -49,6 +49,7 @@ public class Player extends Entity {
                 image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
                 image2 = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
             } else {
+                gp.playSE(6);
                 interval = 20;
                 tick = 0;
                 begin = 0;

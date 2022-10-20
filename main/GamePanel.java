@@ -30,40 +30,41 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable {
     // screen settings
     // cài đặt màn hình
-   public static final int WINDOW_WIDTH = 1200;
+    public static final int WINDOW_WIDTH = 1200;
     public static final int WINDOW_HEIGHT = 720;
 
     public final int TILESIZE = 48; // size của 1 ô
 
     public static int maxCols = 25; // map gồm 25 cột
     public static int maxRows = 15; // 15 dòng
-    // public final int maxMap = 3;
-    // public int curMap = 0;
 
     // time and fps handling stuffs
     private long thisTime, lastTime;
-//    public boolean fullScreenOn = false;
+    // public boolean fullScreenOn = false;
     private final int FPS = 60;
     private final float drawInterval = 1000 / FPS;
+
+    public Thread gameThread;
+
     public KeyHandler input = new KeyHandler(this); // keyH
 
     public UI ui = new UI(this);
+    
+    public static TileManager tileManager;
+    
+    public CollisionChecker cChecker = new CollisionChecker(this);
 
-    public Thread gameThread;
     public Player player = new Player(this, input);
-    // public Enemy enemy = new Enemy(this);
     public List<Enemy> enemies = new ArrayList<>();
 
-    public static TileManager tileManager;
-    Lighting lighting;
-    BufferedImage bg;
-    public CollisionChecker cChecker = new CollisionChecker(this);
+    private Lighting lighting;
+    private BufferedImage bg;
 
     Sound sound = new Sound();
     Sound se = new Sound();
 
     public int level = 1;
-    public int maxLevel = 3;
+    public final int maxLevel = 3;
 
     public int state;
     public final int titleState = 0;
@@ -171,7 +172,7 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.get(i).draw(g2);
             }
             if (level >= 1) {
-//                lighting.draw(g2);
+                // lighting.draw(g2);
             }
         }
         g2.dispose();
@@ -187,7 +188,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void stopMusic() {
         sound.stop();
-//        System.out.println("music was stopped");
+        // System.out.println("music was stopped");
     }
 
     public void playSE(int num) {

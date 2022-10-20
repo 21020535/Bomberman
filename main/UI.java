@@ -9,19 +9,18 @@ import javax.imageio.ImageIO;
 // xu ly tat ca giao dien ng dung
 // menu,in chu,pause,option...
 public class UI {
-    GamePanel gp;
-    Graphics2D g2;
-    Font arial_40;
+    private GamePanel gp;
+    private Graphics2D g2;
+    private Font arial_40;
 
-    BufferedImage bombImage, menuImage;
+    private BufferedImage menuImage;
     public int commandNumber = 0;
-    int subState = 0; // number of State
+    public int subState = 0; // number of State
 
     public UI(GamePanel gp) {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         try {
-            bombImage = ImageIO.read(getClass().getResourceAsStream("/res/bomb/fake.png"));
             menuImage = ImageIO.read(getClass().getResourceAsStream("/res/menu.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,14 +62,14 @@ public class UI {
     // g2.drawString(text, x, y);
     // }
 
-    public void drawTitleScreen(Graphics2D g2) {
+    private void drawTitleScreen(Graphics2D g2) {
         // Ten Game
         // draw menu
         g2.drawImage(menuImage, 0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT, null);
         // draw game name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
         String text = "BOMBERMAN";
-        int x = getForCenteredtext(text);
+        int x = align(text);
         int y = gp.TILESIZE * 3;
 
         // bong chu
@@ -85,7 +84,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 
         text = "NEW GAME";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += gp.TILESIZE * 4;
         g2.drawString(text, x, y);
         if (commandNumber == 0) {
@@ -93,7 +92,7 @@ public class UI {
         }
 
         text = "LOAD GAME";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += gp.TILESIZE;
         g2.drawString(text, x, y);
         if (commandNumber == 1) {
@@ -101,7 +100,7 @@ public class UI {
         }
 
         text = "QUIT";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += gp.TILESIZE;
         g2.drawString(text, x, y);
         if (commandNumber == 2) {
@@ -109,7 +108,7 @@ public class UI {
         }
     }
 
-    public void drawOptionsScreen() {
+    private void drawOptionsScreen() {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
 
@@ -137,13 +136,13 @@ public class UI {
         gp.input.enterPressed = false;
     }
 
-    public void options_top(int frameX, int frameY) {
+    private void options_top(int frameX, int frameY) {
         int textX;
         int textY;
 
         // option:
         String text = "Options";
-        textX = getForCenteredtext(text) - 30;
+        textX = align(text) - 30;
         textY = frameY + gp.TILESIZE;
         g2.drawString(text, textX, textY);
 
@@ -238,7 +237,7 @@ public class UI {
         g2.fillRect(textX, textY, volWidth, 24);
     }
 
-    public void drawSubWindow(int x, int y, int width, int height) {
+    private void drawSubWindow(int x, int y, int width, int height) {
 
         Color c = new Color(0, 0, 0, 210);
         g2.setColor(c);
@@ -251,13 +250,13 @@ public class UI {
     }
 
     // tutorial
-    public void options_control(int frameX, int frameY) {
+    private void options_control(int frameX, int frameY) {
         int textX;
         int textY;
 
         // Title
         String text = "Control";
-        textX = getForCenteredtext(text) - 30;
+        textX = align(text) - 30;
         textY = frameY + gp.TILESIZE;
         g2.drawString(text, textX, textY);
 
@@ -296,7 +295,7 @@ public class UI {
     }
 
     // out?
-    public void options_endGameConfirmation(int frameX, int frameY) {
+    private void options_endGameConfirmation(int frameX, int frameY) {
         int textX = frameX + gp.TILESIZE;
         int textY = frameY + gp.TILESIZE * 2;
 
@@ -309,7 +308,7 @@ public class UI {
 
         // YES
         String textYes = "Yes";
-        textX = getForCenteredtext(textYes) - gp.TILESIZE;
+        textX = align(textYes) - gp.TILESIZE;
         textY += gp.TILESIZE * 3;
         g2.drawString(textYes, textX, textY);
         if (commandNumber == 0) {
@@ -336,7 +335,7 @@ public class UI {
         }
     }
 
-    public void drawGameOverScreen() {
+    private void drawGameOverScreen() {
         // make dark
         g2.setColor(new Color(0, 0, 0, 150));
         g2.fillRect(0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT);
@@ -349,7 +348,7 @@ public class UI {
         // make shadow
         text = "Game Over";
         g2.setColor(Color.black);
-        x = getForCenteredtext(text);
+        x = align(text);
         y = gp.TILESIZE * 4;
         g2.drawString(text, x, y);
 
@@ -360,7 +359,7 @@ public class UI {
         // retry
         g2.setFont(g2.getFont().deriveFont(50f));
         text = "Retry";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += gp.TILESIZE * 4;
         g2.drawString(text, x, y);
         if (commandNumber == 0) {
@@ -369,7 +368,7 @@ public class UI {
 
         // back to menu
         text = "Quit";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += 55;
         g2.drawString(text, x, y);
         if (commandNumber == 1) {
@@ -377,7 +376,7 @@ public class UI {
         }
     }
 
-    public void drawGameStateWin() {
+    private void drawGameStateWin() {
         // make dark
         g2.setColor(new Color(77, 75, 75, 150));
         g2.fillRect(0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT);
@@ -390,7 +389,7 @@ public class UI {
         // make shadow
         text = "Congratulations <3";
         g2.setColor(Color.black);
-        x = getForCenteredtext(text);
+        x = align(text);
         y = gp.TILESIZE * 4;
         g2.drawString(text, x, y);
 
@@ -401,7 +400,7 @@ public class UI {
         // retry
         g2.setFont(g2.getFont().deriveFont(50f));
         text = "Retry";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += gp.TILESIZE * 4;
         g2.drawString(text, x, y);
         if (commandNumber == 0) {
@@ -410,7 +409,7 @@ public class UI {
 
         // back to menu
         text = "Quit";
-        x = getForCenteredtext(text);
+        x = align(text);
         y += 55;
         g2.drawString(text, x, y);
         if (commandNumber == 1) {
@@ -418,11 +417,11 @@ public class UI {
         }
     }
 
-    // public void drawItem(Graphics2D g2) {
+    // private void drawItem(Graphics2D g2) {
     // g2.drawImage(bombImage, 0, 0, gp.TILESIZE, gp.TILESIZE,null);
     // }
     // Get middle pos of the screen.
-    public int getForCenteredtext(String text) {
+    private int align(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = GamePanel.WINDOW_WIDTH / 2 - length / 2;
         return x;

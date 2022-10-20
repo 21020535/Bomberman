@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int optionsState = 2;
     public final int gameOverState = 3;
-
+    public final int gameWinState = 4;
     public boolean playing;
 
     // in ra bg
@@ -140,6 +140,10 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if (player.dead) {
                 state = gameOverState;
+                stopMusic();
+            }
+            if (level > maxLevel) {
+                state = gameWinState;
                 stopMusic();
             }
         }

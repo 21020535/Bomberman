@@ -38,6 +38,8 @@ public class KeyHandler implements KeyListener {
             optionsState(event);
         } else if (gp.state == gp.gameOverState) {
             gameOverState(event);
+        } else if (gp.state == gp.gameWinState) {
+            gameOverState(event);
         }
 
 
@@ -192,7 +194,7 @@ public class KeyHandler implements KeyListener {
                 gp.state = gp.playState;
                 gp.playMusic(0);
             } else if (gp.ui.commandNumber == 1) {
-                gp.state = gp.titleState;
+                gp.setupGame();
             }
             gp.ui.commandNumber = 0;
         }

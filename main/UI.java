@@ -47,6 +47,9 @@ public class UI {
         if (gp.state == gp.gameOverState) {
             drawGameOverScreen();
         }
+        if (gp.state == gp.gameWinState) {
+            drawGameStateWin();
+        }
     }
 
     // public void drawPauseScreen(Graphics2D g2) {
@@ -352,6 +355,47 @@ public class UI {
 
         // main
         g2.setColor(Color.white);
+        g2.drawString(text, x - 4, y - 4);
+
+        // retry
+        g2.setFont(g2.getFont().deriveFont(50f));
+        text = "Retry";
+        x = getForCenteredtext(text);
+        y += gp.TILESIZE * 4;
+        g2.drawString(text, x, y);
+        if (commandNumber == 0) {
+            g2.drawString(">", x - 40, y);
+        }
+
+        // back to menu
+        text = "Quit";
+        x = getForCenteredtext(text);
+        y += 55;
+        g2.drawString(text, x, y);
+        if (commandNumber == 1) {
+            g2.drawString(">", x - 40, y);
+        }
+    }
+
+    public void drawGameStateWin() {
+        // make dark
+        g2.setColor(new Color(77, 75, 75, 150));
+        g2.fillRect(0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT);
+
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+
+        // make shadow
+        text = "Congratulations <3";
+        g2.setColor(Color.black);
+        x = getForCenteredtext(text);
+        y = gp.TILESIZE * 4;
+        g2.drawString(text, x, y);
+
+        // main
+        g2.setColor(Color.pink);
         g2.drawString(text, x - 4, y - 4);
 
         // retry

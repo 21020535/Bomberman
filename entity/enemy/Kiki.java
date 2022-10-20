@@ -16,7 +16,7 @@ public class Kiki extends Enemy {
     @Override
     public void getImage() {
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/kiki.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/sam.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,11 +26,10 @@ public class Kiki extends Enemy {
     public void setDefaultValues() {
         speed = 2;
         tick = 0;
-        maxFrame = 3;
+        maxFrame = 4;
         begin = 0;
         interval = 10;
         direction = "left";
-        frame = image.getSubimage(48 * tick, 0, 48, 48);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class Kiki extends Enemy {
                         gp.player.getX() / gp.TILESIZE,
                         gp.player.getY() / gp.TILESIZE);
             }
-            int min = 10001;
+            int min = (int) 1e9;
 
             if (leftCell < min) {
                 direction = "left";
@@ -90,7 +89,6 @@ public class Kiki extends Enemy {
                 min = downCell;
             }
             movementBuffer += gp.TILESIZE;
-            System.out.println(direction);
         }
 
         switch (direction) {
@@ -116,11 +114,18 @@ public class Kiki extends Enemy {
     @Override
     public void draw(Graphics2D g2) {
         switch (direction) {
+            case "up":
+                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
+                frame = image.getSubimage(16, 16 * tick, 16, 16);
+                break;
+            case "down":
+                frame = image.getSubimage(0, 16 * tick, 16, 16);
+                break;
             case "left":
-                frame = image.getSubimage(48 * tick, 0, 48, 48);
+                frame = image.getSubimage(32, 16 * tick, 16, 16);
                 break;
             case "right":
-                frame = image.getSubimage(48 * tick, 48, 48, 48);
+                frame = image.getSubimage(48, 16 * tick, 16, 16);
                 break;
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);

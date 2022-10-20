@@ -15,49 +15,46 @@ class Cell {
 }
 
 public class BFS {
-    private static int[][] d = new int[GamePanel.maxCols][GamePanel.maxRows];
+    private static int[][] distance = new int[GamePanel.maxCols][GamePanel.maxRows];
     private static boolean[][] visited = new boolean[GamePanel.maxCols][GamePanel.maxRows];
-    private static int[] moveX = { 0, 0, 1, -1 };
-    private static int[] moveY = { 1, -1, 0, 0 };
+    private static int[] dir = { 0, -1, 0, 1, 0 };
 
-    public static int find(int xOnealVal, int yOnealVal, int xVal, int yVal) {
-        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[xOnealVal][yOnealVal]].collision == true)
-            return 10000;
+    public static int find(int col, int row, int playerCol, int playerRow) {
+        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[col][row]].collision == true)
+            return (int) 1e9 - 1;
         for (int i = 0; i < GamePanel.maxCols; i++) {
             for (int j = 0; j < GamePanel.maxRows; j++) {
-                d[i][j] = 0;
+                distance[i][j] = 0;
                 visited[i][j] = false;
             }
         }
         Deque<Cell> q = new ArrayDeque<>();
-        q.offer(new Cell(xOnealVal, yOnealVal));
-        visited[xOnealVal][yOnealVal] = true;
+        q.offer(new Cell(col, row));
+        visited[col][row] = true;
         while (!q.isEmpty()) {
             int x = q.peek().x;
             int y = q.peek().y;
             q.poll();
 
-            if (x == xVal && y == yVal)
+            if (x == playerCol && y == playerRow)
                 break;
 
-            for (int i = 0; i < 4; ++i) {
-                int u = x + moveX[i];
-                int v = y + moveY[i];
+            for (int i = 0; i < 4; i++) {
+                int u = x + dir[i];
+                int v = y + dir[i + 1];
 
-                if (u >= GamePanel.maxCols || u < 0)
-                    continue;
-                if (v >= GamePanel.maxRows || v < 0)
-                    continue;
-                if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[u][v]].collision == true)
+                if (u >= GamePanel.maxCols || u < 0
+                        || v >= GamePanel.maxRows || v < 0
+                        || GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[u][v]].collision == true)
                     continue;
 
-                if (!visited[u][v]) {
-                    d[u][v] = d[x][y] + 1;
+                if (visited[u][v] == false) {
+                    distance[u][v] = distance[x][y] + 1;
                     visited[u][v] = true;
                     q.offer(new Cell(u, v));
                 }
             }
         }
-        return d[xVal][yVal];
+        return distance[playerCol][playerRow];
     }
 }

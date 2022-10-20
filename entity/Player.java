@@ -52,9 +52,9 @@ public class Player extends Entity {
 
     // set các thông số mặc định
     public void setDefaultValues() {
-        x = 96;
-        y = 96;
-        speed = 2;
+        x = 48;
+        y = 48;
+        speed = 4;
         direction = "down";
         tick = 0;
         maxFrame = 4;
@@ -148,7 +148,7 @@ public class Player extends Entity {
                     }
                     direction = "up";
                 } else if (direction.equals("down")
-                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 8) {
+                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 41) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "up";
                 }
@@ -162,7 +162,8 @@ public class Player extends Entity {
                     }
                     direction = "down";
                 } else if (direction.equals("up")
-                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1) / gp.TILESIZE] != 8) {
+                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1)
+                                / gp.TILESIZE] != 41) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "down";
                 }
@@ -176,7 +177,7 @@ public class Player extends Entity {
                     }
                     direction = "left";
                 } else if (direction.equals("right")
-                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 8) {
+                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 41) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "left";
                 }
@@ -186,11 +187,12 @@ public class Player extends Entity {
                     if (x % gp.TILESIZE == 0) {
                         movementBuffer += gp.TILESIZE;
                     } else {
-                        movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
+                        movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
                     }
                     direction = "right";
                 } else if (direction.equals("left")
-                        && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE - 1) / gp.TILESIZE][y / gp.TILESIZE] != 8) {
+                        && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE - 1) / gp.TILESIZE][y
+                                / gp.TILESIZE] != 41) {
                     movementBuffer = gp.TILESIZE - movementBuffer;
                     direction = "right";
                 }
@@ -201,12 +203,12 @@ public class Player extends Entity {
             if (input.bomb == true) {
                 if (bombs.size() < maxBomb) {
                     if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                            / gp.TILESIZE] != 8) {
+                            / gp.TILESIZE] != 41) {
                         bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                 (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                 bombLength, gp));
                         GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                                / gp.TILESIZE] = 8;
+                                / gp.TILESIZE] = 41;
                         input.bomb = false;
                         gp.playSE(1);
                     }
@@ -277,12 +279,14 @@ public class Player extends Entity {
                         }
                         if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
-                            GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
-                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
-                            mapItem.remove(0);
+                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
+                            // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
+                            flames.get(i).x1 = (bombs.get(i).x - j * gp.TILESIZE) / gp.TILESIZE;
+                            flames.get(i).y1 = (bombs.get(i).y) / gp.TILESIZE;
+                            // mapItem.remove(0);
                             bombs.get(i).desLeft = true;
+                            flames.get(i).flagLeft = true;
                         }
-
                     }
                     if (bombs.get(i).desRight == false) {
                         if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
@@ -291,10 +295,13 @@ public class Player extends Entity {
                         }
                         if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
-                            GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
-                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
-                            mapItem.remove(0);
+                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
+                            //         / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
+                            flames.get(i).x2 = (bombs.get(i).x + j * gp.TILESIZE) / gp.TILESIZE;
+                            flames.get(i).y2 = (bombs.get(i).y) / gp.TILESIZE;
+                            // mapItem.remove(0);
                             bombs.get(i).desRight = true;
+                            flames.get(i).flagRight = true;
                         }
 
                     }
@@ -305,11 +312,14 @@ public class Player extends Entity {
                         }
                         if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
-                            GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
-                                            .get(0);
-                            mapItem.remove(0);
+                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                            //         / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                            //                 .get(0);
+                            flames.get(i).x3 = (bombs.get(i).x) / gp.TILESIZE;
+                            flames.get(i).y3 = (bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE;
+                            // mapItem.remove(0);
                             bombs.get(i).desUp = true;
+                            flames.get(i).flagUp = true;
                         }
 
                     }
@@ -321,16 +331,20 @@ public class Player extends Entity {
                         }
                         if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
                                 / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
-                            GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                    / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
-                                            .get(0);
-                            mapItem.remove(0);
+                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                            //         / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                            //                 .get(0);
+                            flames.get(i).x4 = (bombs.get(i).x) / gp.TILESIZE;
+                            flames.get(i).y4 = (bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE;
+                            // mapItem.remove(0);
                             bombs.get(i).desDown = true;
+                            flames.get(i).flagDown = true;
                         }
 
                     }
                 }
                 // sau khi dùng bomb thì vứt ra khỏi list
+                
                 GamePanel.tileManager.mapTileNum[bombs.get(i).x / gp.TILESIZE][bombs.get(i).y / gp.TILESIZE] = 0;
                 bombs.remove(i);
                 i--;
@@ -339,6 +353,22 @@ public class Player extends Entity {
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
             if (flames.get(i).finish) {
+                if (flames.get(i).flagLeft == true) {
+                    GamePanel.tileManager.mapTileNum[flames.get(i).x1][flames.get(i).y1] = mapItem.get(0);
+                    mapItem.remove(0);
+                }
+                if (flames.get(i).flagRight == true) {
+                    GamePanel.tileManager.mapTileNum[flames.get(i).x2][flames.get(i).y2] = mapItem.get(0);
+                    mapItem.remove(0);
+                }
+                if (flames.get(i).flagUp == true) {
+                    GamePanel.tileManager.mapTileNum[flames.get(i).x3][flames.get(i).y3] = mapItem.get(0);
+                    mapItem.remove(0);
+                }
+                if (flames.get(i).flagDown == true) {
+                    GamePanel.tileManager.mapTileNum[flames.get(i).x4][flames.get(i).y4] = mapItem.get(0);
+                    mapItem.remove(0);
+                }
                 flames.remove(i);
                 i--;
             }
@@ -346,31 +376,40 @@ public class Player extends Entity {
     }
 
     public void powerUps() {
-        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 32) {
+        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                / gp.TILESIZE] == 33) {
             gp.playSE(4);
             maxBomb++;
-            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
+            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                    / gp.TILESIZE] = 0;
         }
-        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 33) {
+        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                / gp.TILESIZE] == 34) {
             gp.playSE(4);
             this.speed++;
             this.interval--;
-            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
+            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                    / gp.TILESIZE] = 0;
         }
-        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 34) {
+        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                / gp.TILESIZE] == 35) {
             gp.playSE(4);
             bombLength++;
-            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
+            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                    / gp.TILESIZE] = 0;
         }
-        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 35) {
+        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                / gp.TILESIZE] == 36) {
             // flamepass
             flameResist = true;
             gp.playSE(4);
             // maxBomb += 1;
-            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] = 0;
+            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                    / gp.TILESIZE] = 0;
         }
 
-        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2) / gp.TILESIZE] == 36) {
+        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                / gp.TILESIZE] == 37) {
             // portal
             if (gp.enemies.isEmpty()) {
                 if (gp.level < gp.maxLevel) {

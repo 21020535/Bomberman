@@ -25,6 +25,10 @@ public class Flame extends Entity {
 
     private List<FlameSides> sides = new ArrayList<>();
 
+    public boolean flagLeft = false, flagRight = false, flagUp = false, flagDown = false;
+
+    public int x1, x2, x3, x4, y1, y2, y3, y4;
+
     public int getTotalSides() {
         return totalSides;
     }

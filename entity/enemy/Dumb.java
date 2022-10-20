@@ -23,60 +23,71 @@ public class Dumb extends Enemy {
         tick = 0;
         maxFrame = 6;
         begin = 0;
-        interval = 7;
+        interval = 4;
         direction = "left";
         num = 48;
     }
 
     @Override
     public void update() {
-        begin++;
-        // begin > interval khoảng tg load mỗi frame
-        if (begin > interval) {
-            tick++;
-            // nếu frame > frame max cho về ban đầu
-            if (tick >= maxFrame) {
-                tick = 0;
+        if (!dead) {
+            begin++;
+            // begin > interval khoảng tg load mỗi frame
+            if (begin > interval) {
+                tick++;
+                // nếu frame > frame max cho về ban đầu
+                if (tick >= maxFrame) {
+                    tick = 0;
+                }
+                begin = 0;
             }
-            begin = 0;
-        }
-        collide = false;
-        Random a = new Random();
-        gp.cChecker.checkTile(this);
-        if (!collide && num > 0) {
-            switch (direction) {
-                case "left":
-                    x -= speed;
-                    num--;
-                    break;
-                case "right":
-                    x += speed;
-                    num--;
-                    break;
-                case "up":
-                    y -= speed;
-                    num--;
-                    break;
-                case "down":
-                    y += speed;
-                    num--;
-                    break;
+            collide = false;
+            Random a = new Random();
+            gp.cChecker.checkTile(this);
+            if (!collide && num > 0) {
+                switch (direction) {
+                    case "left":
+                        x -= speed;
+                        num--;
+                        break;
+                    case "right":
+                        x += speed;
+                        num--;
+                        break;
+                    case "up":
+                        y -= speed;
+                        num--;
+                        break;
+                    case "down":
+                        y += speed;
+                        num--;
+                        break;
+                }
             }
-        }
-        if (collide) {
+            if (collide) {
 
-            if (direction.equals("left")) {
-                direction = leftR[a.nextInt(3)];
-            } else if (direction.equals("down")) {
-                direction = downR[a.nextInt(3)];
-            } else if (direction.equals("right")) {
-                direction = rightR[a.nextInt(3)];
-            } else if (direction.equals("up")) {
-                direction = upR[a.nextInt(3)];
+                if (direction.equals("left")) {
+                    direction = leftR[a.nextInt(3)];
+                } else if (direction.equals("down")) {
+                    direction = downR[a.nextInt(3)];
+                } else if (direction.equals("right")) {
+                    direction = rightR[a.nextInt(3)];
+                } else if (direction.equals("up")) {
+                    direction = upR[a.nextInt(3)];
+                }
+            } else if (num == 0) {
+                direction = all[a.nextInt(4)];
+                num = 48;
             }
-        } else if (num == 0) {
-            direction = all[a.nextInt(4)];
-            num = 48;
+        } else {
+            begin++;
+            if (begin > interval) {
+                tick++;
+                if (tick >= maxFrame) {
+                    finish = true;
+                }
+                begin = 0;
+            }
         }
     }
 
@@ -85,6 +96,7 @@ public class Dumb extends Enemy {
         // TODO Auto-generated method stub
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/enemy2.png"));
+            image2= ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadenemy2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,20 +105,25 @@ public class Dumb extends Enemy {
     @Override
     public void draw(Graphics2D g2) {
         // vẽ nhân vật
-        switch (direction) {
-            case "up":
-                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                frame = image.getSubimage(16 * tick, 48, 16, 16);
-                break;
-            case "down":
-                frame = image.getSubimage(16 * tick, 0, 16, 16);
-                break;
-            case "left":
-                frame = image.getSubimage(16 * tick, 16, 16, 16);
-                break;
-            case "right":
-                frame = image.getSubimage(16 * tick, 32, 16, 16);
-                break;
+        if (!dead) {
+            switch (direction) {
+                case "up":
+                    // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
+                    frame = image.getSubimage(16 * tick, 48, 16, 16);
+                    break;
+                case "down":
+                    frame = image.getSubimage(16 * tick, 0, 16, 16);
+                    break;
+                case "left":
+                    frame = image.getSubimage(16 * tick, 16, 16, 16);
+                    break;
+                case "right":
+                    frame = image.getSubimage(16 * tick, 32, 16, 16);
+                    break;
+            }
+
+        } else {
+            frame = image2.getSubimage(16 * tick, 0,16,16);
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }

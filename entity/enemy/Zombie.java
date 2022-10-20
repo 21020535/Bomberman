@@ -28,6 +28,7 @@ public class Zombie extends Enemy{
 
     @Override
     public void update() {
+        if (!dead) {
         begin++;
         // begin > interval khoảng tg load mỗi frame
         if (begin > interval) {
@@ -72,12 +73,23 @@ public class Zombie extends Enemy{
                 direction = upR[a.nextInt(3)];
             }
         }
+        } else {
+            begin++;
+            if (begin > interval) {
+                tick++;
+                if (tick >= maxFrame) {
+                    finish = true;
+                }
+                begin = 0;
+            }
+        }
     }
 
     @Override
     public void getImage() {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/enemy3.png"));
+            image2 = ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadenemy3.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,20 +98,26 @@ public class Zombie extends Enemy{
     @Override
     public void draw(Graphics2D g2) {
         // vẽ nhân vật
-        switch (direction) {
-            case "up":
-                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                frame = image.getSubimage(16 * tick + 2, 48, 16, 16);
-                break;
-            case "down":
-                frame = image.getSubimage(16 * tick + 2, 0, 16, 16);
-                break;
-            case "left":
-                frame = image.getSubimage(16 * tick + 2, 16, 16, 16);
-                break;
-            case "right":
-                frame = image.getSubimage(16 * tick + 2, 32, 16, 16);
-                break;
+        if (!dead) {
+            switch (direction) {
+                case "up":
+                    // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
+                    frame = image.getSubimage(16 * tick + 2, 48, 16, 16);
+                    break;
+                case "down":
+                    frame = image.getSubimage(16 * tick + 2, 0, 16, 16);
+                    break;
+                case "left":
+                    frame = image.getSubimage(16 * tick + 2, 16, 16, 16);
+                    break;
+                case "right":
+                    frame = image.getSubimage(16 * tick + 2, 32, 16, 16);
+                    break;
+
+            }
+
+        } else {
+            frame = image2.getSubimage(16 * tick, 0, 16, 16);
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }

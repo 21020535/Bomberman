@@ -22,8 +22,8 @@ public class Sound {
         soundURL[3] = getClass().getResource("/res/Sound/menu.wav");
         soundURL[4] = getClass().getResource("/res/Sound/CRYST_UP.wav");
         soundURL[5] = getClass().getResource("/res/Sound/cursor.wav");
-        // soundURL[6] = getClass().getResource("/res/Sound/soundtrack.wav");
-        // soundURL[7] = getClass().getResource("/res/Sound/soundtrack.wav");
+        soundURL[6] = getClass().getResource("/res/Sound/deadplayer.wav");
+        soundURL[7] = getClass().getResource("/res/Sound/endgame3.wav");
     }
 
     public void setFile(int num) {

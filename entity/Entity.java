@@ -15,12 +15,12 @@ public class Entity {
     protected int x, y;
     protected int speed;
     // public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2,
-    protected BufferedImage image, frame;
+    public BufferedImage image, frame;
     public String direction;
-    protected int tick;
-    protected int maxFrame;
-    protected int begin;
-    protected int interval;
+    public int tick;
+    public int maxFrame;
+    public int begin;
+    public int interval;
     public Rectangle solidArea;
     public boolean collide = false;
 

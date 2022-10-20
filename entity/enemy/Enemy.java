@@ -16,6 +16,8 @@ public abstract class Enemy extends Entity {
     String[] all = {"up", "down", "right", "left"};
     List<String> tmp = new ArrayList<>();
     int num;
+    public boolean dead = false;
+    public boolean finish = false;
 
     public Enemy(int x, int y, GamePanel gp) {
         this.x = x;

@@ -77,12 +77,16 @@ public class Flame extends Entity {
                 }
             }
             for (int j = 0; j < enemies.size(); j++) {
-                if (enemies.get(j).getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
-                        && enemies.get(j).getX() + gp.TILESIZE >= sides.get(i).getX() + 20
-                        && enemies.get(j).getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
-                        && enemies.get(j).getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
-                    enemies.remove(j);
-                    j--;
+                if (enemies.get(j).dead == false) {
+                    if (enemies.get(j).getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
+                            && enemies.get(j).getX() + gp.TILESIZE >= sides.get(i).getX() + 20
+                            && enemies.get(j).getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
+                            && enemies.get(j).getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
+                        enemies.get(j).dead = true;
+                        enemies.get(j).tick = 0;
+                        enemies.get(j).begin = 0;
+                        enemies.get(j).interval = 20;
+                    }
                 }
             }
         }

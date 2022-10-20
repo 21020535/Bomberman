@@ -74,6 +74,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameWinState = 4;
     public boolean playing;
 
+    private boolean set = false;
+
     // in ra bg
     public GamePanel() {
         this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -138,10 +140,20 @@ public class GamePanel extends JPanel implements Runnable {
             // enemy.update();
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).update();
+                if (enemies.get(i).finish) {
+                    enemies.remove(i);
+                    i--;
+                }
             }
             if (player.dead) {
-                state = gameOverState;
-                stopMusic();
+                if (!set) {
+                    player.getPlayerImage();
+                    set = true;
+                }
+                if (player.finish) {
+                    state = gameOverState;
+                    stopMusic();
+                }
             }
             if (level > maxLevel) {
                 state = gameWinState;

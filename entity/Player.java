@@ -33,6 +33,7 @@ public class Player extends Entity {
     public boolean flameResist = true;
 
     public boolean dead = false;
+    public boolean finish = false;
 
     public Player(GamePanel gp, KeyHandler input) {
         this.gp = gp;
@@ -44,7 +45,15 @@ public class Player extends Entity {
     // đọc file ảnh của nhân vật
     public void getPlayerImage() {
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
+            if (!dead) {
+                image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
+            } else {
+                interval = 20;
+                tick = 0;
+                begin = 0;
+                image = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,156 +84,170 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        switch (direction) {
-            case "up":
-                // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                frame = image.getSubimage(16, 16 * tick, 16, 16);
-                break;
-            case "down":
-                frame = image.getSubimage(0, 16 * tick, 16, 16);
-                break;
-            case "left":
-                frame = image.getSubimage(32, 16 * tick, 16, 16);
-                break;
-            case "right":
-                frame = image.getSubimage(48, 16 * tick, 16, 16);
-                break;
-        }
+        if (!dead) {
+            switch (direction) {
+                case "up":
+                    // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
+                    frame = image.getSubimage(16, 16 * tick, 16, 16);
+                    break;
+                case "down":
+                    frame = image.getSubimage(0, 16 * tick, 16, 16);
+                    break;
+                case "left":
+                    frame = image.getSubimage(32, 16 * tick, 16, 16);
+                    break;
+                case "right":
+                    frame = image.getSubimage(48, 16 * tick, 16, 16);
+                    break;
+            }
 
-        // vẽ bomb
-        for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).draw(g2);
-        }
+            // vẽ bomb
+            for (int i = 0; i < bombs.size(); i++) {
+                bombs.get(i).draw(g2);
+            }
 
-        for (int i = 0; i < flames.size(); i++) {
-            flames.get(i).draw(g2);
+            for (int i = 0; i < flames.size(); i++) {
+                flames.get(i).draw(g2);
+            }
+        } else {
+            frame = image.getSubimage(16 * tick, 0, 16, 16);
         }
-
         // vẽ nhân vật
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }
 
     private void handleMovementsAndInputs() {
         // kiểm tra xem có ấn 1 trong 4 không
-        if (input.up == true || input.down == true
-                || input.left == true || input.right == true || input.bomb == true) {
-            // nếu input = up thì trạng thái hoạt động là up
-            if (input.up == true) {
-                if (movementBuffer == 0) {
-                    if (y % gp.TILESIZE == 0) {
-                        movementBuffer += gp.TILESIZE;
-                    } else {
-                        movementBuffer += y % gp.TILESIZE;
+        if (!dead) {
+            if (input.up == true || input.down == true
+                    || input.left == true || input.right == true || input.bomb == true) {
+                // nếu input = up thì trạng thái hoạt động là up
+                if (input.up == true) {
+                    if (movementBuffer == 0) {
+                        if (y % gp.TILESIZE == 0) {
+                            movementBuffer += gp.TILESIZE;
+                        } else {
+                            movementBuffer += y % gp.TILESIZE;
+                        }
+                        direction = "up";
+                    } else if (direction.equals("down")
+                            && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 41) {
+                        movementBuffer = gp.TILESIZE - movementBuffer;
+                        direction = "up";
                     }
-                    direction = "up";
-                } else if (direction.equals("down")
-                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 41) {
-                    movementBuffer = gp.TILESIZE - movementBuffer;
-                    direction = "up";
                 }
-            }
-            if (input.down == true) {
-                if (movementBuffer == 0) {
-                    if (y % gp.TILESIZE == 0) {
-                        movementBuffer += gp.TILESIZE;
-                    } else {
-                        movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
+                if (input.down == true) {
+                    if (movementBuffer == 0) {
+                        if (y % gp.TILESIZE == 0) {
+                            movementBuffer += gp.TILESIZE;
+                        } else {
+                            movementBuffer += gp.TILESIZE - y % gp.TILESIZE;
+                        }
+                        direction = "down";
+                    } else if (direction.equals("up")
+                            && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1)
+                                    / gp.TILESIZE] != 41) {
+                        movementBuffer = gp.TILESIZE - movementBuffer;
+                        direction = "down";
                     }
-                    direction = "down";
-                } else if (direction.equals("up")
-                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][(y + gp.TILESIZE - 1)
+                }
+                if (input.left == true) {
+                    if (movementBuffer == 0) {
+                        if (x % gp.TILESIZE == 0) {
+                            movementBuffer += gp.TILESIZE;
+                        } else {
+                            movementBuffer += x % gp.TILESIZE;
+                        }
+                        direction = "left";
+                    } else if (direction.equals("right")
+                            && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 41) {
+                        movementBuffer = gp.TILESIZE - movementBuffer;
+                        direction = "left";
+                    }
+                }
+                if (input.right == true) {
+                    if (movementBuffer == 0) {
+                        if (x % gp.TILESIZE == 0) {
+                            movementBuffer += gp.TILESIZE;
+                        } else {
+                            movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
+                        }
+                        direction = "right";
+                    } else if (direction.equals("left")
+                            && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE - 1) / gp.TILESIZE][y
+                                    / gp.TILESIZE] != 41) {
+                        movementBuffer = gp.TILESIZE - movementBuffer;
+                        direction = "right";
+                    }
+                }
+                // nếu input là bomb thì set xem độ dài mảng bomb có hơn độ dài số lượng bomb
+                // max không nếu không add
+                // thêm 1 quả bomb vào list bomb
+                if (input.bomb == true) {
+                    if (bombs.size() < maxBomb) {
+                        if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
                                 / gp.TILESIZE] != 41) {
-                    movementBuffer = gp.TILESIZE - movementBuffer;
-                    direction = "down";
-                }
-            }
-            if (input.left == true) {
-                if (movementBuffer == 0) {
-                    if (x % gp.TILESIZE == 0) {
-                        movementBuffer += gp.TILESIZE;
-                    } else {
-                        movementBuffer += x % gp.TILESIZE;
-                    }
-                    direction = "left";
-                } else if (direction.equals("right")
-                        && GamePanel.tileManager.mapTileNum[x / gp.TILESIZE][y / gp.TILESIZE] != 41) {
-                    movementBuffer = gp.TILESIZE - movementBuffer;
-                    direction = "left";
-                }
-            }
-            if (input.right == true) {
-                if (movementBuffer == 0) {
-                    if (x % gp.TILESIZE == 0) {
-                        movementBuffer += gp.TILESIZE;
-                    } else {
-                        movementBuffer += gp.TILESIZE - x % gp.TILESIZE;
-                    }
-                    direction = "right";
-                } else if (direction.equals("left")
-                        && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE - 1) / gp.TILESIZE][y
-                                / gp.TILESIZE] != 41) {
-                    movementBuffer = gp.TILESIZE - movementBuffer;
-                    direction = "right";
-                }
-            }
-            // nếu input là bomb thì set xem độ dài mảng bomb có hơn độ dài số lượng bomb
-            // max không nếu không add
-            // thêm 1 quả bomb vào list bomb
-            if (input.bomb == true) {
-                if (bombs.size() < maxBomb) {
-                    if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                            / gp.TILESIZE] != 41) {
-                        bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
-                                (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
-                                bombLength, gp));
-                        GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                                / gp.TILESIZE] = 41;
-                        input.bomb = false;
-                        gp.playSE(1);
+                            bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
+                                    (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
+                                    bombLength, gp));
+                            GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                                    / gp.TILESIZE] = 41;
+                            input.bomb = false;
+                            gp.playSE(1);
+                        }
                     }
                 }
+                // va chạm ban đầu = false
+                // check va chạm vs bản đồ
             }
-            // va chạm ban đầu = false
-            // check va chạm vs bản đồ
-        }
-        collide = false;
-        gp.cChecker.checkTile(this);
-        if (collide == false) {
-            if (movementBuffer > 0) {
-                switch (direction) {
-                    case "up":
-                        y -= Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                    case "down":
-                        y += Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                    case "left":
-                        x -= Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                    case "right":
-                        x += Math.min(speed, movementBuffer);
-                        movementBuffer -= Math.min(speed, movementBuffer);
-                        break;
-                }
-                begin++;
-                // begin > interval khoảng tg load mỗi frame
-                if (begin > interval) {
-                    tick++;
-                    // nếu frame > frame max cho về ban đầu
-                    if (tick >= maxFrame) {
-                        tick = 0;
+            collide = false;
+            gp.cChecker.checkTile(this);
+            if (collide == false) {
+                if (movementBuffer > 0) {
+                    switch (direction) {
+                        case "up":
+                            y -= Math.min(speed, movementBuffer);
+                            movementBuffer -= Math.min(speed, movementBuffer);
+                            break;
+                        case "down":
+                            y += Math.min(speed, movementBuffer);
+                            movementBuffer -= Math.min(speed, movementBuffer);
+                            break;
+                        case "left":
+                            x -= Math.min(speed, movementBuffer);
+                            movementBuffer -= Math.min(speed, movementBuffer);
+                            break;
+                        case "right":
+                            x += Math.min(speed, movementBuffer);
+                            movementBuffer -= Math.min(speed, movementBuffer);
+                            break;
                     }
-                    begin = 0;
+                    begin++;
+                    // begin > interval khoảng tg load mỗi frame
+                    if (begin > interval) {
+                        tick++;
+                        // nếu frame > frame max cho về ban đầu
+                        if (tick >= maxFrame) {
+                            tick = 0;
+                        }
+                        begin = 0;
+                    }
+                } else {
+                    tick = 0;
                 }
             } else {
+                movementBuffer = 0;
                 tick = 0;
             }
         } else {
-            movementBuffer = 0;
-            tick = 0;
+            begin++;
+            if (begin > interval) {
+                tick++;
+                if (tick >= maxFrame) {
+                    finish = true;
+                }
+                begin = 0;
+            }
         }
     }
 
@@ -436,7 +459,6 @@ public class Player extends Entity {
         for (int i = 0; i < gp.enemies.size(); i++) {
             if (x + 18 <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x + 18
                     && y + 18 <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y + 18) {
-                gp.state = gp.gameOverState;
                 return true;
             }
         }

@@ -47,11 +47,12 @@ public class Player extends Entity {
         try {
             if (!dead) {
                 image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
+                image2 = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
             } else {
                 interval = 20;
                 tick = 0;
                 begin = 0;
-                image = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
+                //image = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
             }
 
         } catch (IOException e) {
@@ -110,7 +111,7 @@ public class Player extends Entity {
                 flames.get(i).draw(g2);
             }
         } else {
-            frame = image.getSubimage(16 * tick, 0, 16, 16);
+            frame = image2.getSubimage(16 * tick, 0, 16, 16);
         }
         // vẽ nhân vật
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);

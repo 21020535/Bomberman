@@ -60,8 +60,8 @@ public class Player extends Entity {
         maxFrame = 4;
         begin = 0;
         interval = 10;
-        bombLength = 1;
-        maxBomb = 1;
+        bombLength = 3;
+        maxBomb = 10;
         powerupsSetup();
     }
 
@@ -71,23 +71,26 @@ public class Player extends Entity {
             case 1:
                 brickNumber = 79;
                 break;
+            case 2:
+                brickNumber = 44;
+                break;
             default:
-                brickNumber = 0;
+                brickNumber = 47;
                 break;
         }
-        this.mapItem.add(36);
+        this.mapItem.add(37);
 
         for (int i = 0; i < 4; i++) {
-            this.mapItem.add(32);
-        }
-        for (int i = 0; i < 3; i++) {
             this.mapItem.add(33);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             this.mapItem.add(34);
         }
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 4; i++) {
             this.mapItem.add(35);
+        }
+        for (int i = 0; i < 1; i++) {
+            this.mapItem.add(36);
         }
         int n = mapItem.size();
         for (int i = 0; i < brickNumber - n; i++) {
@@ -417,7 +420,8 @@ public class Player extends Entity {
                     gp.setupGame();
                     gp.state = gp.playState;
                 } else {
-                    gp.state = gp.gameOverState;
+                    gp.stopMusic();
+                    gp.state = gp.gameWinState;
                 }
                 gp.playSE(4);
             }

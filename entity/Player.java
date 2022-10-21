@@ -53,7 +53,8 @@ public class Player extends Entity {
                 interval = 20;
                 tick = 0;
                 begin = 0;
-                //image = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
+                // image =
+                // ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
             }
 
         } catch (IOException e) {
@@ -75,8 +76,6 @@ public class Player extends Entity {
         maxBomb = 10;
         powerupsSetup();
     }
-
-    
 
     public void update() {
         handleMovementsAndInputs();
@@ -303,12 +302,13 @@ public class Player extends Entity {
                         // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
                         // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
 
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
                             bombs.get(i).desLeft = true;
                         }
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                - j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].breakable) {
                             // GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
                             // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
                             flames.get(i).x1 = (bombs.get(i).x - j * gp.TILESIZE) / gp.TILESIZE;
@@ -319,12 +319,13 @@ public class Player extends Entity {
                         }
                     }
                     if (bombs.get(i).desRight == false) {
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 2) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
                             bombs.get(i).desRight = true;
                         }
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                + j * gp.TILESIZE)
+                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].breakable) {
                             // GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
                             // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
                             flames.get(i).x2 = (bombs.get(i).x + j * gp.TILESIZE) / gp.TILESIZE;
@@ -336,12 +337,12 @@ public class Player extends Entity {
 
                     }
                     if (bombs.get(i).desUp == false) {
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE]].stiff) {
                             bombs.get(i).desUp = true;
                         }
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE]].breakable) {
                             // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
                             // / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
                             // .get(0);
@@ -355,12 +356,12 @@ public class Player extends Entity {
                     }
 
                     if (bombs.get(i).desDown == false) {
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] == 2) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE]].stiff) {
                             bombs.get(i).desDown = true;
                         }
-                        if (GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE]].breakable) {
                             // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
                             // / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
                             // .get(0);
@@ -459,9 +460,11 @@ public class Player extends Entity {
 
     private boolean deadYet() {
         for (int i = 0; i < gp.enemies.size(); i++) {
-            if (x + 18 <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x + 18
-                    && y + 18 <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y + 18) {
-                return true;
+            if (gp.enemies.get(i).dead == false) {
+                if (x + 18 <= gp.enemies.get(i).x + gp.TILESIZE && x + gp.TILESIZE >= gp.enemies.get(i).x + 18
+                        && y + 18 <= gp.enemies.get(i).y + gp.TILESIZE && y + gp.TILESIZE >= gp.enemies.get(i).y + 18) {
+                    return true;
+                }
             }
         }
         return false;

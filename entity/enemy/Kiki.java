@@ -120,10 +120,6 @@ public class Kiki extends Enemy {
                 begin = 0;
             }
         }
-        System.out.println(dead);
-        System.out.println(finish);
-        System.out.println();
-        System.out.println();
     }
 
     @Override

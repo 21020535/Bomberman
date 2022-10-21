@@ -106,11 +106,13 @@ public class Flame extends Entity {
 
         for (int i = 1; i <= bombLength; i++) {
             if (desLeft == false) {
-                if (GamePanel.tileManager.mapTileNum[(bomb.getX() + 12 - i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
-                        / gp.TILESIZE] != 2) {
+                if (!GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX() + 12 - i * gp.TILESIZE)
+                        / gp.TILESIZE][bomb.getY()
+                                / gp.TILESIZE]].stiff) {
                     if (i < bombLength) {
-                        if (GamePanel.tileManager.mapTileNum[(bomb.getX() - i * gp.TILESIZE) / gp.TILESIZE][(bomb.getY())
-                                / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX() - i * gp.TILESIZE)
+                                / gp.TILESIZE][(bomb.getY())
+                                        / gp.TILESIZE]].breakable) {
                             sides.add(
                                     new FlameSides(bomb.getX() - i * gp.TILESIZE, bomb.getY(), gp,
                                             "horizontal_left"));
@@ -124,8 +126,9 @@ public class Flame extends Entity {
                                 new FlameSides(bomb.getX() - i * gp.TILESIZE, bomb.getY(), gp,
                                         "horizontal_left"));
                     }
-                    if (GamePanel.tileManager.mapTileNum[(bomb.getX() - i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
-                            / gp.TILESIZE] == 1) {
+                    if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX() - i * gp.TILESIZE)
+                            / gp.TILESIZE][bomb.getY()
+                                    / gp.TILESIZE]].breakable) {
                         desLeft = true;
                     }
                 } else {
@@ -133,11 +136,13 @@ public class Flame extends Entity {
                 }
             }
             if (desRight == false) {
-                if (GamePanel.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
-                        / gp.TILESIZE] != 2) {
+                if (!GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE)
+                        / gp.TILESIZE][bomb.getY()
+                                / gp.TILESIZE]].stiff) {
                     if (i < bombLength) {
-                        if (GamePanel.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE) / gp.TILESIZE][(bomb.getY())
-                                / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE)
+                                / gp.TILESIZE][(bomb.getY())
+                                        / gp.TILESIZE]].breakable) {
                             sides.add(
                                     new FlameSides(bomb.getX() + i * gp.TILESIZE, bomb.getY(), gp,
                                             "horizontal_right"));
@@ -151,8 +156,9 @@ public class Flame extends Entity {
                                 new FlameSides(bomb.getX() + i * gp.TILESIZE, bomb.getY(), gp,
                                         "horizontal_right"));
                     }
-                    if (GamePanel.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE) / gp.TILESIZE][bomb.getY()
-                            / gp.TILESIZE] == 1) {
+                    if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX() + i * gp.TILESIZE)
+                            / gp.TILESIZE][bomb.getY()
+                                    / gp.TILESIZE]].breakable) {
                         desRight = true;
                     }
                 } else {
@@ -160,11 +166,13 @@ public class Flame extends Entity {
                 }
             }
             if (desDown == false) {
-                if (GamePanel.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
-                        / gp.TILESIZE] != 2) {
+                if (!GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX())
+                        / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
+                                / gp.TILESIZE]].stiff) {
                     if (i < bombLength) {
-                        if (GamePanel.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
-                                / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX())
+                                / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
+                                        / gp.TILESIZE]].breakable) {
                             sides.add(
                                     new FlameSides(bomb.getX(), bomb.getY() + i * gp.TILESIZE, gp,
                                             "vertical_down"));
@@ -179,19 +187,22 @@ public class Flame extends Entity {
                                 new FlameSides(bomb.getX(), bomb.getY() + i * gp.TILESIZE, gp,
                                         "vertical_down"));
                     }
-                    if (GamePanel.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
-                            / gp.TILESIZE] == 1)
+                    if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX())
+                            / gp.TILESIZE][(bomb.getY() + i * gp.TILESIZE)
+                                    / gp.TILESIZE]].breakable)
                         desDown = true;
                 } else {
                     desDown = true;
                 }
             }
             if (desUp == false) {
-                if (GamePanel.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
-                        / gp.TILESIZE] != 2) {
+                if (!GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX())
+                        / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
+                                / gp.TILESIZE]].stiff) {
                     if (i < bombLength) {
-                        if (GamePanel.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
-                                / gp.TILESIZE] == 1) {
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX())
+                                / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
+                                        / gp.TILESIZE]].breakable) {
                             sides.add(
                                     new FlameSides(bomb.getX(), bomb.getY() - i * gp.TILESIZE, gp,
                                             "vertical_up"));
@@ -205,8 +216,9 @@ public class Flame extends Entity {
                                 new FlameSides(bomb.getX(), bomb.getY() - i * gp.TILESIZE, gp,
                                         "vertical_up"));
                     }
-                    if (GamePanel.tileManager.mapTileNum[(bomb.getX()) / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
-                            / gp.TILESIZE] == 1)
+                    if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bomb.getX())
+                            / gp.TILESIZE][(bomb.getY() - i * gp.TILESIZE)
+                                    / gp.TILESIZE]].breakable)
                         desUp = true;
                 } else {
                     desUp = true;

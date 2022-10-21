@@ -40,7 +40,7 @@ public class TileManager {
             tiles[2] = new Tile();
             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
             tiles[2].collision = true;
-            tiles[2].breakable = false;
+            tiles[2].stiff = true;
 
             tiles[33] = new Tile();
             tiles[33].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_bombs.png"));
@@ -83,13 +83,17 @@ public class TileManager {
 
             tiles[16] = new Tile();
             tiles[16].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/016.png"));
-            tiles[16].collision = false;
+            tiles[16].collision = true;
+            tiles[16].stiff = true;
 
             for (int i = 17; i <= 32; i++) {
                 tiles[i] = new Tile();
                 tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
                 tiles[i].collision = true;
+                tiles[i].stiff = true;
             }
+            tiles[32].stiff = false;
+            tiles[32].breakable = true;
 
             for (int i = 38; i <= 40; i++) {
                 tiles[i] = new Tile();

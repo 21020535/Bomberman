@@ -30,6 +30,9 @@ public class TileManager {
             // mỗi item tương ứng vs 1 giá trị đã đc mặc định
             tiles[0] = new Tile();
             tiles[0].image = null;
+            if (gp.level == 3) {
+                tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
+            }
             tiles[0].collision = false; // va chạm = false
 
             tiles[1] = new Tile();
@@ -69,6 +72,9 @@ public class TileManager {
 
             tiles[41] = new Tile();
             tiles[41].image = null;
+            if (gp.level == 3) {
+                tiles[41].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
+            }
             tiles[41].collision = true;
 
             for (int i = 3; i <= 9; i++) {
@@ -120,13 +126,11 @@ public class TileManager {
             tiles[54] = new Tile();
             tiles[54].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wallmap3.png"));
             tiles[54].collision = true; // va chạm = true
-
-
-
-
+            tiles[54].stiff = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     // đọc map

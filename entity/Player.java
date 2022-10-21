@@ -102,16 +102,16 @@ public class Player extends Entity {
                     break;
             }
 
-            // vẽ bomb
-            for (int i = 0; i < bombs.size(); i++) {
-                bombs.get(i).draw(g2);
-            }
-
-            for (int i = 0; i < flames.size(); i++) {
-                flames.get(i).draw(g2);
-            }
         } else {
             frame = image2.getSubimage(16 * tick, 0, 16, 16);
+        }
+        // vẽ bomb
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).draw(g2);
+        }
+
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).draw(g2);
         }
         // vẽ nhân vật
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
@@ -191,6 +191,9 @@ public class Player extends Entity {
                             bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                     (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                     bombLength, gp));
+                            // GamePanel.tileManager.tiles[41].image = GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(x
+                            //         + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                            //                 / gp.TILESIZE]].image;
                             GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
                                     / gp.TILESIZE] = 41;
                             input.bomb = false;
@@ -302,7 +305,8 @@ public class Player extends Entity {
                         // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
                         // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
 
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                - j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
                             bombs.get(i).desLeft = true;
                         }
@@ -319,7 +323,8 @@ public class Player extends Entity {
                         }
                     }
                     if (bombs.get(i).desRight == false) {
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
+                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                + j * gp.TILESIZE)
                                 / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
                             bombs.get(i).desRight = true;
                         }

@@ -49,9 +49,9 @@ public class GamePanel extends JPanel implements Runnable {
     public KeyHandler input = new KeyHandler(this); // keyH
 
     public UI ui = new UI(this);
-    
+
     public static TileManager tileManager;
-    
+
     public CollisionChecker cChecker = new CollisionChecker(this);
 
     public Player player = new Player(this, input);
@@ -97,10 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
             lighting = new Lighting(this, 350);
         }
         player = new Player(this, input);
-        enemies.clear();
-        enemies.add(new Dumb(1104, 48, this));
-        enemies.add(new Kiki(1104, 624, this));
-        enemies.add(new Zombie(48, 624, this));
+        enemySetup();
         playing = true;
     }
 
@@ -206,5 +203,26 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int num) {
         se.setFile(num);
         se.play();
+    }
+
+    private void enemySetup() {
+        enemies.clear();
+        switch (level) {
+            case 1:
+                enemies.add(new Dumb(1104, 48, this));
+                enemies.add(new Kiki(1104, 624, this));
+                enemies.add(new Zombie(48, 624, this));
+                break;
+            case 2:
+                enemies.add(new Dumb(1056, 48, this));
+                enemies.add(new Kiki(1104, 624, this));
+                enemies.add(new Zombie(48, 624, this));
+                break;
+            case 3:
+                enemies.add(new Dumb(1104, 48, this));
+                enemies.add(new Kiki(1104, 624, this));
+                enemies.add(new Zombie(48, 624, this));
+                break;
+        }
     }
 }

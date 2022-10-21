@@ -17,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp, int level) {
         this.gp = gp;
-        tiles = new Tile[42];
+        tiles = new Tile[55];
         mapTileNum = new int[GamePanel.maxCols][GamePanel.maxRows];
 
         getTileImage();
@@ -100,6 +100,30 @@ public class TileManager {
                 tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
                 tiles[i].collision = true;
             }
+
+            // map 3
+
+            tiles[51] = new Tile();
+            tiles[51].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
+            tiles[51].collision = false;
+
+            tiles[52] = new Tile();
+            tiles[52].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/brickmap3.png"));
+            tiles[52].collision = true; // va chạm = true
+            tiles[52].breakable = true;
+
+            tiles[53] = new Tile();
+            tiles[53].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/brickmap32.png"));
+            tiles[53].collision = true; // va chạm = true
+            tiles[53].breakable = true;
+
+            tiles[54] = new Tile();
+            tiles[54].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wallmap3.png"));
+            tiles[54].collision = true; // va chạm = true
+
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

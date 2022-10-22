@@ -83,7 +83,7 @@ public class UI {
         // menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 
-        text = "NEW GAME";
+        text = "1 PLAYER";
         x = align(text);
         y += gp.TILESIZE * 4;
         g2.drawString(text, x, y);
@@ -91,7 +91,7 @@ public class UI {
             g2.drawString(">", x - gp.TILESIZE, y);
         }
 
-        text = "LOAD GAME";
+        text = "2 PLAYERS";
         x = align(text);
         y += gp.TILESIZE;
         g2.drawString(text, x, y);

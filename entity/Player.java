@@ -80,8 +80,8 @@ public class Player extends Entity {
             maxBomb = 4;
         }
         if (id == 2) {
-            x = 96;
-            y = 48;
+            x = 48;
+            y = 624;
             speed = 4;
             direction = "down";
             tick = 0;
@@ -109,16 +109,16 @@ public class Player extends Entity {
         dead = dead | deadYet();
     }
 
-    private void patch() {
-        if (bombs.size() == 0) {
-            for (int i = 0; i < GamePanel.maxCols; i++) {
-                for (int j = 0; j < GamePanel.maxRows; j++) {
-                    if (GamePanel.tileManager.mapTileNum[i][j] == 55)
-                        GamePanel.tileManager.mapTileNum[i][j] = 0;
-                }
-            }
-        }
-    }
+    // private void patch() {
+    //     if (bombs.size() == 0) {
+    //         for (int i = 0; i < GamePanel.maxCols; i++) {
+    //             for (int j = 0; j < GamePanel.maxRows; j++) {
+    //                 if (GamePanel.tileManager.mapTileNum[i][j] == 55)
+    //                     GamePanel.tileManager.mapTileNum[i][j] = 0;
+    //             }
+    //         }
+    //     }
+    // }
 
     public void draw(Graphics2D g2) {
         if (!dead) {

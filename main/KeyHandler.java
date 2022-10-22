@@ -80,7 +80,7 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_RIGHT) {
             right2 = true;
         }
-        if (event == KeyEvent.VK_NUMPAD6) {
+        if (event == KeyEvent.VK_ENTER) {
             bomb2 = true;
         }
         // if (event == KeyEvent.VK_R) {
@@ -114,15 +114,21 @@ public class KeyHandler implements KeyListener {
 
         if (event == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNumber == 0) {
+                gp.pNum = 1;
                 gp.level = 1;
                 gp.setupGame();
-                ;
                 gp.state = gp.playState;
                 gp.stopMusic();
                 gp.playMusic(0);
             }
 
             if (gp.ui.commandNumber == 1) {
+                gp.pNum = 2;
+                gp.level = 1;
+                gp.setupGame();
+                gp.state = gp.playState;
+                gp.stopMusic();
+                gp.playMusic(0);
             }
 
             if (gp.ui.commandNumber == 2) {

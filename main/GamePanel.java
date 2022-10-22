@@ -227,7 +227,7 @@ public class GamePanel extends JPanel implements Runnable {
             case 1:
                 enemies.add(new Slime1(1104, 624, this));
                 enemies.add(new Slime2(1104, 48, this));
-                enemies.add(new Slime3(48, 624, this));
+                enemies.add(new Slime3(480, 336, this));
                 enemies.add(new Slime4(624, 48, this));
                 break;
             case 2:

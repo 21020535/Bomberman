@@ -1,23 +1,23 @@
-# --------❤️--------Report ProjectGame--------❤️---------
+# --------💣--------Bomberman Game--------💣---------
 
-***A. Thông tin sinh viên:***
+***A. Thông tin nhóm:***
   
-  *	Full name: Lưu Đình Chính  
+  *	Leader: Vũ Ngọc Anh
+  *	Member: Lưu Đình Chính, Nguyễn Ngọc Minh
   *	Major: Science and Technology (CN1) – Class: K66CD  
-  *	Email address: 21020288@vnu.edu.vn  
-  *	Phone number: 0816086988  
-  *	IDE used: Code::Blocks 20.03
+  *	Email address:  
+  *	Phone number:   
+  *	IDE used: IntelliJ IDEA 2022.2.1 (Community Edition)
   
 ***B. Hướng dẫn cài đặt:***
 
   * Cuộn lên đầu trang rồi chọn Code<màu xanh> rồi chọn Download ZIP
   * Giải nén file vừa Download về
-  * Truy cập theo thứ tự: ProjectGame >> bin >> Debug >> test1
 
 ***C. Mô tả chung về trò chơi:***
 
-  * Tên trò chơi: MISERABLE DOG (dịch ra là "Chú chó đáng thương").
-  <img width="400" alt="Demo1" src="https://user-images.githubusercontent.com/96640478/170040667-82866042-3178-4d75-9884-0081f1729cba.png">
+  * Tên trò chơi: Bomberman (dịch ra là "Kẻ đánh bom").
+  <img width="1080" height="720" alt="Demo1" src="https://cdn.mos.cms.futurecdn.net/JYEpAq3qWPggoYv26RPZh6-1200-80.jpg.webp">
    
   * Mô tả: Miserable Dog có thể nói là một tựa game phiêu lưu vô cùng quen thuộc đối với trẻ em hay chính tuổi thơ của mỗi chúng ta. Nó bắt nguồn từ một tựa game vô cùng nổi tiếng có tên Mario đã ra mắt từ những năm 2000.
   * Các ý tưởng chính:

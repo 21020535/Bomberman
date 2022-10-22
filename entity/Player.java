@@ -79,10 +79,22 @@ public class Player extends Entity {
             bombLength = 1;
             maxBomb = 4;
         }
+        if (id == 2) {
+            x = 96;
+            y = 48;
+            speed = 4;
+            direction = "down";
+            tick = 0;
+            maxFrame = 4;
+            begin = 0;
+            interval = 10;
+            bombLength = 1;
+            maxBomb = 4;
+        }
     }
 
     public void update() {
-        patch();
+        // patch();
         if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
                 / gp.TILESIZE] != 55) {
             inBomb = false;

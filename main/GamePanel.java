@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameWinState = 4;
     public boolean playing;
 
-    public int pNum = 1;
+    public int pNum = 2;
 
     private boolean set = false;
 
@@ -140,6 +140,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (state == playState) {
             player.update();
+            if (pNum == 2) {
+                player2.update();
+            }
             // enemy.update();
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).update();
@@ -148,15 +151,19 @@ public class GamePanel extends JPanel implements Runnable {
                     i--;
                 }
             }
-            if (player.dead) {
-                if (!set) {
-                    player.getPlayerImage();
-                    set = true;
+            if (pNum == 1) {
+                if (player.dead) {
+                    if (!set) {
+                        player.getPlayerImage();
+                        set = true;
+                    }
+                    if (player.finish) {
+                        state = gameOverState;
+                        stopMusic();
+                    }
                 }
-                if (player.finish) {
-                    state = gameOverState;
-                    stopMusic();
-                }
+            } else {
+
             }
             if (level > maxLevel) {
                 state = gameWinState;
@@ -183,6 +190,9 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             tileManager.draw(g2);
             player.draw(g2);
+            if (pNum == 2) {
+                player2.draw(g2);
+            }
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }

@@ -80,7 +80,7 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_RIGHT) {
             right2 = true;
         }
-        if (event == KeyEvent.VK_J) {
+        if (event == KeyEvent.VK_NUMPAD6) {
             bomb2 = true;
         }
         // if (event == KeyEvent.VK_R) {
@@ -237,6 +237,21 @@ public class KeyHandler implements KeyListener {
         }
         if (event == KeyEvent.VK_J) {
             bomb = false;
+        }
+        if (event == KeyEvent.VK_UP) {
+            up2 = false;
+        }
+        if (event == KeyEvent.VK_LEFT) {
+            left2 = false;
+        }
+        if (event == KeyEvent.VK_DOWN) {
+            down2 = false;
+        }
+        if (event == KeyEvent.VK_RIGHT) {
+            right2 = false;
+        }
+        if (event == KeyEvent.VK_NUMPAD6) {
+            bomb2 = false;
         }
     }
 

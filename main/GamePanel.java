@@ -82,15 +82,16 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(input);
         this.setFocusable(true);
-        try {
-            bg = ImageIO.read(getClass().getResourceAsStream("/res/bg2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        
     }
 
     public void setupGame() {
         state = titleState;
+        try {
+            bg = ImageIO.read(getClass().getResourceAsStream("/res/bg" + level + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ui = new UI(this);
         tileManager = new TileManager(this, level);
         if (level >= 1) {
@@ -181,7 +182,7 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.get(i).draw(g2);
             }
             if (level >= 1) {
-                lighting.draw(g2);
+                // lighting.draw(g2);
             }
         }
         g2.dispose();

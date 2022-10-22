@@ -47,7 +47,7 @@ public class Flame extends Entity {
         tick = 0;
         maxFrame = 4;
         begin = 0;
-        interval = 7;
+        interval = 6;
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/bomb/fire.png"));
         } catch (IOException e) {

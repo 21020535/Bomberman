@@ -34,13 +34,15 @@ public class FlameSides extends Entity {
         tick = 0;
         maxFrame = 4;
         begin = 0;
-        interval = 7;
+        interval = 6;
     }
 
     public void update() {
         begin++;
         if (begin > interval) {
-            tick++;
+            if (tick < maxFrame - 1) {
+                tick++;
+            }
             begin = 0;
         }
     }

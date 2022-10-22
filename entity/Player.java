@@ -187,7 +187,8 @@ public class Player extends Entity {
                 if (input.bomb == true) {
                     if (bombs.size() < maxBomb) {
                         if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                                / gp.TILESIZE] != 55) {
+                                / gp.TILESIZE] != 55 && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                                / gp.TILESIZE] != 37) {
                             bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                     (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                     bombLength, gp));

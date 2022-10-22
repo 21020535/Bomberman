@@ -122,7 +122,7 @@ public class Duck extends Enemy {
             }
 
         } else {
-            frame = image2.getSubimage(48 * tick, 0, 16, 16);
+            frame = image2.getSubimage(48 * tick, 0, 48, 48);
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }

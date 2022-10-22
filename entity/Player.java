@@ -187,14 +187,17 @@ public class Player extends Entity {
                 if (input.bomb == true) {
                     if (bombs.size() < maxBomb) {
                         if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                                / gp.TILESIZE] != 55 && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                                / gp.TILESIZE] != 37) {
+                                / gp.TILESIZE] != 55
+                                && GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2)
+                                        / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                                                / gp.TILESIZE] != 37) {
                             bombs.add(new Bomb((x + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                     (y + gp.TILESIZE / 2) / gp.TILESIZE * gp.TILESIZE,
                                     bombLength, gp));
-                            // GamePanel.tileManager.tiles[55].image = GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(x
-                            //         + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
-                            //                 / gp.TILESIZE]].image;
+                            // GamePanel.tileManager.tiles[55].image =
+                            // GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(x
+                            // + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
+                            // / gp.TILESIZE]].image;
                             GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
                                     / gp.TILESIZE] = 55;
                             input.bomb = false;
@@ -292,101 +295,6 @@ public class Player extends Entity {
     }
 
     private void handleBombs() {
-        for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).update();
-            // nếu nổ
-            if (bombs.get(i).exploded == true) {
-                gp.playSE(2);
-                flames.add(new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), this, gp.enemies, bombLength));
-
-                for (int j = 1; j <= bombLength; j++) {
-                    if (bombs.get(i).desLeft == false) {
-                        // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
-                        // xóa item hủy diệt được
-                        // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
-                        // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
-
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
-                                - j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
-                            bombs.get(i).desLeft = true;
-                        }
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
-                                - j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].breakable) {
-                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
-                            // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
-                            flames.get(i).x1 = (bombs.get(i).x - j * gp.TILESIZE) / gp.TILESIZE;
-                            flames.get(i).y1 = (bombs.get(i).y) / gp.TILESIZE;
-                            // mapItem.remove(0);
-                            bombs.get(i).desLeft = true;
-                            flames.get(i).flagLeft = true;
-                        }
-                    }
-                    if (bombs.get(i).desRight == false) {
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
-                                + j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
-                            bombs.get(i).desRight = true;
-                        }
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
-                                + j * gp.TILESIZE)
-                                / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].breakable) {
-                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
-                            // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
-                            flames.get(i).x2 = (bombs.get(i).x + j * gp.TILESIZE) / gp.TILESIZE;
-                            flames.get(i).y2 = (bombs.get(i).y) / gp.TILESIZE;
-                            // mapItem.remove(0);
-                            bombs.get(i).desRight = true;
-                            flames.get(i).flagRight = true;
-                        }
-
-                    }
-                    if (bombs.get(i).desUp == false) {
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE]].stiff) {
-                            bombs.get(i).desUp = true;
-                        }
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE]].breakable) {
-                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                            // / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
-                            // .get(0);
-                            flames.get(i).x3 = (bombs.get(i).x) / gp.TILESIZE;
-                            flames.get(i).y3 = (bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE;
-                            // mapItem.remove(0);
-                            bombs.get(i).desUp = true;
-                            flames.get(i).flagUp = true;
-                        }
-
-                    }
-
-                    if (bombs.get(i).desDown == false) {
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE]].stiff) {
-                            bombs.get(i).desDown = true;
-                        }
-                        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                                / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE]].breakable) {
-                            // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
-                            // / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
-                            // .get(0);
-                            flames.get(i).x4 = (bombs.get(i).x) / gp.TILESIZE;
-                            flames.get(i).y4 = (bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE;
-                            // mapItem.remove(0);
-                            bombs.get(i).desDown = true;
-                            flames.get(i).flagDown = true;
-                        }
-
-                    }
-                }
-                // sau khi dùng bomb thì vứt ra khỏi list
-
-                GamePanel.tileManager.mapTileNum[bombs.get(i).x / gp.TILESIZE][bombs.get(i).y / gp.TILESIZE] = 0;
-                bombs.remove(i);
-                i--;
-            }
-        }
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
             if (flames.get(i).finish) {
@@ -406,8 +314,108 @@ public class Player extends Entity {
                     GamePanel.tileManager.mapTileNum[flames.get(i).x4][flames.get(i).y4] = mapItem.get(0);
                     mapItem.remove(0);
                 }
+                bombs.remove(i);
                 flames.remove(i);
                 i--;
+            }
+        }
+        for (int i = 0; i < bombs.size(); i++) {
+            if (!bombs.get(i).exploded) {
+                bombs.get(i).update();
+            }
+            if (i >= flames.size()) {
+                // nếu nổ
+                if (bombs.get(i).exploded == true) {
+                    gp.playSE(2);
+                    flames.add(
+                            new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), this, gp.enemies, bombLength));
+
+                    for (int j = 1; j <= bombLength; j++) {
+                        if (bombs.get(i).desLeft == false) {
+                            // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
+                            // xóa item hủy diệt được
+                            // sau đó gán defledt = true để mỗi lần phá chỉ phá đc 1 viên gạch
+                            // nếu vị trí bên trái đặt quả bomb = 2 thì k phá hủy thứ j
+
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                    - j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
+                                bombs.get(i).desLeft = true;
+                            }
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                    - j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].breakable) {
+                                // GamePanel.tileManager.mapTileNum[(bombs.get(i).x - j * gp.TILESIZE)
+                                // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
+                                flames.get(i).x1 = (bombs.get(i).x - j * gp.TILESIZE) / gp.TILESIZE;
+                                flames.get(i).y1 = (bombs.get(i).y) / gp.TILESIZE;
+                                // mapItem.remove(0);
+                                bombs.get(i).desLeft = true;
+                                flames.get(i).flagLeft = true;
+                            }
+                        }
+                        if (bombs.get(i).desRight == false) {
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                    + j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].stiff) {
+                                bombs.get(i).desRight = true;
+                            }
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x
+                                    + j * gp.TILESIZE)
+                                    / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE]].breakable) {
+                                // GamePanel.tileManager.mapTileNum[(bombs.get(i).x + j * gp.TILESIZE)
+                                // / gp.TILESIZE][(bombs.get(i).y) / gp.TILESIZE] = mapItem.get(0);
+                                flames.get(i).x2 = (bombs.get(i).x + j * gp.TILESIZE) / gp.TILESIZE;
+                                flames.get(i).y2 = (bombs.get(i).y) / gp.TILESIZE;
+                                // mapItem.remove(0);
+                                bombs.get(i).desRight = true;
+                                flames.get(i).flagRight = true;
+                            }
+
+                        }
+                        if (bombs.get(i).desUp == false) {
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE]].stiff) {
+                                bombs.get(i).desUp = true;
+                            }
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE]].breakable) {
+                                // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                // / gp.TILESIZE][(bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                                // .get(0);
+                                flames.get(i).x3 = (bombs.get(i).x) / gp.TILESIZE;
+                                flames.get(i).y3 = (bombs.get(i).y - j * gp.TILESIZE) / gp.TILESIZE;
+                                // mapItem.remove(0);
+                                bombs.get(i).desUp = true;
+                                flames.get(i).flagUp = true;
+                            }
+
+                        }
+
+                        if (bombs.get(i).desDown == false) {
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE]].stiff) {
+                                bombs.get(i).desDown = true;
+                            }
+                            if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                    / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE]].breakable) {
+                                // GamePanel.tileManager.mapTileNum[(bombs.get(i).x)
+                                // / gp.TILESIZE][(bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE] = mapItem
+                                // .get(0);
+                                flames.get(i).x4 = (bombs.get(i).x) / gp.TILESIZE;
+                                flames.get(i).y4 = (bombs.get(i).y + j * gp.TILESIZE) / gp.TILESIZE;
+                                // mapItem.remove(0);
+                                bombs.get(i).desDown = true;
+                                flames.get(i).flagDown = true;
+                            }
+
+                        }
+                    }
+                    // sau khi dùng bomb thì vứt ra khỏi list
+
+                    GamePanel.tileManager.mapTileNum[bombs.get(i).x / gp.TILESIZE][bombs.get(i).y / gp.TILESIZE] = 0;
+
+                }
             }
         }
     }

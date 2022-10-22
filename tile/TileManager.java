@@ -39,6 +39,14 @@ public class TileManager {
             tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/brick.png"));
             tiles[1].collision = true; // va chạm = true
             tiles[1].breakable = true;
+            
+            tiles[2] = new Tile();
+            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/002.png"));
+            tiles[2].breakable = true;
+            
+            tiles[3] = new Tile();
+            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/003.png"));
+            tiles[3].stiff = true;
 
 //             tiles[2] = new Tile();
 //             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
@@ -69,18 +77,6 @@ public class TileManager {
             tiles[37].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/portal.png"));
             // tiles[7].collision = true;
             // tiles[7].breakable = false;
-
-            tiles[55] = new Tile();
-            tiles[55].image = null;
-            if (gp.level == 3) {
-                tiles[55].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
-            }
-            tiles[55].collision = true;
-
-            for (int i = 2; i <= 9; i++) {
-                tiles[i] = new Tile();
-                tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/00" + i + ".png"));
-            }
 
             for (int i = 10; i <= 15; i++) {
                 tiles[i] = new Tile();
@@ -141,6 +137,14 @@ public class TileManager {
             tiles[54].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wallmap3.png"));
             tiles[54].collision = true; // va chạm = true
             tiles[54].stiff = true;
+            
+            tiles[55] = new Tile();
+            tiles[55].image = null;
+            if (gp.level == 3) {
+                tiles[55].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
+            }
+            tiles[55].collision = true;
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

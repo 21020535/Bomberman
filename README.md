@@ -71,7 +71,7 @@
   * Hiểu hơn về cách tạo một dự án, cách lên kế hoạch, cách xây dựng cấu trúc - lớp.
   * Hiểu thêm về các thư viện đồ họa (JavaFX, JavaSwing,...) và cách sử dụng chúng.
   * Thành thạo trong cách cài đặt các lớp, thuộc tính, phương thức để quản lí các đối tượng.
-  * Biết phối hợp toàn bộ các kiến thức đã học trong suốt môn lập trình hướng đối tượng.
+  * Biết phối hợp toàn bộ các kiến thức đã học trong suốt môn lập trình hướng đối tượng như là tính thừa kế, tính đa hình, tính đóng gói, tính trừu tượng hóa, xử lí ngoại lệ,...
   * Cải thiện được khả năng làm việc nhóm đồng thời củng cố kĩ năng tìm tòi, đọc hiểu, tra cứu, sửa lỗi các vấn đề liên quan tới game.
   
   **3. Hướng phát triển**

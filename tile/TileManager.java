@@ -40,10 +40,10 @@ public class TileManager {
             tiles[1].collision = true; // va chạm = true
             tiles[1].breakable = true;
 
-            tiles[2] = new Tile();
-            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
-            tiles[2].collision = true;
-            tiles[2].stiff = true;
+//             tiles[2] = new Tile();
+//             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
+//             tiles[2].collision = true;
+//             tiles[2].stiff = true;
 
             tiles[33] = new Tile();
             tiles[33].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_bombs.png"));
@@ -77,7 +77,7 @@ public class TileManager {
             }
             tiles[55].collision = true;
 
-            for (int i = 3; i <= 9; i++) {
+            for (int i = 2; i <= 9; i++) {
                 tiles[i] = new Tile();
                 tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/00" + i + ".png"));
             }

@@ -17,7 +17,7 @@
 ***C. Mô tả chung về trò chơi:***
 
   * Tên trò chơi: Bomberman (dịch ra là "Kẻ đánh bom").
-  <img width="1080" height="720" alt="Demo1" src="https://cdn.mos.cms.futurecdn.net/JYEpAq3qWPggoYv26RPZh6-1200-80.jpg.webp">
+  <img width="600" height="420" alt="Demo1" src="https://cdn.mos.cms.futurecdn.net/JYEpAq3qWPggoYv26RPZh6-1200-80.jpg.webp">
    
   * Mô tả: Miserable Dog có thể nói là một tựa game phiêu lưu vô cùng quen thuộc đối với trẻ em hay chính tuổi thơ của mỗi chúng ta. Nó bắt nguồn từ một tựa game vô cùng nổi tiếng có tên Mario đã ra mắt từ những năm 2000.
   * Các ý tưởng chính:

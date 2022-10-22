@@ -181,7 +181,7 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.get(i).draw(g2);
             }
             if (level >= 1) {
-                // lighting.draw(g2);
+                lighting.draw(g2);
             }
         }
         g2.dispose();

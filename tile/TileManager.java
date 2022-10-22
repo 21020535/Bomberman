@@ -17,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp, int level) {
         this.gp = gp;
-        tiles = new Tile[55];
+        tiles = new Tile[56];
         mapTileNum = new int[GamePanel.maxCols][GamePanel.maxRows];
 
         getTileImage();
@@ -70,12 +70,12 @@ public class TileManager {
             // tiles[7].collision = true;
             // tiles[7].breakable = false;
 
-            tiles[41] = new Tile();
-            tiles[41].image = null;
+            tiles[55] = new Tile();
+            tiles[55].image = null;
             if (gp.level == 3) {
-                tiles[41].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
+                tiles[55].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/datmap32.png"));
             }
-            tiles[41].collision = true;
+            tiles[55].collision = true;
 
             for (int i = 3; i <= 9; i++) {
                 tiles[i] = new Tile();
@@ -111,7 +111,13 @@ public class TileManager {
                 tiles[i] = new Tile();
                 tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
                 tiles[i].collision = true;
+                tiles[i].stiff = true;
             }
+            tiles[43].stiff = false;
+            tiles[43].breakable = true;
+            
+            tiles[48].stiff = false;
+            tiles[48].breakable = true;
 
             // map 3
 

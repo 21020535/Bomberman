@@ -20,8 +20,12 @@ public class BFS {
     private static int[] dir = { 0, -1, 0, 1, 0 };
 
     public static int find(int col, int row, int playerCol, int playerRow) {
-        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[col][row]].collision == true)
-            return (int) 1e9 - 1;
+        if (GamePanel.tileManager.tiles[GamePanel.tileManager.mapTileNum[col][row]].collision == true) {
+            if (GamePanel.tileManager.mapTileNum[col][row] == 55) {
+                return (int) 1e9 - 1;
+            }
+            return (int) 1e8;
+        }
         for (int i = 0; i < GamePanel.maxCols; i++) {
             for (int j = 0; j < GamePanel.maxRows; j++) {
                 distance[i][j] = 0;

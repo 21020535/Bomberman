@@ -89,7 +89,11 @@ public class Kiki extends Enemy {
                     direction = "down";
                     min = downCell;
                 }
-                movementBuffer += gp.TILESIZE;
+                collide = false;
+                gp.cChecker.checkTile(this);
+                if (!collide) {
+                    movementBuffer += gp.TILESIZE;
+                }
             }
 
             switch (direction) {

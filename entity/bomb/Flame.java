@@ -89,6 +89,12 @@ public class Flame extends Entity {
                     }
                 }
             }
+            for (int j = 0; j < player.bombs.size(); j++) {
+                if (player.bombs.get(j).getX() == sides.get(i).getX()
+                        && player.bombs.get(j).getY() == sides.get(i).getY()) {
+                    player.bombs.get(j).exploded = true;
+                }
+            }
         }
     }
 

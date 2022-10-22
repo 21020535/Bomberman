@@ -42,16 +42,14 @@ public class TileManager {
             
             tiles[2] = new Tile();
             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/002.png"));
+            tiles[2].collision = true;
             tiles[2].breakable = true;
             
             tiles[3] = new Tile();
             tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/003.png"));
+            tiles[3].collision = true;
             tiles[3].stiff = true;
 
-//             tiles[2] = new Tile();
-//             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
-//             tiles[2].collision = true;
-//             tiles[2].stiff = true;
 
             tiles[33] = new Tile();
             tiles[33].image = ImageIO.read(getClass().getResourceAsStream("/res/powerups/powerup_bombs.png"));

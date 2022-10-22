@@ -17,11 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import entity.Player;
-import entity.enemy.Duck;
-import entity.enemy.Dumb;
-import entity.enemy.Enemy;
-import entity.enemy.Kiki;
-import entity.enemy.Zombie;
+import entity.enemy.*;
 import tile.TileManager;
 
 /**
@@ -217,12 +213,15 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
             case 2:
                 enemies.add(new Duck(1056, 48, this));
-                enemies.add(new Kiki(1104, 624, this));
-                enemies.add(new Zombie(48, 624, this));
+                enemies.add(new Pug(1056, 48, this));
+                enemies.add(new Chicken(48, 624, this));
+                enemies.add(new Squirrel(48,624,this));
                 break;
             case 3:
                 enemies.add(new Dumb(1104, 48, this));
                 enemies.add(new Kiki(1104, 624, this));
+                enemies.add(new Zombie(48, 624, this));
+                enemies.add(new Bat(1104, 624, this));
                 enemies.add(new Zombie(48, 624, this));
                 break;
         }

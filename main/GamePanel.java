@@ -232,8 +232,8 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
             case 2:
                 enemies.add(new Duck(1056, 48 * 8, this));
-                enemies.add(new Pug(1056, 48, this));
-                enemies.add(new Chicken(48, 624, this));
+                enemies.add(new Pug(768, 144, this));
+                enemies.add(new Chicken(384, 336, this));
                 enemies.add(new Squirrel(48 * 18, 48 * 11, this));
                 break;
             case 3:
@@ -249,13 +249,13 @@ public class GamePanel extends JPanel implements Runnable {
         int brickNumber;
         switch (level) {
             case 1:
-                brickNumber = 79;
+                brickNumber = 107;
                 break;
             case 2:
-                brickNumber = 44;
+                brickNumber = 67;
                 break;
             default:
-                brickNumber = 47;
+                brickNumber = 68;
                 break;
         }
 

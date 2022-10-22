@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class Duck extends Enemy {
-    public Duck(int x, int y, GamePanel gp) {
+public class Bat extends Enemy {
+    public Bat(int x, int y, GamePanel gp) {
         super(x, y, gp);
         // TODO Auto-generated constructor stub
     }
@@ -94,8 +94,8 @@ public class Duck extends Enemy {
     public void getImage() {
         // TODO Auto-generated method stub
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/duck.png"));
-            image2 = ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadduck.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/bat.png"));
+            image2 = ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadbat.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,21 +108,21 @@ public class Duck extends Enemy {
             switch (direction) {
                 case "up":
                     // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                    frame = image.getSubimage(48 * tick, 144, 48, 48);
+                    frame = image.getSubimage(32 * tick, 64, 32, 32);
                     break;
                 case "down":
-                    frame = image.getSubimage(48 * tick, 0, 48, 48);
+                    frame = image.getSubimage(32 * tick, 96, 32, 32);
                     break;
                 case "left":
-                    frame = image.getSubimage(48 * tick, 96, 48, 48);
+                    frame = image.getSubimage(32 * tick, 0, 32, 32);
                     break;
                 case "right":
-                    frame = image.getSubimage(48 * tick, 48, 48, 48);
+                    frame = image.getSubimage(32 * tick, 32, 32, 32);
                     break;
             }
 
         } else {
-            frame = image2.getSubimage(48 * tick, 0, 16, 16);
+            frame = image2.getSubimage(32 * tick, 0, 32, 32);
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }

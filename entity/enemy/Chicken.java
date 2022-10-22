@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class Duck extends Enemy {
-    public Duck(int x, int y, GamePanel gp) {
+public class Chicken extends Enemy{
+    public Chicken(int x, int y, GamePanel gp) {
         super(x, y, gp);
         // TODO Auto-generated constructor stub
     }
@@ -22,9 +22,8 @@ public class Duck extends Enemy {
         tick = 0;
         maxFrame = 4;
         begin = 0;
-        interval = 6;
+        interval = 7;
         direction = "left";
-        num = 48;
     }
 
     @Override
@@ -43,7 +42,7 @@ public class Duck extends Enemy {
             collide = false;
             Random a = new Random();
             gp.cChecker.checkTile(this);
-            if (!collide && num > 0) {
+            if (!collide) {
                 switch (direction) {
                     case "left":
                         x -= speed;
@@ -62,8 +61,7 @@ public class Duck extends Enemy {
                         num--;
                         break;
                 }
-            }
-            if (collide) {
+            } else {
 
                 if (direction.equals("left")) {
                     direction = leftR[a.nextInt(3)];
@@ -74,9 +72,6 @@ public class Duck extends Enemy {
                 } else if (direction.equals("up")) {
                     direction = upR[a.nextInt(3)];
                 }
-            } else if (num == 0) {
-                direction = all[a.nextInt(4)];
-                num = 48;
             }
         } else {
             begin++;
@@ -92,10 +87,9 @@ public class Duck extends Enemy {
 
     @Override
     public void getImage() {
-        // TODO Auto-generated method stub
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/duck.png"));
-            image2 = ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadduck.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/chicken.png"));
+            image2 = ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadchicken.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,21 +102,23 @@ public class Duck extends Enemy {
             switch (direction) {
                 case "up":
                     // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                    frame = image.getSubimage(48 * tick, 144, 48, 48);
+                    frame = image.getSubimage(32 * tick, 0, 32, 32);
+
                     break;
                 case "down":
-                    frame = image.getSubimage(48 * tick, 0, 48, 48);
+
+                    frame = image.getSubimage(32 * tick, 64, 32, 32);
                     break;
                 case "left":
-                    frame = image.getSubimage(48 * tick, 96, 48, 48);
+                    frame = image.getSubimage(32 * tick, 96, 32, 32);
                     break;
                 case "right":
-                    frame = image.getSubimage(48 * tick, 48, 48, 48);
+                    frame = image.getSubimage(32 * tick, 32, 32, 32);
                     break;
             }
 
         } else {
-            frame = image2.getSubimage(48 * tick, 0, 16, 16);
+            frame = image2.getSubimage(32 * tick, 0, 32, 32);
         }
         g2.drawImage(frame, x + 4, y + 4, gp.TILESIZE - 8, gp.TILESIZE - 8, null);
     }

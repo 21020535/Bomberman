@@ -8,9 +8,8 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class Dumb extends Enemy {
-
-    public Dumb(int x, int y, GamePanel gp) {
+public class Duck extends Enemy {
+    public Duck(int x, int y, GamePanel gp) {
         super(x, y, gp);
         // TODO Auto-generated constructor stub
     }
@@ -21,9 +20,9 @@ public class Dumb extends Enemy {
         // y = 48;
         speed = 2;
         tick = 0;
-        maxFrame = 6;
+        maxFrame = 4;
         begin = 0;
-        interval = 4;
+        interval = 6;
         direction = "left";
         num = 48;
     }
@@ -95,7 +94,7 @@ public class Dumb extends Enemy {
     public void getImage() {
         // TODO Auto-generated method stub
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/enemy2.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/enemy/duck.png"));
             image2 = ImageIO.read(getClass().getResourceAsStream("/res/enemy/deadenemy2.png"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,16 +108,16 @@ public class Dumb extends Enemy {
             switch (direction) {
                 case "up":
                     // getSubimage để cắt 1 hình ảnh lớn thành các frame nhỏ
-                    frame = image.getSubimage(16 * tick, 48, 16, 16);
+                    frame = image.getSubimage(48 * tick, 144, 48, 48);
                     break;
                 case "down":
-                    frame = image.getSubimage(16 * tick, 0, 16, 16);
+                    frame = image.getSubimage(48 * tick, 0, 48, 48);
                     break;
                 case "left":
-                    frame = image.getSubimage(16 * tick, 16, 16, 16);
+                    frame = image.getSubimage(48 * tick, 96, 48, 48);
                     break;
                 case "right":
-                    frame = image.getSubimage(16 * tick, 32, 16, 16);
+                    frame = image.getSubimage(48 * tick, 48, 48, 48);
                     break;
             }
 

@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(input);
         this.setFocusable(true);
-        
+
     }
 
     public void setupGame() {
@@ -210,19 +210,19 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.add(new Slime1(1104, 624, this));
                 enemies.add(new Slime2(1104, 48, this));
                 enemies.add(new Slime3(48, 624, this));
-                enemies.add(new Slime4(624,48,this));
+                enemies.add(new Slime4(624, 48, this));
                 break;
             case 2:
-                enemies.add(new Duck(1056, 48*8, this));
+                enemies.add(new Duck(1056, 48 * 8, this));
                 enemies.add(new Pug(1056, 48, this));
-                enemies.add(new Chicken(48,624,this));
-                enemies.add(new Squirrel(48*18, 48*11, this));
+                enemies.add(new Chicken(48, 624, this));
+                enemies.add(new Squirrel(48 * 18, 48 * 11, this));
                 break;
             case 3:
                 enemies.add(new Dumb(1104, 48, this));
                 enemies.add(new Kiki(1104, 624, this));
                 enemies.add(new Zombie(48, 624, this));
-                enemies.add(new Bat(1104, 48*7, this));
+                enemies.add(new Bat(1104, 48 * 7, this));
                 enemies.add(new Zombie(48, 624, this));
                 break;
         }

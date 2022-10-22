@@ -5,6 +5,7 @@
 package main;
 
 import entity.Entity;
+import entity.Player;
 
 /**
  *
@@ -49,7 +50,15 @@ public class CollisionChecker {
                 if (GamePanel.tileManager.tiles[tileNum1].collision == true
                         || GamePanel.tileManager.tiles[tileNum2].collision == true) {
                     // va chạm nhân vật = true
-                    entity.collide = true;
+                    if (entity instanceof Player) {
+                        Player tmp = (Player) entity;
+                        if (tileNum1 == 55 && tmp.inBomb) {
+
+                        } else 
+                            entity.collide = true;
+                    } else {
+                        entity.collide = true;
+                    }
                 }
                 break;
             case "down":
@@ -58,7 +67,14 @@ public class CollisionChecker {
                 tileNum2 = GamePanel.tileManager.mapTileNum[rightCol][botRow];
                 if (GamePanel.tileManager.tiles[tileNum1].collision == true
                         || GamePanel.tileManager.tiles[tileNum2].collision == true) {
-                    entity.collide = true;
+                    if (entity instanceof Player) {
+                        Player tmp = (Player) entity;
+                        if (tileNum1 == 55 && tmp.inBomb) {
+
+                        } else 
+                            entity.collide = true;
+
+                    }
                 }
                 break;
             case "left":
@@ -67,7 +83,14 @@ public class CollisionChecker {
                 tileNum2 = GamePanel.tileManager.mapTileNum[leftCol][botRow];
                 if (GamePanel.tileManager.tiles[tileNum1].collision == true
                         || GamePanel.tileManager.tiles[tileNum2].collision == true) {
-                    entity.collide = true;
+                    if (entity instanceof Player) {
+                        Player tmp = (Player) entity;
+                        if (tileNum1 == 55 && tmp.inBomb) {
+
+                        } else 
+                            entity.collide = true;
+
+                    }
                 }
                 break;
             case "right":
@@ -76,7 +99,14 @@ public class CollisionChecker {
                 tileNum2 = GamePanel.tileManager.mapTileNum[rightCol][botRow];
                 if (GamePanel.tileManager.tiles[tileNum1].collision == true
                         || GamePanel.tileManager.tiles[tileNum2].collision == true) {
-                    entity.collide = true;
+                    if (entity instanceof Player) {
+                        Player tmp = (Player) entity;
+                        if (tileNum1 == 55 && tmp.inBomb) {
+
+                        } else 
+                            entity.collide = true;
+
+                    }
                 }
                 break;
         }

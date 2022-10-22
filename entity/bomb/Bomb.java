@@ -1,7 +1,6 @@
 package entity.bomb;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -24,7 +23,8 @@ public class Bomb extends Entity {
         this.gp = gp;
         tick = 0;
         maxFrame = 3;
-        // begin đại diện thời gian đã trôi qua, đến khi nó bằng interval tức là 1 frame mới cần thay thế frame cũ
+        // begin đại diện thời gian đã trôi qua, đến khi nó bằng interval tức là 1 frame
+        // mới cần thay thế frame cũ
         begin = 0;
         interval = 8;
         put = System.currentTimeMillis();
@@ -50,13 +50,12 @@ public class Bomb extends Entity {
             }
         } else {
             exploded = true;
-            
+
         }
     }
 
     public void draw(Graphics2D g2) {
         // vẽ bomb
-        BufferedImage frame = null;
         frame = image.getSubimage(16 * tick, 0, 16, 16);
         g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
 

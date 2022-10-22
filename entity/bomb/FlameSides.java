@@ -1,7 +1,6 @@
 package entity.bomb;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -48,7 +47,6 @@ public class FlameSides extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
         switch (axis) {
             case "horizontal_left":
                 frame = image.getSubimage(16 * tick, 64, 16, 16); 

@@ -1,7 +1,6 @@
 package entity.bomb;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,18 +89,15 @@ public class Flame extends Entity {
                 }
             }
             for (int j = 0; j < player.bombs.size(); j++) {
-                if (j != i) {
-                    if (player.bombs.get(j).getX() == sides.get(i).getX()
-                            && player.bombs.get(j).getY() == sides.get(i).getY()) {
-                        player.bombs.get(j).exploded = true;
-                    }
+                if (player.bombs.get(j).getX() == sides.get(i).getX()
+                        && player.bombs.get(j).getY() == sides.get(i).getY()) {
+                    player.bombs.get(j).exploded = true;
                 }
             }
         }
     }
 
     public void draw(Graphics2D g2) {
-        BufferedImage frame = null;
         frame = image.getSubimage(16 * tick, 0, 16, 16);
         g2.drawImage(frame, x, y, gp.TILESIZE, gp.TILESIZE, null);
         for (int i = 0; i < sides.size(); i++) {

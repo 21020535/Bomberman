@@ -106,6 +106,7 @@ public class TileManager {
                 tiles[i].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/0" + i + ".png"));
                 tiles[i].collision = true;
             }
+            tiles[38].collision = false;
             tiles[39].stiff = true;
             
             for (int i = 41; i <= 48; i++) {

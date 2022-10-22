@@ -13,7 +13,7 @@ public class Bomb extends Entity {
     long timeToExplode = 2000;
     long put, clock;
     GamePanel gp;
-    public boolean exploded = false;
+    public boolean exploded = false, added = false;
     public boolean desRight = false, desLeft = false, desUp = false, desDown = false;
 
     public Bomb(int x, int y, int length, GamePanel gp) {

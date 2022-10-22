@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -51,8 +52,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public CollisionChecker cChecker = new CollisionChecker(this);
 
-    public Player player = new Player(this, input);
+    public Player player, player2;
     public List<Enemy> enemies = new ArrayList<>();
+    public List<Integer> mapItem = new ArrayList<>();
 
     private Lighting lighting;
     private BufferedImage bg;
@@ -70,6 +72,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameOverState = 3;
     public final int gameWinState = 4;
     public boolean playing;
+
+    public int pNum = 1;
 
     private boolean set = false;
 
@@ -94,8 +98,12 @@ public class GamePanel extends JPanel implements Runnable {
         if (level >= 1) {
             lighting = new Lighting(this, 350);
         }
-        player = new Player(this, input);
+        player = new Player(this, input, 1);
+        if (pNum == 2) {
+            player2 = new Player(this, input, 2);
+        }
         enemySetup();
+        powerupsSetup();
         playing = true;
     }
 
@@ -226,5 +234,39 @@ public class GamePanel extends JPanel implements Runnable {
                 enemies.add(new Zombie(48, 624, this));
                 break;
         }
+    }
+    private void powerupsSetup() {
+        int brickNumber;
+        switch (level) {
+            case 1:
+                brickNumber = 79;
+                break;
+            case 2:
+                brickNumber = 44;
+                break;
+            default:
+                brickNumber = 47;
+                break;
+        }
+
+        this.mapItem.add(37);
+
+        for (int i = 0; i < 4; i++) {
+            this.mapItem.add(33);
+        }
+        for (int i = 0; i < 3; i++) {
+            this.mapItem.add(34);
+        }
+        for (int i = 0; i < 4; i++) {
+            this.mapItem.add(35);
+        }
+        for (int i = 0; i < 1; i++) {
+            this.mapItem.add(36);
+        }
+        int n = mapItem.size();
+        for (int i = 0; i < brickNumber - n; i++) {
+            mapItem.add(0);
+        }
+        Collections.shuffle(mapItem);
     }
 }

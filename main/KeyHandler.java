@@ -16,6 +16,7 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean up, down, left, right, bomb, pause, enterPressed = false;
+    public boolean up2, down2, left2, right2, bomb2;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -42,7 +43,6 @@ public class KeyHandler implements KeyListener {
             gameOverState(event);
         }
 
-
         if (event == KeyEvent.VK_P) {
             // pause = !pause;
             if (gp.state == gp.playState) {
@@ -68,18 +68,33 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_J) {
             bomb = true;
         }
+        if (event == KeyEvent.VK_UP) {
+            up2 = true;
+        }
+        if (event == KeyEvent.VK_LEFT) {
+            left2 = true;
+        }
+        if (event == KeyEvent.VK_DOWN) {
+            down2 = true;
+        }
+        if (event == KeyEvent.VK_RIGHT) {
+            right2 = true;
+        }
+        if (event == KeyEvent.VK_J) {
+            bomb2 = true;
+        }
         // if (event == KeyEvent.VK_R) {
-        //     switch (gp.curMap) {
-        //         case 0:
-        //             gp.tileManager.loadMap("/res/map/map2.txt", 0);
-        //             break;
-        //     }
+        // switch (gp.curMap) {
+        // case 0:
+        // gp.tileManager.loadMap("/res/map/map2.txt", 0);
+        // break;
+        // }
         // }
 
         if (event == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
-        
+
     }
 
     private void titleState(int event) {
@@ -100,7 +115,8 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNumber == 0) {
                 gp.level = 1;
-                gp.setupGame();;
+                gp.setupGame();
+                ;
                 gp.state = gp.playState;
                 gp.stopMusic();
                 gp.playMusic(0);

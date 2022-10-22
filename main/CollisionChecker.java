@@ -19,9 +19,9 @@ public class CollisionChecker {
     }
 
     public void checkTile(Entity entity) {
-        // bên trái nhất của entity 
+        // bên trái nhất của entity
         int leftmost = entity.getX() + 1;
-        // bên phải nhất của entity 
+        // bên phải nhất của entity
         int rightmost = entity.getX() + gp.TILESIZE - 1;
         int top = entity.getY() + 1;
         int bottom = entity.getY() + gp.TILESIZE - 1;
@@ -54,7 +54,7 @@ public class CollisionChecker {
                         Player tmp = (Player) entity;
                         if (tileNum1 == 55 && tmp.inBomb) {
 
-                        } else 
+                        } else
                             entity.collide = true;
                     } else {
                         entity.collide = true;
@@ -71,9 +71,10 @@ public class CollisionChecker {
                         Player tmp = (Player) entity;
                         if (tileNum1 == 55 && tmp.inBomb) {
 
-                        } else 
+                        } else
                             entity.collide = true;
-
+                    } else {
+                        entity.collide = true;
                     }
                 }
                 break;
@@ -87,9 +88,10 @@ public class CollisionChecker {
                         Player tmp = (Player) entity;
                         if (tileNum1 == 55 && tmp.inBomb) {
 
-                        } else 
+                        } else
                             entity.collide = true;
-
+                    } else {
+                        entity.collide = true;
                     }
                 }
                 break;
@@ -103,9 +105,10 @@ public class CollisionChecker {
                         Player tmp = (Player) entity;
                         if (tileNum1 == 55 && tmp.inBomb) {
 
-                        } else 
+                        } else
                             entity.collide = true;
-
+                    } else {
+                        entity.collide = true;
                     }
                 }
                 break;

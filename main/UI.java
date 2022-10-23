@@ -395,7 +395,7 @@ public class UI {
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
 
                 // make shadow
-                text = "PLAY1 WIN";
+                text = "PLAY 1 WON !!!!";
                 g2.setColor(Color.white);
                 x = align(text);
                 y = gp.TILESIZE * 4;
@@ -438,7 +438,7 @@ public class UI {
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
 
                 // make shadow
-                text = "PLAY2 WIN";
+                text = "PLAY 2 WON !!!!";
                 g2.setColor(Color.white);
                 x = align(text);
                 y = gp.TILESIZE * 4;
@@ -481,7 +481,7 @@ public class UI {
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
 
                 // make shadow
-                text = "The game ended";
+                text = "The game ended :<";
                 g2.setColor(Color.white);
                 x = align(text);
                 y = gp.TILESIZE * 4;

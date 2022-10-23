@@ -3,7 +3,7 @@
 ***A. Thông tin nhóm:***
   
   *	Leader: Vũ Ngọc Anh
-  *	Member: Lưu Đình Chính, Nguyễn Ngọc Minh
+  *	Member: Lưu Đình Chính, Nguyễn Thị Ngọc Minh
   *	Major: Information Technology (CN1) – Class: K66CD  
   *	Email address:  
   *	Phone number:   

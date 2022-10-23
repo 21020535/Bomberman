@@ -556,6 +556,9 @@ public class Player extends Entity {
                     if (gp.level == 2) {
                         gp.playMusic(0);
                     }
+                    if (gp.level == 3) {
+                        gp.playMusic(10);
+                    }
                 } else {
                     gp.stopMusic();
                     gp.state = gp.gameWinState;

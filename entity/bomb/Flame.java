@@ -28,6 +28,8 @@ public class Flame extends Entity {
 
     public int x1, x2, x3, x4, y1, y2, y3, y4;
 
+    private int id;
+
     public int getTotalSides() {
         return totalSides;
     }
@@ -36,13 +38,13 @@ public class Flame extends Entity {
         this.totalSides = totalSides;
     }
 
-    public Flame(int x, int y, GamePanel gp, Bomb bomb, Player player, List<Enemy> enemies, int bombLength) {
+    public Flame(int x, int y, GamePanel gp, Bomb bomb, List<Enemy> enemies, int id, int bombLength) {
         this.x = x;
         this.y = y;
         this.gp = gp;
         this.bomb = bomb;
-        this.player = player;
         this.enemies = enemies;
+        this.id = id;
         tick = 0;
         maxFrame = 4;
         begin = 0;
@@ -65,14 +67,46 @@ public class Flame extends Entity {
             }
             begin = 0;
         }
+        execution();
+    }
+
+    private void execution() {
+        if (!gp.player.flameResist) {
+            if (gp.player.getX() + 20 <= this.getX() + gp.TILESIZE
+                    && gp.player.getX() + gp.TILESIZE >= this.getX() + 20
+                    && gp.player.getY() + 20 <= this.getY() + gp.TILESIZE
+                    && gp.player.getY() + gp.TILESIZE >= this.getY() + 20) {
+                gp.player.dead = true;
+            }
+        }
+        if (gp.pNum == 2) {
+            if (!gp.player2.flameResist) {
+                if (gp.player2.getX() + 20 <= this.getX() + gp.TILESIZE
+                        && gp.player2.getX() + gp.TILESIZE >= this.getX() + 20
+                        && gp.player2.getY() + 20 <= this.getY() + gp.TILESIZE
+                        && gp.player2.getY() + gp.TILESIZE >= this.getY() + 20) {
+                    gp.player2.dead = true;
+                }
+            }
+        }
         for (int i = 0; i < sides.size(); i++) {
             sides.get(i).update();
-            if (!player.flameResist) {
-                if (player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
-                        && player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
-                        && player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
-                        && player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
-                    player.dead = true;
+            if (!gp.player.flameResist) {
+                if (gp.player.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
+                        && gp.player.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
+                        && gp.player.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
+                        && gp.player.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
+                    gp.player.dead = true;
+                }
+            }
+            if (gp.pNum == 2) {
+                if (!gp.player2.flameResist) {
+                    if (gp.player2.getX() + 20 <= sides.get(i).getX() + gp.TILESIZE
+                            && gp.player2.getX() + gp.TILESIZE >= sides.get(i).getX() + 20
+                            && gp.player2.getY() + 20 <= sides.get(i).getY() + gp.TILESIZE
+                            && gp.player2.getY() + gp.TILESIZE >= sides.get(i).getY() + 20) {
+                        gp.player2.dead = true;
+                    }
                 }
             }
             for (int j = 0; j < enemies.size(); j++) {
@@ -85,15 +119,31 @@ public class Flame extends Entity {
                         enemies.get(j).tick = 0;
                         enemies.get(j).begin = 0;
                         enemies.get(j).interval = 20;
+                        if (gp.pNum == 2) {
+                            if (id == 1) {
+                                gp.score1++;
+                            } else {
+                                gp.score2++;
+                            }
+                        }
                     }
                 }
             }
-            for (int j = 0; j < player.bombs.size(); j++) {
-                if (player.bombs.get(j).getX() == sides.get(i).getX()
-                        && player.bombs.get(j).getY() == sides.get(i).getY()) {
-                    player.bombs.get(j).exploded = true;
+            for (int j = 0; j < gp.player.bombs.size(); j++) {
+                if (gp.player.bombs.get(j).getX() == sides.get(i).getX()
+                        && gp.player.bombs.get(j).getY() == sides.get(i).getY()) {
+                    gp.player.bombs.get(j).exploded = true;
                 }
             }
+            if (gp.pNum == 2) {
+                for (int j = 0; j < gp.player2.bombs.size(); j++) {
+                    if (gp.player2.bombs.get(j).getX() == sides.get(i).getX()
+                            && gp.player2.bombs.get(j).getY() == sides.get(i).getY()) {
+                        gp.player2.bombs.get(j).exploded = true;
+                    }
+                }
+            }
+
         }
     }
 

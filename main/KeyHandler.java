@@ -44,15 +44,15 @@ public class KeyHandler implements KeyListener {
         }
 
         if (event == KeyEvent.VK_P) {
-            // pause = !pause;
             if (gp.state == gp.playState) {
                 gp.state = gp.optionsState;
-            } else {
+            } else if (gp.state == gp.optionsState) {
                 gp.state = gp.playState;
             }
         }
 
         // di chuyen
+        // player1
         if (event == KeyEvent.VK_W) {
             up = true;
         }
@@ -68,6 +68,8 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_J) {
             bomb = true;
         }
+
+        // player2
         if (event == KeyEvent.VK_UP) {
             up2 = true;
         }
@@ -80,16 +82,9 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_RIGHT) {
             right2 = true;
         }
-        if (event == KeyEvent.VK_ENTER) {
+        if (event == KeyEvent.VK_SLASH) {
             bomb2 = true;
         }
-        // if (event == KeyEvent.VK_R) {
-        // switch (gp.curMap) {
-        // case 0:
-        // gp.tileManager.loadMap("/res/map/map2.txt", 0);
-        // break;
-        // }
-        // }
 
         if (event == KeyEvent.VK_ENTER) {
             enterPressed = true;
@@ -124,7 +119,9 @@ public class KeyHandler implements KeyListener {
 
             if (gp.ui.commandNumber == 1) {
                 gp.pNum = 2;
-                gp.level = 1;
+                gp.level = 0;
+                gp.score1 = 0;
+                gp.score2 = 0;
                 gp.setupGame();
                 gp.state = gp.playState;
                 gp.stopMusic();
@@ -256,7 +253,7 @@ public class KeyHandler implements KeyListener {
         if (event == KeyEvent.VK_RIGHT) {
             right2 = false;
         }
-        if (event == KeyEvent.VK_NUMPAD6) {
+        if (event == KeyEvent.VK_SLASH) {
             bomb2 = false;
         }
     }

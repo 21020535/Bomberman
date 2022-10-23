@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean playing;
 
     public int pNum = 2;
+    public int score1 = 0, score2 = 0;
 
     private boolean set = false;
 
@@ -163,9 +164,20 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 }
             } else {
-
+                if (player.finish && player2.finish) {
+                    if (score1 > score2) {
+                        System.out.println("Player 1 won!!!");
+                    } else if (score1 < score2) {
+                        System.out.println("Player 2 won!!!");
+                    } else {
+                        System.out.println("The game ended in a draw!!!");
+                    }
+                    state = gameWinState;
+                    stopMusic();
+                    playSE(8);
+                }
             }
-            
+
         }
         if (state == optionsState) {
             //
@@ -187,7 +199,7 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             tileManager.draw(g2);
             player.draw(g2);
-            if (pNum == 2) {
+            if (pNum == 2 && !player2.finish) {
                 player2.draw(g2);
             }
             for (int i = 0; i < enemies.size(); i++) {
@@ -221,6 +233,15 @@ public class GamePanel extends JPanel implements Runnable {
     private void enemySetup() {
         enemies.clear();
         switch (level) {
+            case 0:
+                enemies.add(new Slime1(1104, 624, this));
+                enemies.add(new Chicken(1104, 48, this));
+                enemies.add(new Chicken(1104, 48, this));
+                enemies.add(new Zombie(528, 336, this));
+                enemies.add(new Zombie(528, 336, this));
+                enemies.add(new Dumb(624, 48, this));
+                enemies.add(new Dumb(624, 48, this));
+                break;
             case 1:
                 enemies.add(new Slime1(1104, 624, this));
                 enemies.add(new Slime2(1104, 48, this));

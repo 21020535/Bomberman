@@ -53,7 +53,7 @@ public class Player extends Entity {
                 image2 = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
             } else {
                 gp.playSE(6);
-                interval = 20;
+                interval = 25;
                 tick = 0;
                 begin = 0;
                 // image =
@@ -112,14 +112,14 @@ public class Player extends Entity {
     }
 
     // private void patch() {
-    //     if (bombs.size() == 0) {
-    //         for (int i = 0; i < GamePanel.maxCols; i++) {
-    //             for (int j = 0; j < GamePanel.maxRows; j++) {
-    //                 if (GamePanel.tileManager.mapTileNum[i][j] == 55)
-    //                     GamePanel.tileManager.mapTileNum[i][j] = 0;
-    //             }
-    //         }
-    //     }
+    // if (bombs.size() == 0) {
+    // for (int i = 0; i < GamePanel.maxCols; i++) {
+    // for (int j = 0; j < GamePanel.maxRows; j++) {
+    // if (GamePanel.tileManager.mapTileNum[i][j] == 55)
+    // GamePanel.tileManager.mapTileNum[i][j] = 0;
+    // }
+    // }
+    // }
     // }
 
     public void draw(Graphics2D g2) {
@@ -391,7 +391,8 @@ public class Player extends Entity {
                 if (bombs.get(i).exploded == true && bombs.get(i).added == false) {
                     gp.playSE(2);
                     flames.add(
-                            new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), this, gp.enemies, bombLength));
+                            new Flame(bombs.get(i).x, bombs.get(i).y, gp, bombs.get(i), gp.enemies, this.id,
+                                    bombLength));
                     for (int j = 1; j <= bombLength; j++) {
                         if (bombs.get(i).desLeft == false) {
                             // tại vị trí ô bên trái đặt quả bom có giá trị bằng 1 thì set về giá trị bằng 0
@@ -547,31 +548,64 @@ public class Player extends Entity {
                 / gp.TILESIZE] == 37) {
             // portal
             if (gp.enemies.isEmpty()) {
-                if (gp.level < gp.maxLevel) {
-                    gp.level++;
-                    gp.setupGame();
-                    gp.state = gp.playState;
-                    gp.playSE(4);
-                    gp.stopMusic();
-                    if (gp.level == 2) {
-                        gp.playMusic(0);
-                    }
-                    if (gp.level == 3) {
-                        gp.playMusic(10);
+                if (gp.pNum == 1) {
+                    if (gp.level < gp.maxLevel) {
+                        gp.level++;
+                        gp.setupGame();
+                        gp.state = gp.playState;
+                        gp.playSE(4);
+                        gp.stopMusic();
+                        if (gp.level == 2) {
+                            gp.playMusic(0);
+                        }
+                        if (gp.level == 3) {
+                            gp.playMusic(10);
+                        }
+                    } else {
+                        gp.stopMusic();
+                        gp.state = gp.gameWinState;
+                        gp.playSE(8);
                     }
                 } else {
-                    gp.stopMusic();
+                    if (id == 1) {
+                        gp.score1++;
+                        if (!gp.player2.dead) {
+                            if (gp.score1 > gp.score2) {
+                                System.out.println("Player 1 won!!!");
+                            } else if (gp.score1 < gp.score2) {
+                                System.out.println("Player 2 won!!!");
+                            } else {
+                                System.out.println("The game ended in a draw!!!");
+                            }
+                        } else {
+                            System.out.println("Player 1 won!!!");
+                        }
+                    } else {
+                        gp.score2++;
+                        if (!gp.player.dead) {
+                            if (gp.score1 > gp.score2) {
+                                System.out.println("Player 1 won!!!");
+                            } else if (gp.score1 < gp.score2) {
+                                System.out.println("Player 2 won!!!");
+                            } else {
+                                System.out.println("The game ended in a draw!!!");
+                            }
+                        } else {
+                            System.out.println("Player 2 won!!!");
+                        }
+                    }
                     gp.state = gp.gameWinState;
+                    gp.stopMusic();
                     gp.playSE(8);
                 }
             }
-            
+
         }
         if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
                 / gp.TILESIZE] == 38) {
             if (!justTp) {
                 gp.playSE(9);
-                switch ((x + gp.TILESIZE / 2) / gp.TILESIZE) {                       
+                switch ((x + gp.TILESIZE / 2) / gp.TILESIZE) {
                     case 1:
                         x = 23 * gp.TILESIZE;
                         y = 7 * gp.TILESIZE;

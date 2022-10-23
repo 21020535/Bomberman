@@ -67,44 +67,51 @@ public class UI {
         // draw menu
         g2.drawImage(menuImage, 0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT, null);
         // draw game name
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-        String text = "BOMBERMAN";
+//        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+//        String text = "BOMBERMAN";
+//        int x = align(text);
+//        int y = gp.TILESIZE * 3;
+//
+//        // bong chu
+//        g2.setColor(Color.RED);
+//        g2.drawString(text, x + 8, y + 8);
+//
+//        // mau chu
+//        g2.setColor(Color.white);
+//        g2.drawString(text, x, y);
+
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45F));
+        String text = "1 PLAYER";
         int x = align(text);
-        int y = gp.TILESIZE * 3;
-
-        // bong chu
-        g2.setColor(Color.RED);
-        g2.drawString(text, x + 8, y + 8);
-
-        // mau chu
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
-
-        // menu
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-
-        text = "1 PLAYER";
-        x = align(text);
-        y += gp.TILESIZE * 4;
-        g2.drawString(text, x, y);
+        int y = gp.TILESIZE * 6;
         if (commandNumber == 0) {
-            g2.drawString(">", x - gp.TILESIZE, y);
+            g2.setColor(Color.red);
+            g2.drawString(">", x - gp.TILESIZE - 24 , y + 43);
+            g2.setColor(Color.white);
+            g2.drawString(">", x - gp.TILESIZE - 20 , y + 43);
+
         }
 
-        text = "2 PLAYERS";
         x = align(text);
-        y += gp.TILESIZE;
-        g2.drawString(text, x, y);
+        y += gp.TILESIZE*2;
         if (commandNumber == 1) {
-            g2.drawString(">", x - gp.TILESIZE, y);
+            g2.setColor(Color.red);
+            g2.drawString(">", x - gp.TILESIZE - 34, y + 50);
+            g2.setColor(Color.white);
+            g2.drawString(">", x - gp.TILESIZE - 30, y + 50);
+
         }
 
         text = "QUIT";
         x = align(text);
-        y += gp.TILESIZE;
-        g2.drawString(text, x, y);
+        y += gp.TILESIZE*2;
+//        g2.drawString(text, x, y);
         if (commandNumber == 2) {
-            g2.drawString(">", x - gp.TILESIZE, y);
+            g2.setColor(Color.red);
+            g2.drawString(">", x - gp.TILESIZE - 14, y + 65);
+            g2.setColor(Color.white);
+            g2.drawString(">", x - gp.TILESIZE - 10, y + 65);
         }
     }
 

@@ -46,7 +46,7 @@
 
  ***E. Các kỹ thuật lập trình:***
  
-  * UML: <a href="https://scontent.fhan4-2.fna.fbcdn.net/v/t1.15752-9/306321798_805016794151330_2329762229338552594_n.png?_nc_cat=111&ccb=1-7&_nc_sid=ae9488&_nc_ohc=8w9mWaJu24wAX-b9iZU&_nc_ht=scontent.fhan4-2.fna&oh=03_AdSrnSkZ94YNICzHtpyXNcWlXHBq6-d2vckzgtygveCYDQ&oe=637909C0">uml.uet.oop.bomberman.vnu.edu.vn</a>
+  * UML: <a href="https://drive.google.com/file/d/1Cq2rPlFYGpNb32H-ZaRaH2vwfy_1wFKU/view">uml.uet.oop.bomberman.vnu.edu.vn</a>
   *	IDE used: IntelliJ IDEA 2022.2.1 (Community Edition)
   * Graphics used: Project được xây dựng xây dựng hoàn toàn bằng các thư viện có sẵn của java với đồ họa sử dụng JavaSwing.
   * Xây dựng tuần tự từ ý tưởng đến các lớp, các thuộc tính và phương thức,...

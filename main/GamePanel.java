@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         ui = new UI(this);
         tileManager = new TileManager(this, level);
-        if (level >= 1) {
+        if (level == 3) {
             lighting = new Lighting(this, 350);
         }
         player = new Player(this, input, 1);
@@ -204,8 +204,8 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }
-            if (level >= 1) {
-                // lighting.draw(g2);
+            if (level == 3) {
+                lighting.draw(g2);
             }
         }
         g2.dispose();

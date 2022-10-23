@@ -4,7 +4,7 @@
   
   *	Leader: Vũ Ngọc Anh
   *	Member: Lưu Đình Chính, Nguyễn Ngọc Minh
-  *	Major: Science and Technology (CN1) – Class: K66CD  
+  *	Major: Information Technology (CN1) – Class: K66CD  
   *	Email address:  
   *	Phone number:   
   *	IDE used: IntelliJ IDEA 2022.2.1 (Community Edition)

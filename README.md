@@ -1,8 +1,8 @@
-<p --------💣--------Bomberman Game--------💣--------- > </p>
+# <p align="center"> --------💣--------Bomberman Game--------💣--------- 
 
-***A. Thông tin nhóm:***
+***A. Thông tin nhóm:*** 
   
-  * Group: 3
+  * Group: 3 <img align="right" alt="Coding" width="300" height="200" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">
   *	Leader: Vũ Ngọc Anh (21020535)
   *	Member: Lưu Đình Chính (21020288), Nguyễn Thị Ngọc Minh (21020358)
   *	Major: Information Technology (CN1) – Class: K66CD  
@@ -17,7 +17,7 @@
 ***C. Mô tả chung về trò chơi:***
 
   * Tên trò chơi: Bomberman (dịch ra là "Kẻ đánh bom").
-  <img align="center" width="600" height="420" alt="Demo1" src="https://cdn.mos.cms.futurecdn.net/JYEpAq3qWPggoYv26RPZh6-1200-80.jpg.webp">
+  <img align="right" width="600" height="380" alt="Demo1" src="https://cdn.mos.cms.futurecdn.net/JYEpAq3qWPggoYv26RPZh6-1200-80.jpg.webp">
    
   * Mô tả: Bomberman là một trò chơi điện tử dạng mê cung theo phong cách game thùng do Hudson Soft phát triển. Trò chơi máy tính gia đình đầu tiên là Bomber Man (爆 弾 男, Bakudan Otoko) phát hành vào tháng 7 năm 1983 cho NEC PC-8801, NEC PC-6001 mkII, Fujitsu FM-7, Sharp MZ-700, Sharp MZ-2000, Sharp X1 và MSX ở Nhật Bản, phiên bản chỉnh sửa đồ họa cho MSX và ZX Spectrum ở châu Âu có tên gọi Eric and the Floaters. Phần tiếp theo tại Nhật Bản gọi là 3-D Bomberman, Bomberman đi trong mê cung theo góc nhìn thứ nhất. Năm 1985, Bomberman phát hành trên Nintendo Entertainment System. Tựa trò chơi này đã khai sinh ra loạt Bomberman với rất nhiều phần được xây dựng dựa trên lối chơi cơ bản của nó.
   * Các ý tưởng chính:

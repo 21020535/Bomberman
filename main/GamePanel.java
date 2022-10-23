@@ -165,14 +165,8 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             } else {
                 if (player.finish && player2.finish) {
-                    if (score1 > score2) {
-                        System.out.println("Player 1 won!!!");
-                    } else if (score1 < score2) {
-                        System.out.println("Player 2 won!!!");
-                    } else {
-                        System.out.println("The game ended in a draw!!!");
-                    }
-                    state = gameWinState;
+                    System.out.println("The game ended in a draw!!!");
+                    state = gameOverState;
                     stopMusic();
                     playSE(8);
                 }
@@ -199,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             tileManager.draw(g2);
             if (!player.finish) {
-            player.draw(g2);
+                player.draw(g2);
             }
             if (pNum == 2) {
                 ui.draw(g2);

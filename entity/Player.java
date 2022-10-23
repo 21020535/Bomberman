@@ -49,8 +49,13 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
             if (!dead) {
-                image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
-                image2 = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
+                if (id == 1) {
+                    image = ImageIO.read(getClass().getResourceAsStream("/res/player/player.png"));
+                    image2 = ImageIO.read(getClass().getResourceAsStream("/res/player/deadplayer.png"));
+                } else {
+                    image = ImageIO.read(getClass().getResourceAsStream("/res/player/player2.png"));
+                    image2 = ImageIO.read(getClass().getResourceAsStream("/res/player/dead.png"));
+                }
             } else {
                 gp.playSE(6);
                 interval = 25;
@@ -70,27 +75,27 @@ public class Player extends Entity {
         if (id == 1) {
             x = 48;
             y = 48;
-            speed = 4;
+            speed = 2;
             direction = "down";
             tick = 0;
             maxFrame = 4;
             begin = 0;
             interval = 10;
             bombLength = 1;
-            maxBomb = 4;
+            maxBomb = 1;
             flameResist = false;
         }
         if (id == 2) {
             x = 48;
             y = 624;
-            speed = 4;
+            speed = 2;
             direction = "down";
             tick = 0;
             maxFrame = 4;
             begin = 0;
             interval = 10;
             bombLength = 1;
-            maxBomb = 4;
+            maxBomb = 1;
             flameResist = false;
         }
     }
@@ -109,6 +114,9 @@ public class Player extends Entity {
         }
         powerUps();
         dead = dead | deadYet();
+        if (dead) {
+            interval = 25;
+        }
     }
 
     // private void patch() {

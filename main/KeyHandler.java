@@ -210,7 +210,11 @@ public class KeyHandler implements KeyListener {
         }
         if (event == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNumber == 0) {
-                gp.level = 1;
+                if (gp.pNum == 2) {
+                    gp.level = 0;
+                } else {
+                    gp.level = 1;
+                }
                 gp.setupGame();
                 gp.state = gp.playState;
                 gp.playMusic(0);

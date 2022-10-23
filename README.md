@@ -60,7 +60,7 @@
 
 ***F. Tổng kết:***
 
-    **1. Kết luận**
+  **1. Kết luận**
   * Game: các chức năng cơ bản của một tựa game bomberman như di chuyển, đặt bom, item, quái đã tương đối hoàn thiện và đầy đủ. Tốc độ nhân vật, tốc độ quái đã được tính toán xử lí sao cho ổn định nhất, không quá nhanh cũng không quá chậm.
   * Bugs: Chưa có lỗi lớn nào ảnh hưởng đến game.
   * Performance: Mức tốt, game chạy mượt mà không hề giật lag.

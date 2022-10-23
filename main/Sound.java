@@ -25,6 +25,7 @@ public class Sound {
         soundURL[6] = getClass().getResource("/res/Sound/deadplayer.wav");
         soundURL[7] = getClass().getResource("/res/Sound/endgame3.wav");
         soundURL[8] = getClass().getResource("/res/Sound/win.wav");
+        soundURL[9] = getClass().getResource("/res/Sound/Tele.wav");
     }
 
     public void setFile(int num) {

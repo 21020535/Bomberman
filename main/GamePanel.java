@@ -198,7 +198,12 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
         } else {
             tileManager.draw(g2);
+            if (!player.finish) {
             player.draw(g2);
+            }
+            if (pNum == 2) {
+                ui.draw(g2);
+            }
             if (pNum == 2 && !player2.finish) {
                 player2.draw(g2);
             }

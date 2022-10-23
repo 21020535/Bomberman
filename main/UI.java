@@ -38,7 +38,7 @@ public class UI {
         }
         // pause
         if (gp.state == gp.playState) {
-            // do
+            drawItem(g2);
         }
         if (gp.state == gp.optionsState) {
             drawOptionsScreen();
@@ -87,14 +87,14 @@ public class UI {
         int y = gp.TILESIZE * 6;
         if (commandNumber == 0) {
             g2.setColor(Color.red);
-            g2.drawString(">", x - gp.TILESIZE - 24 , y + 43);
+            g2.drawString(">", x - gp.TILESIZE - 24, y + 43);
             g2.setColor(Color.white);
-            g2.drawString(">", x - gp.TILESIZE - 20 , y + 43);
+            g2.drawString(">", x - gp.TILESIZE - 20, y + 43);
 
         }
 
         x = align(text);
-        y += gp.TILESIZE*2;
+        y += gp.TILESIZE * 2;
         if (commandNumber == 1) {
             g2.setColor(Color.red);
             g2.drawString(">", x - gp.TILESIZE - 34, y + 50);
@@ -105,7 +105,7 @@ public class UI {
 
         text = "QUIT";
         x = align(text);
-        y += gp.TILESIZE*2;
+        y += gp.TILESIZE * 2;
 //        g2.drawString(text, x, y);
         if (commandNumber == 2) {
             g2.setColor(Color.red);
@@ -387,46 +387,185 @@ public class UI {
         // make dark
         g2.setColor(new Color(77, 75, 75, 150));
         g2.fillRect(0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT);
+        if (gp.pNum == 2) {
+            if (gp.score1 > gp.score2) {
+                int x;
+                int y;
+                String text;
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
 
-        int x;
-        int y;
-        String text;
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+                // make shadow
+                text = "PLAY1 WIN";
+                g2.setColor(Color.white);
+                x = align(text);
+                y = gp.TILESIZE * 4;
+                g2.drawString(text, x, y);
 
-        // make shadow
-        text = "Congratulations <3";
-        g2.setColor(Color.black);
-        x = align(text);
-        y = gp.TILESIZE * 4;
-        g2.drawString(text, x, y);
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45f));
+                text = "Score play 1 : " + gp.score1;
+                g2.setColor(Color.white);
+                x = align(text);
+                y += gp.TILESIZE*2;
+                g2.drawString(text, x, y);
 
-        // main
-        g2.setColor(Color.pink);
-        g2.drawString(text, x - 4, y - 4);
+                text = "Score play 2 : " + gp.score2;
+                g2.setColor(Color.white);
+                x = align(text);
+                y += gp.TILESIZE * 2;
+                g2.drawString(text, x, y);
 
-        // retry
-        g2.setFont(g2.getFont().deriveFont(50f));
-        text = "Retry";
-        x = align(text);
-        y += gp.TILESIZE * 4;
-        g2.drawString(text, x, y);
-        if (commandNumber == 0) {
-            g2.drawString(">", x - 40, y);
-        }
+                g2.setFont(g2.getFont().deriveFont(45f));
+                text = "Retry";
+                x = align(text);
+                y += gp.TILESIZE * 2;
+                g2.drawString(text, x, y);
+                if (commandNumber == 0) {
+                    g2.drawString(">", x - 40, y);
+                }
 
-        // back to menu
-        text = "Quit";
-        x = align(text);
-        y += 55;
-        g2.drawString(text, x, y);
-        if (commandNumber == 1) {
-            g2.drawString(">", x - 40, y);
+                // back to menu
+                text = "Quit";
+                x = align(text);
+                y += 55;
+                g2.drawString(text, x, y);
+                if (commandNumber == 1) {
+                    g2.drawString(">", x - 40, y);
+                }
+            } else if (gp.score1 < gp.score2) {
+                int x;
+                int y;
+                String text;
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
+
+                // make shadow
+                text = "PLAY2 WIN";
+                g2.setColor(Color.white);
+                x = align(text);
+                y = gp.TILESIZE * 4;
+                g2.drawString(text, x, y);
+
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45f));
+                text = "Score play 1 : " + gp.score1;
+                g2.setColor(Color.white);
+                x = align(text);
+                y += gp.TILESIZE*2;
+                g2.drawString(text, x, y);
+
+                text = "Score play 2 : " + gp.score2;
+                g2.setColor(Color.white);
+                x = align(text);
+                y += gp.TILESIZE * 2;
+                g2.drawString(text, x, y);
+
+                g2.setFont(g2.getFont().deriveFont(45f));
+                text = "Retry";
+                x = align(text);
+                y += gp.TILESIZE * 2;
+                g2.drawString(text, x, y);
+                if (commandNumber == 0) {
+                    g2.drawString(">", x - 40, y);
+                }
+
+                // back to menu
+                text = "Quit";
+                x = align(text);
+                y += 55;
+                g2.drawString(text, x, y);
+                if (commandNumber == 1) {
+                    g2.drawString(">", x - 40, y);
+                }
+            } else {
+                int x;
+                int y;
+                String text;
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
+
+                // make shadow
+                text = "The game ended";
+                g2.setColor(Color.white);
+                x = align(text);
+                y = gp.TILESIZE * 4;
+                g2.drawString(text, x, y);
+
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45f));
+                text = "Score play 1 : " + gp.score1;
+                g2.setColor(Color.white);
+                x = align(text);
+                y += gp.TILESIZE*2;
+                g2.drawString(text, x, y);
+
+                text = "Score play 2 : " + gp.score2;
+                g2.setColor(Color.white);
+                x = align(text);
+                y += gp.TILESIZE * 2;
+                g2.drawString(text, x, y);
+
+                g2.setFont(g2.getFont().deriveFont(45f));
+                text = "Retry";
+                x = align(text);
+                y += gp.TILESIZE * 2;
+                g2.drawString(text, x, y);
+                if (commandNumber == 0) {
+                    g2.drawString(">", x - 40, y);
+                }
+
+                // back to menu
+                text = "Quit";
+                x = align(text);
+                y += 55;
+                g2.drawString(text, x, y);
+                if (commandNumber == 1) {
+                    g2.drawString(">", x - 40, y);
+                }
+            }
+        } else {
+            int x;
+            int y;
+            String text;
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80f));
+
+            // make shadow
+            text = "YOU WIN";
+            g2.setColor(Color.black);
+            x = align(text);
+            y = gp.TILESIZE * 4;
+            g2.drawString(text, x, y);
+
+            // main
+            g2.setColor(Color.pink);
+            g2.drawString(text, x - 4, y - 4);
+
+            // retry
+            g2.setFont(g2.getFont().deriveFont(50f));
+            text = "Retry";
+            x = align(text);
+            y += gp.TILESIZE * 4;
+            g2.drawString(text, x, y);
+            if (commandNumber == 0) {
+                g2.drawString(">", x - 40, y);
+            }
+
+            // back to menu
+            text = "Quit";
+            x = align(text);
+            y += 55;
+            g2.drawString(text, x, y);
+            if (commandNumber == 1) {
+                g2.drawString(">", x - 40, y);
+            }
         }
     }
 
-    // private void drawItem(Graphics2D g2) {
-    // g2.drawImage(bombImage, 0, 0, gp.TILESIZE, gp.TILESIZE,null);
-    // }
+     private void drawItem(Graphics2D g2) {
+         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25f));
+         String text = "Score play 1 : " + gp.score1;
+         g2.setColor(Color.red);
+         g2.drawString(text, gp.TILESIZE*5, 32);
+
+         text = "Score play 2 : " + gp.score2;
+         g2.setColor(Color.red);
+         g2.drawString(text, gp.TILESIZE * 12, 32);
+     }
     // Get middle pos of the screen.
     private int align(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();

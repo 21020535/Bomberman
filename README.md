@@ -1,4 +1,4 @@
-# <p align="center"> 💣Bomberman Game💣 </p>
+<h1 align="center"> -----💣----- Bomberman Game -----💣----- </h1>
 
 <h2>A. Thông tin nhóm:</h2> 
  

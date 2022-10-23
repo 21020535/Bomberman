@@ -33,7 +33,7 @@ public class FlameSides extends Entity {
         tick = 0;
         maxFrame = 4;
         begin = 0;
-        interval = 6;
+        interval = 5;
     }
 
     public void update() {

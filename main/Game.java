@@ -35,7 +35,6 @@ public class Game {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         //luồng bắt đầu game\
-        gamePanel.setupGame();
         gamePanel.startGameThread();
     }
 }

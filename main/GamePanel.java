@@ -165,10 +165,7 @@ public class GamePanel extends JPanel implements Runnable {
             } else {
 
             }
-            if (level > maxLevel) {
-                state = gameWinState;
-                stopMusic();
-            }
+            
         }
         if (state == optionsState) {
             //
@@ -245,7 +242,9 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
         }
     }
+
     private void powerupsSetup() {
+        mapItem.clear();
         int brickNumber;
         switch (level) {
             case 1:
@@ -259,19 +258,19 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
         }
 
-        this.mapItem.add(37);
+        mapItem.add(37);
 
         for (int i = 0; i < 4; i++) {
-            this.mapItem.add(33);
+            mapItem.add(33);
         }
         for (int i = 0; i < 3; i++) {
-            this.mapItem.add(34);
+            mapItem.add(34);
         }
         for (int i = 0; i < 4; i++) {
-            this.mapItem.add(35);
+            mapItem.add(35);
         }
         for (int i = 0; i < 1; i++) {
-            this.mapItem.add(36);
+            mapItem.add(36);
         }
         int n = mapItem.size();
         for (int i = 0; i < brickNumber - n; i++) {

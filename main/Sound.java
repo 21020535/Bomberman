@@ -16,7 +16,7 @@ public class Sound {
     float volume;
 
     public Sound() {
-        soundURL[0] = getClass().getResource("/res/Sound/Hitman.wav");
+        soundURL[0] = getClass().getResource("/res/Sound/track1.wav");
         soundURL[1] = getClass().getResource("/res/Sound/BOM_SET.wav");
         soundURL[2] = getClass().getResource("/res/Sound/BOM_11_M.wav");
         soundURL[3] = getClass().getResource("/res/Sound/menu.wav");
@@ -24,6 +24,7 @@ public class Sound {
         soundURL[5] = getClass().getResource("/res/Sound/cursor.wav");
         soundURL[6] = getClass().getResource("/res/Sound/deadplayer.wav");
         soundURL[7] = getClass().getResource("/res/Sound/endgame3.wav");
+        soundURL[8] = getClass().getResource("/res/Sound/win.wav");
     }
 
     public void setFile(int num) {

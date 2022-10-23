@@ -78,6 +78,7 @@ public class Player extends Entity {
             interval = 10;
             bombLength = 1;
             maxBomb = 4;
+            flameResist = false;
         }
         if (id == 2) {
             x = 48;
@@ -90,6 +91,7 @@ public class Player extends Entity {
             interval = 10;
             bombLength = 1;
             maxBomb = 4;
+            flameResist = false;
         }
     }
 
@@ -550,10 +552,14 @@ public class Player extends Entity {
                     gp.setupGame();
                     gp.state = gp.playState;
                     gp.playSE(4);
-
+                    gp.stopMusic();
+                    if (gp.level == 2) {
+                        gp.playMusic(0);
+                    }
                 } else {
                     gp.stopMusic();
                     gp.state = gp.gameWinState;
+                    gp.playSE(8);
                 }
             }
             // maxBomb += 1;

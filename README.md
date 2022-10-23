@@ -12,6 +12,8 @@
 
   * Cuộn lên đầu trang rồi chọn Code<màu xanh> rồi chọn Download ZIP
   * Giải nén file vừa Download về
+  * Tạo 1 project trên IDE phù hợp
+  * Copy 4 folder game vào và run project!
 
 ***C. Mô tả chung về trò chơi:***
 

@@ -7,7 +7,6 @@
   *	Member: Lưu Đình Chính (21020288), Nguyễn Thị Ngọc Minh (21020358)
   *	Major: Information Technology (CN1) – Class: K66CD  
   *	Email address: 21020535@vnu.edu.vn
-  *	Phone number: 093 612 2362
   
 ***B. Hướng dẫn cài đặt:***
 

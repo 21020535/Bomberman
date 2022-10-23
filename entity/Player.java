@@ -562,12 +562,13 @@ public class Player extends Entity {
                     gp.playSE(8);
                 }
             }
-            // maxBomb += 1;
+            
         }
         if (GamePanel.tileManager.mapTileNum[(x + gp.TILESIZE / 2) / gp.TILESIZE][(y + gp.TILESIZE / 2)
                 / gp.TILESIZE] == 38) {
             if (!justTp) {
-                switch ((x + gp.TILESIZE / 2) / gp.TILESIZE) {
+                gp.playSE(9);
+                switch ((x + gp.TILESIZE / 2) / gp.TILESIZE) {                       
                     case 1:
                         x = 23 * gp.TILESIZE;
                         y = 7 * gp.TILESIZE;

@@ -1,8 +1,8 @@
 # <p align="center"> 💣Bomberman Game💣 </p>
 
 ***A. Thông tin nhóm:*** 
-  
-  * Group: 3 <img align="right" alt="CodingGif" width="300" height="200" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">
+  <img align="right" alt="CodingGif" width="300" height="200" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">
+  * Group: 3
   *	Leader: Vũ Ngọc Anh (21020535)
   *	Member: Lưu Đình Chính (21020288), Nguyễn Thị Ngọc Minh (21020358)
   *	Major: Information Technology (CN1) – Class: K66CD  
@@ -60,7 +60,7 @@
 
 ***F. Tổng kết:***
 
-  **1. Kết luận**
+    **1. Kết luận**
   * Game: các chức năng cơ bản của một tựa game bomberman như di chuyển, đặt bom, item, quái đã tương đối hoàn thiện và đầy đủ. Tốc độ nhân vật, tốc độ quái đã được tính toán xử lí sao cho ổn định nhất, không quá nhanh cũng không quá chậm.
   * Bugs: Chưa có lỗi lớn nào ảnh hưởng đến game.
   * Performance: Mức tốt, game chạy mượt mà không hề giật lag.
@@ -68,7 +68,7 @@
   * Mixer: Các âm thanh cơ bản như nhạc nền, sound effect, âm thanh đặt bom, nổ, ăn item, tiếng nhân vật chết thắng, thua, qua màn được chọn lọc.
   * User-friendliness: Game tương đối đơn giản, quen thuộc và dễ chơi phù hợp với mọi lứa tuổi.
   
-  **2. Tâm đắc**
+    **2. Tâm đắc**
   * Design map 1 cách tỉ mỉ tinh tế, suy nghĩ tạo ra game cần sự khéo léo, cẩn thận để có thể vượt qua.
   * Hiểu hơn về cách tạo một dự án, cách lên kế hoạch, cách xây dựng cấu trúc - lớp.
   * Hiểu thêm về các thư viện đồ họa (JavaFX, JavaSwing,...) và cách sử dụng chúng.
@@ -76,7 +76,7 @@
   * Biết phối hợp toàn bộ các kiến thức đã học trong suốt môn lập trình hướng đối tượng như là tính thừa kế, tính đa hình, tính đóng gói, tính trừu tượng hóa, xử lí ngoại lệ,...
   * Cải thiện được khả năng làm việc nhóm đồng thời củng cố kĩ năng tìm tòi, đọc hiểu, tra cứu, sửa lỗi các vấn đề liên quan tới game.
   
-  **3. Hướng phát triển**
+    **3. Hướng phát triển**
   * Trước hết là cải thiện thuật toán sao cho càng tối ưu càng tốt, dễ dàng phân chia ra các mức độ.
   * Nâng cấp thuật toán: Sử dụng AI để thay cho input từ người dùng nhập vào. Từ đó, tạo ra thêm tính năng để Bomber có thể tự chơi, tính năng máy chơi, kết hợp với độ thông minh của thuật toán để chia ra các mức dễ - trung bình - khó trong trò chơi.
   * Làm chi tiết menu hơn, cho phép chọn nhân vật trước khi vào game.

@@ -1,21 +1,21 @@
 # <p align="center"> 💣Bomberman Game💣 </p>
 
-***A. Thông tin nhóm:*** 
-  <img align="right" alt="CodingGif" width="300" height="200" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">
-  * Group: 3
+<h2>A. Thông tin nhóm:</h2> 
+ 
+  * Group: 3  <img align="right" alt="CodingGif" width="300" height="200" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">
   *	Leader: Vũ Ngọc Anh (21020535)
   *	Member: Lưu Đình Chính (21020288), Nguyễn Thị Ngọc Minh (21020358)
   *	Major: Information Technology (CN1) – Class: K66CD  
   *	Email address: 21020535@vnu.edu.vn
   
-***B. Hướng dẫn cài đặt:***
+<h2>B. Hướng dẫn cài đặt:</h2>
 
   * Cuộn lên đầu trang rồi chọn Code<màu xanh> rồi chọn Download ZIP
   * Giải nén file vừa Download về
   * Tạo 1 project trên IDE phù hợp
   * Copy 4 folder game vào và run project!
 
-***C. Mô tả chung về trò chơi:***
+<h2>C. Mô tả chung về trò chơi:</h2>
 
   * Tên trò chơi: Bomberman (dịch ra là "Kẻ đánh bom").
   <img align="right" width="600" height="380" alt="DemoGame" src="https://cdn.mos.cms.futurecdn.net/JYEpAq3qWPggoYv26RPZh6-1200-80.jpg.webp">
@@ -28,7 +28,7 @@
 <img align="left" width="320" height="200" alt="Demo2" src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.15752-9/307049124_482167733854390_6864365271597411971_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_ohc=_ntZZ0Sdbr4AX8CENDM&_nc_ht=scontent.fhan3-5.fna&oh=03_AdSvIVfF7vGo5j3pNGQE2I40A1mVIils0AWYV9E34NnEtw&oe=6378C31C"> <img align="center" width="320" height="200" alt="Demo2" src="https://scontent.fhan4-1.fna.fbcdn.net/v/t1.15752-9/308795421_1585669828517151_7116761746109580936_n.png?_nc_cat=105&ccb=1-7&_nc_sid=ae9488&_nc_ohc=s4NNaqGGFVQAX8wV-In&tn=uw8QEPdZBnAn93xR&_nc_ht=scontent.fhan4-1.fna&oh=03_AdQUL7ZJC_rRkSobyyl0S64jptoerfSWq1PQsDwgdv7V7w&oe=637AC880"> <img align="right" width="320" height="200" alt="Demo2" src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.15752-9/309451820_1992929467578395_8490399113000236169_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=2OxFRMtV7hcAX9kd3KE&_nc_ht=scontent.fhan3-5.fna&oh=03_AdQyjB_hX59TC-xUyD-nrYd_gTWtB-AjLLnvqvDUE2pUIg&oe=637BC335">
 
 
-***D. Các chức năng của game:***
+<h2>D. Các chức năng của game:</h2>
 
   * Menu:
     - Game có Main Menu với giao diện hài hòa, đơn giản nhưng đầy sự tinh tế.
@@ -44,7 +44,7 @@
   * Link demo: 
     ?
 
- ***E. Các kỹ thuật lập trình:***
+ <h2>E. Các kỹ thuật lập trình:</h2>
  
   * UML: <a href="https://drive.google.com/file/d/1Cq2rPlFYGpNb32H-ZaRaH2vwfy_1wFKU/view">uml.uet.oop.bomberman.vnu.edu.vn</a>
   *	IDE used: IntelliJ IDEA 2022.2.1 (Community Edition)
@@ -58,7 +58,7 @@
   * Xử lí sound: Đọc đường dẫn sound, load sound khi cần thiết
   * Giải phóng, tiết kiệm bộ nhớ,...
 
-***F. Tổng kết:***
+  <h2>F. Tổng kết: </h2>
 
   **1. Kết luận**
   * Game: các chức năng cơ bản của một tựa game bomberman như di chuyển, đặt bom, item, quái đã tương đối hoàn thiện và đầy đủ. Tốc độ nhân vật, tốc độ quái đã được tính toán xử lí sao cho ổn định nhất, không quá nhanh cũng không quá chậm.

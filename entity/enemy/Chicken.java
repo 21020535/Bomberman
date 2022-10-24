@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class Chicken extends Enemy{
+public class Chicken extends Enemy {
     public Chicken(int x, int y, GamePanel gp) {
         super(x, y, gp);
         // TODO Auto-generated constructor stub
@@ -38,6 +38,12 @@ public class Chicken extends Enemy{
                     tick = 0;
                 }
                 begin = 0;
+            }
+            if (Math.abs(x - gp.player.getX()) / gp.TILESIZE <= 6
+                    && Math.abs(y - gp.player.getY()) / gp.TILESIZE <= 6) {
+                speed = 4;
+            } else {
+                speed = 2;
             }
             collide = false;
             Random a = new Random();

@@ -29,7 +29,7 @@ public class Player extends Entity {
     private int bombLength, maxBomb;
     private int movementBuffer = 0;
 
-    public boolean flameResist = true;
+    public boolean flameResist = false;
 
     private boolean justTp = false;
     public boolean inBomb = false;
@@ -118,17 +118,6 @@ public class Player extends Entity {
             interval = 25;
         }
     }
-
-    // private void patch() {
-    // if (bombs.size() == 0) {
-    // for (int i = 0; i < GamePanel.maxCols; i++) {
-    // for (int j = 0; j < GamePanel.maxRows; j++) {
-    // if (GamePanel.tileManager.mapTileNum[i][j] == 55)
-    // GamePanel.tileManager.mapTileNum[i][j] = 0;
-    // }
-    // }
-    // }
-    // }
 
     public void draw(Graphics2D g2) {
         if (!dead) {
@@ -393,6 +382,8 @@ public class Player extends Entity {
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).exploded) {
                 bombs.get(i).update();
+            } else {
+                GamePanel.tileManager.mapTileNum[bombs.get(i).x / gp.TILESIZE][bombs.get(i).y / gp.TILESIZE] = 0;
             }
             if (i >= flames.size()) {
                 // nếu nổ
@@ -484,7 +475,6 @@ public class Player extends Entity {
                     }
                     // sau khi dùng bomb thì vứt ra khỏi list
                     bombs.get(i).added = true;
-                    GamePanel.tileManager.mapTileNum[bombs.get(i).x / gp.TILESIZE][bombs.get(i).y / gp.TILESIZE] = 0;
 
                 }
             }
@@ -577,30 +567,30 @@ public class Player extends Entity {
                 } else {
                     if (id == 1) {
                         gp.score1++;
-                        if (!gp.player2.dead) {
-                            if (gp.score1 > gp.score2) {
-                                System.out.println("Player 1 won!!!");
-                            } else if (gp.score1 < gp.score2) {
-                                System.out.println("Player 2 won!!!");
-                            } else {
-                                System.out.println("The game ended in a draw!!!");
-                            }
-                        } else {
-                            System.out.println("Player 1 won!!!");
-                        }
+                        // if (!gp.player2.dead) {
+                        // if (gp.score1 > gp.score2) {
+                        // System.out.println("Player 1 won!!!");
+                        // } else if (gp.score1 < gp.score2) {
+                        // System.out.println("Player 2 won!!!");
+                        // } else {
+                        // System.out.println("The game ended in a draw!!!");
+                        // }
+                        // } else {
+                        // System.out.println("Player 1 won!!!");
+                        // }
                     } else {
                         gp.score2++;
-                        if (!gp.player.dead) {
-                            if (gp.score1 > gp.score2) {
-                                System.out.println("Player 1 won!!!");
-                            } else if (gp.score1 < gp.score2) {
-                                System.out.println("Player 2 won!!!");
-                            } else {
-                                System.out.println("The game ended in a draw!!!");
-                            }
-                        } else {
-                            System.out.println("Player 2 won!!!");
-                        }
+                        // if (!gp.player.dead) {
+                        // if (gp.score1 > gp.score2) {
+                        // System.out.println("Player 1 won!!!");
+                        // } else if (gp.score1 < gp.score2) {
+                        // System.out.println("Player 2 won!!!");
+                        // } else {
+                        // System.out.println("The game ended in a draw!!!");
+                        // }
+                        // } else {
+                        // System.out.println("Player 2 won!!!");
+                        // }
                     }
                     gp.state = gp.gameWinState;
                     gp.stopMusic();

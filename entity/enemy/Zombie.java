@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class Zombie extends Enemy{
+public class Zombie extends Enemy {
     public Zombie(int x, int y, GamePanel gp) {
         super(x, y, gp);
         // TODO Auto-generated constructor stub
@@ -29,50 +29,56 @@ public class Zombie extends Enemy{
     @Override
     public void update() {
         if (!dead) {
-        begin++;
-        // begin > interval khoảng tg load mỗi frame
-        if (begin > interval) {
-            tick++;
-            // nếu frame > frame max cho về ban đầu
-            if (tick >= maxFrame) {
-                tick = 0;
+            begin++;
+            // begin > interval khoảng tg load mỗi frame
+            if (begin > interval) {
+                tick++;
+                // nếu frame > frame max cho về ban đầu
+                if (tick >= maxFrame) {
+                    tick = 0;
+                }
+                begin = 0;
             }
-            begin = 0;
-        }
-        collide = false;
-        Random a = new Random();
-        gp.cChecker.checkTile(this);
-        if (!collide) {
-            switch (direction) {
-                case "left":
-                    x -= speed;
-                    num--;
-                    break;
-                case "right":
-                    x += speed;
-                    num--;
-                    break;
-                case "up":
-                    y -= speed;
-                    num--;
-                    break;
-                case "down":
-                    y += speed;
-                    num--;
-                    break;
+            if (Math.abs(x - gp.player.getX()) / gp.TILESIZE <= 6
+                    && Math.abs(y - gp.player.getY()) / gp.TILESIZE <= 6) {
+                speed = 4;
+            } else {
+                speed = 2;
             }
-        } else {
+            collide = false;
+            Random a = new Random();
+            gp.cChecker.checkTile(this);
+            if (!collide) {
+                switch (direction) {
+                    case "left":
+                        x -= speed;
+                        num--;
+                        break;
+                    case "right":
+                        x += speed;
+                        num--;
+                        break;
+                    case "up":
+                        y -= speed;
+                        num--;
+                        break;
+                    case "down":
+                        y += speed;
+                        num--;
+                        break;
+                }
+            } else {
 
-            if (direction.equals("left")) {
-                direction = leftR[a.nextInt(3)];
-            } else if (direction.equals("down")) {
-                direction = downR[a.nextInt(3)];
-            } else if (direction.equals("right")) {
-                direction = rightR[a.nextInt(3)];
-            } else if (direction.equals("up")) {
-                direction = upR[a.nextInt(3)];
+                if (direction.equals("left")) {
+                    direction = leftR[a.nextInt(3)];
+                } else if (direction.equals("down")) {
+                    direction = downR[a.nextInt(3)];
+                } else if (direction.equals("right")) {
+                    direction = rightR[a.nextInt(3)];
+                } else if (direction.equals("up")) {
+                    direction = upR[a.nextInt(3)];
+                }
             }
-        }
         } else {
             begin++;
             if (begin > interval) {

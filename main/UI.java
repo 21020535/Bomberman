@@ -349,10 +349,15 @@ public class UI {
         int x;
         int y;
         String text;
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
 
         // make shadow
-        text = "Game Over";
+        if (gp.pNum == 2) {
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 54f));
+            text = "The game ended in a draw!!!";
+        } else {
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+            text = "Game Over";
+        }
         g2.setColor(Color.black);
         x = align(text);
         y = gp.TILESIZE * 4;
@@ -394,27 +399,27 @@ public class UI {
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
 
                 // make shadow
-                text = "PLAY1 WIN";
+                text = "PLAYER 1 WIN!!!";
                 g2.setColor(Color.white);
                 x = align(text);
                 y = gp.TILESIZE * 4;
                 g2.drawString(text, x, y);
 
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45f));
-                text = "Score play 1 : " + gp.score1;
+                text = "Player 1 score: " + gp.score1 * 100;
                 g2.setColor(Color.white);
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
 
-                text = "Score play 2 : " + gp.score2;
+                text = "Player 2 score: " + gp.score2 * 100;
                 g2.setColor(Color.white);
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
 
                 g2.setFont(g2.getFont().deriveFont(45f));
-                text = "Retry";
+                text = "Play again";
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
@@ -423,7 +428,7 @@ public class UI {
                 }
 
                 // back to menu
-                text = "Quit";
+                text = "Menu";
                 x = align(text);
                 y += 55;
                 g2.drawString(text, x, y);
@@ -437,27 +442,27 @@ public class UI {
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
 
                 // make shadow
-                text = "PLAY2 WIN";
+                text = "PLAYER 2 WIN!!!";
                 g2.setColor(Color.white);
                 x = align(text);
                 y = gp.TILESIZE * 4;
                 g2.drawString(text, x, y);
 
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45f));
-                text = "Score play 1 : " + gp.score1;
+                text = "Player 1 score: " + gp.score1 * 100;
                 g2.setColor(Color.white);
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
 
-                text = "Score play 2 : " + gp.score2;
+                text = "Player 2 score: " + gp.score2 * 100;
                 g2.setColor(Color.white);
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
 
                 g2.setFont(g2.getFont().deriveFont(45f));
-                text = "Retry";
+                text = "Play again";
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
@@ -466,7 +471,7 @@ public class UI {
                 }
 
                 // back to menu
-                text = "Quit";
+                text = "Menu";
                 x = align(text);
                 y += 55;
                 g2.drawString(text, x, y);
@@ -477,30 +482,30 @@ public class UI {
                 int x;
                 int y;
                 String text;
-                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 54f));
 
                 // make shadow
-                text = "The game ended";
+                text = "The game ended in a draw";
                 g2.setColor(Color.white);
                 x = align(text);
                 y = gp.TILESIZE * 4;
                 g2.drawString(text, x, y);
 
                 g2.setFont(g2.getFont().deriveFont(Font.BOLD, 45f));
-                text = "Score play 1 : " + gp.score1;
+                text = "Player 1 score: " + gp.score1 * 100;
                 g2.setColor(Color.white);
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
 
-                text = "Score play 2 : " + gp.score2;
+                text = "Player 2 score: " + gp.score2 * 100;
                 g2.setColor(Color.white);
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
 
                 g2.setFont(g2.getFont().deriveFont(45f));
-                text = "Retry";
+                text = "Play again";
                 x = align(text);
                 y += gp.TILESIZE * 2;
                 g2.drawString(text, x, y);
@@ -509,7 +514,7 @@ public class UI {
                 }
 
                 // back to menu
-                text = "Quit";
+                text = "Menu";
                 x = align(text);
                 y += 55;
                 g2.drawString(text, x, y);
@@ -536,7 +541,7 @@ public class UI {
 
             // retry
             g2.setFont(g2.getFont().deriveFont(50f));
-            text = "Retry";
+            text = "Play again";
             x = align(text);
             y += gp.TILESIZE * 4;
             g2.drawString(text, x, y);
@@ -545,7 +550,7 @@ public class UI {
             }
 
             // back to menu
-            text = "Quit";
+            text = "Menu";
             x = align(text);
             y += 55;
             g2.drawString(text, x, y);

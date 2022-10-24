@@ -96,12 +96,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
         ui = new UI(this);
         tileManager = new TileManager(this, level);
-        if (level == 3) {
+        if (level >= 1) {
             lighting = new Lighting(this, 350);
         }
         player = new Player(this, input, 1);
         if (pNum == 2) {
             player2 = new Player(this, input, 2);
+            score1 = 0;
+            score2 = 0;
         }
         enemySetup();
         powerupsSetup();
@@ -165,13 +167,12 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             } else {
                 if (player.finish && player2.finish) {
-                    System.out.println("The game ended in a draw!!!");
                     state = gameOverState;
                     stopMusic();
-                    playSE(8);
+                    playSE(6);
                 }
             }
-
+            // patch();
         }
         if (state == optionsState) {
             //
@@ -204,8 +205,8 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);
             }
-            if (level == 3) {
-                lighting.draw(g2);
+            if (level >= 1) {
+                // lighting.draw(g2);
             }
         }
         g2.dispose();
@@ -267,6 +268,9 @@ public class GamePanel extends JPanel implements Runnable {
         mapItem.clear();
         int brickNumber;
         switch (level) {
+            case 0:
+                brickNumber = 77;
+                break;
             case 1:
                 brickNumber = 107;
                 break;
@@ -297,5 +301,27 @@ public class GamePanel extends JPanel implements Runnable {
             mapItem.add(0);
         }
         Collections.shuffle(mapItem);
+    }
+
+    private void patch() {
+        if (pNum == 2) {
+            if (player2.bombs.size() == 0 && player.bombs.size() == 0) {
+                for (int i = 0; i < GamePanel.maxCols; i++) {
+                    for (int j = 0; j < GamePanel.maxRows; j++) {
+                        if (GamePanel.tileManager.mapTileNum[i][j] == 55)
+                            GamePanel.tileManager.mapTileNum[i][j] = 0;
+                    }
+                }
+            }
+        } else {
+            if (player.bombs.size() == 0) {
+                for (int i = 0; i < GamePanel.maxCols; i++) {
+                    for (int j = 0; j < GamePanel.maxRows; j++) {
+                        if (GamePanel.tileManager.mapTileNum[i][j] == 55)
+                            GamePanel.tileManager.mapTileNum[i][j] = 0;
+                    }
+                }
+            }
+        }
     }
 }

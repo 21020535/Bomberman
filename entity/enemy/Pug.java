@@ -46,6 +46,12 @@ public class Pug extends Enemy {
                 }
                 begin = 0;
             }
+            if (Math.abs(x - gp.player.getX()) / gp.TILESIZE <= 6
+                    && Math.abs(y - gp.player.getY()) / gp.TILESIZE <= 6) {
+                speed = 3;
+            } else {
+                speed = 1;
+            }
             if (movementBuffer == 0) {
                 int upCell = (int) 1e9, rightCell = (int) 1e9, downCell = (int) 1e9, leftCell = (int) 1e9;
                 if (x / gp.TILESIZE - 1 >= 0) {

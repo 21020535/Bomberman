@@ -49,8 +49,10 @@ public class Kiki extends Enemy {
             if (Math.abs(x - gp.player.getX()) / gp.TILESIZE <= 6
                     && Math.abs(y - gp.player.getY()) / gp.TILESIZE <= 6) {
                 speed = 3;
+                interval = 6;
             } else {
                 speed = 1;
+                interval = 10;
             }
 
             if (movementBuffer == 0) {

@@ -39,11 +39,13 @@ public class Zombie extends Enemy {
                 }
                 begin = 0;
             }
-            if (Math.abs(x - gp.player.getX()) / gp.TILESIZE <= 6
-                    && Math.abs(y - gp.player.getY()) / gp.TILESIZE <= 6) {
+            if (Math.abs(x - gp.player.getX()) / gp.TILESIZE <= 4
+                    && Math.abs(y - gp.player.getY()) / gp.TILESIZE <= 4) {
                 speed = 4;
+                interval = 5;
             } else {
                 speed = 2;
+                interval = 7;
             }
             collide = false;
             Random a = new Random();

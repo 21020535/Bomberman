@@ -14,6 +14,7 @@ public class UI {
     private Font arial_40;
 
     private BufferedImage menuImage;
+    private BufferedImage endgame;
     public int commandNumber = 0;
     public int subState = 0; // number of State
 
@@ -22,6 +23,7 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         try {
             menuImage = ImageIO.read(getClass().getResourceAsStream("/res/menu.jpg"));
+            endgame = ImageIO.read(getClass().getResourceAsStream("/res/endgame.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -352,10 +354,12 @@ public class UI {
 
         // make shadow
         if (gp.pNum == 2) {
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 54f));
-            text = "The game ended in a draw!!!";
+            g2.drawImage(endgame, 0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT, null);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70f));
+           text = "The game ended in a draw!!!";
         } else {
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+            g2.drawImage(endgame, 0, 0, GamePanel.WINDOW_WIDTH, GamePanel.WINDOW_HEIGHT, null);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80f));
             text = "Game Over";
         }
         g2.setColor(Color.black);
@@ -368,22 +372,22 @@ public class UI {
         g2.drawString(text, x - 4, y - 4);
 
         // retry
-        g2.setFont(g2.getFont().deriveFont(50f));
+        g2.setFont(g2.getFont().deriveFont(45f));
         text = "Retry";
         x = align(text);
-        y += gp.TILESIZE * 4;
-        g2.drawString(text, x, y);
+        y += gp.TILESIZE * 3;
+        g2.drawString(text, x - 20, y);
         if (commandNumber == 0) {
-            g2.drawString(">", x - 40, y);
+            g2.drawString(">", x - 60, y);
         }
 
         // back to menu
         text = "Menu";
         x = align(text);
         y += 55;
-        g2.drawString(text, x, y);
+        g2.drawString(text, x - 20, y);
         if (commandNumber == 1) {
-            g2.drawString(">", x - 40, y);
+            g2.drawString(">", x - 60, y);
         }
     }
 
@@ -563,11 +567,11 @@ public class UI {
     private void drawScore(Graphics2D g2) {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25f));
         String text = "Player 1 score: " + gp.score1 * 100;
-        g2.setColor(Color.red);
+        g2.setColor(Color.white);
         g2.drawString(text, gp.TILESIZE * 5, 32);
 
         text = "Player 2 score: " + gp.score2 * 100;
-        g2.setColor(Color.red);
+        g2.setColor(Color.white);
         g2.drawString(text, gp.TILESIZE * 12, 32);
     }
 

@@ -195,12 +195,32 @@ public class GamePanel extends JPanel implements Runnable {
             tileManager.draw(g2);
             if (!player.finish) {
                 player.draw(g2);
+            } else {
+                if (player.bombs.size() > 0) {
+                    for (int i = 0; i < player.bombs.size(); i++) {
+                        player.bombs.get(i).draw(g2);
+                    }
+                    for (int i = 0; i < player.flames.size(); i++) {
+                        player.flames.get(i).draw(g2);
+                    }
+                }
             }
             if (pNum == 2) {
                 ui.draw(g2);
             }
-            if (pNum == 2 && !player2.finish) {
-                player2.draw(g2);
+            if (pNum == 2) {
+                if (!player2.finish) {
+                    player2.draw(g2);
+                } else {
+                    if (player2.bombs.size() > 0) {
+                        for (int i = 0; i < player2.bombs.size(); i++) {
+                            player2.bombs.get(i).draw(g2);
+                        }
+                        for (int i = 0; i < player2.flames.size(); i++) {
+                            player2.flames.get(i).draw(g2);
+                        }
+                    }
+                }
             }
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).draw(g2);

@@ -25,7 +25,7 @@ public class Player extends Entity {
     private GamePanel gp;
     private KeyHandler input;
     public List<Bomb> bombs = new ArrayList<>();
-    private List<Flame> flames = new ArrayList<>();
+    public List<Flame> flames = new ArrayList<>();
     private int bombLength, maxBomb;
     private int movementBuffer = 0;
 

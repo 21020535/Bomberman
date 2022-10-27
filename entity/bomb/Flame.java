@@ -118,7 +118,7 @@ public class Flame extends Entity {
                         enemies.get(j).dead = true;
                         enemies.get(j).tick = 0;
                         enemies.get(j).begin = 0;
-                        enemies.get(j).interval = 20;
+                        enemies.get(j).interval = 10;
                         if (gp.pNum == 2) {
                             if (id == 1) {
                                 gp.score1++;

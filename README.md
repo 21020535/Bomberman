@@ -42,7 +42,7 @@
   * Remote:
     - Ấn W để di chuyển lên trên, S để di chuyển xuống dưới, A để di chuyển sang trái, D để di chuyển sang phải, J để đặt bom, P để tạm dừng game và vào options.
   * Link demo: 
-    ?
+    <a href="https://drive.google.com/file/d/1ZwKd_69uo9ESYLnaxqEL_sQhdlkwEfgy/view?usp=sharing">demo.uet.oop.bomberman.vnu.edu.vn</a>
 
  <h2>E. Các kỹ thuật lập trình:</h2>
  
